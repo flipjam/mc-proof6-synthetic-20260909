@@ -1,1 +1,1 @@
-{"authorization_sha256":"fb9d693da550d37f881b1f5eee63f95e0aec2828e1c283d842be3ae8d780a222","disposition":null,"observed_authority":"2dad43cc6105fc27b75ac99bd0d0fb78a9b8e1cd","schema":"BMIN_JOURNAL_V1","stage":"SEND_ARMED"}
+{"authorization_sha256":"fb9d693da550d37f881b1f5eee63f95e0aec2828e1c283d842be3ae8d780a222","disposition":"COMMITTED","observed_authority":"dc981f0845aa0584482405356a882f9d4fb83ab8","schema":"BMIN_JOURNAL_V1","stage":"TERMINAL"}
