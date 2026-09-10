@@ -1,0 +1,69 @@
+name: Proof6 protected writer
+on:
+  workflow_dispatch:
+    inputs:
+      proposal:
+        description: Transition proposal JSON; leave empty for setup authentication only
+        required: false
+        default: ''
+        type: string
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: proof6-authority-writer-r2
+  cancel-in-progress: false
+jobs:
+  writer:
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-simplified' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-simplified'
+    runs-on: ubuntu-24.04
+    environment: proof6-writer
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Load exact protected runtime commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$RUNNER_ENVIRONMENT" = github-hosted
+          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-simplified
+          git init --quiet .
+          git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
+          git fetch --quiet --depth=1 origin "$GITHUB_SHA"
+          git checkout --quiet --detach FETCH_HEAD
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - name: Create exact installation token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
+        with:
+          app-id: 4893415
+          private-key: ${{ secrets.PROOF6_APP_PRIVATE_KEY }}
+          owner: flipjam
+          permission-contents: write
+          permission-metadata: read
+      - name: Verify official App token outputs
+        shell: bash
+        env:
+          PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
+          PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+        run: |
+          set -euo pipefail
+          if [[ "$PROOF6_APP_INSTALLATION_ID" != "160504789" ]]; then
+            echo "PROOF6_SETUP_SIMPLIFIED_BLOCKED ACTION_INSTALLATION_ID_MISMATCH"
+            exit 1
+          fi
+          if [[ "$PROOF6_APP_SLUG" != "mc-proof-6-gate-writer" ]]; then
+            echo "PROOF6_SETUP_SIMPLIFIED_BLOCKED ACTION_APP_SLUG_MISMATCH"
+            exit 1
+          fi
+          echo DIA03_ACTION_OUTPUTS_OK
+      - name: Verify setup or commit one gated transition
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROOF6_APP_TOKEN: ${{ steps.app-token.outputs.token }}
+          PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
+          PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+          PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
+        run: python3 -B proofs/proof6/actions_runtime.py
