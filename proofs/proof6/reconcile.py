@@ -1,4 +1,4 @@
-"""Separate read-only R2 reconciliation. Never resubmits a mutation."""
+"""Separate read-only R3 reconciliation. Never resubmits a mutation."""
 import json
 import re
 import sys

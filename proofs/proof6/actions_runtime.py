@@ -12,10 +12,10 @@ from reconcile import reconcile
 import diagnostics as dia
 from ruleset_view import visible
 
-RUNTIME_REF = 'refs/heads/proof6-writer-runtime-simplified-r2'
+RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3'
 WORKFLOW = '.github/workflows/proof6-writer.yml'
 ENVIRONMENT = 'proof6-writer'
-CONCURRENCY = 'proof6-authority-writer-r2'
+CONCURRENCY = 'proof6-authority-writer-r3'
 TOKEN_PERMISSIONS = {'contents': 'read', 'actions': 'read'}
 APP_TOKEN_PERMISSIONS = {'contents': 'write', 'metadata': 'read'}
 APP_ACTION = {'repository': 'actions/create-github-app-token',
@@ -49,7 +49,7 @@ def guard(manifest):
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
-    rule = get(base + '/rulesets/22739011')
+    rule = get(base + '/rulesets/22792054')
     expected_view = json.loads((root / 'proofs/proof6/diagnostic-bindings.json').read_bytes())['runtime_view']
     _require(visible(rule) == expected_view)
     if 'current_user_can_bypass' in rule:
@@ -63,7 +63,7 @@ def guard(manifest):
                  'protected_branches': False, 'custom_branch_policies': True})
     _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
     policy = policies['branch_policies'][0]
-    _require(policy['id'] == 59579447 and policy['name'] == 'proof6-writer-runtime-simplified-r2'
+    _require(policy['id'] == 59579447 and policy['name'] == 'proof6-writer-runtime-r3'
              and policy['type'] == 'branch')
     runtime = {
         'ref': RUNTIME_REF, 'sha': ref['object']['sha'], 'workflow': WORKFLOW,

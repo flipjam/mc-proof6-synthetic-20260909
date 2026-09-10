@@ -78,8 +78,8 @@ class _Writer:
             urllib.request.ProxyHandler({}), _NoRedirect())
 
     def _check_manifest(self, m):
-        _require(m['contract_commit'] == 'bac6531426d32361ad99391e84be412ea3f4bcc4'
-                 and m['revision'] == 2 and m['frozen'] is True
+        _require(m['contract_commit'] == 'c3c8f2d05ab24bfbbe643e2605173820374c6714'
+                 and m['revision'] == 3 and m['frozen'] is True
                  and m['repository_id'] == REPO_ID and m['repository'] == REPO
                  and m['ref'] == REF and m['baseline_commit'] == BASELINE
                  and m['app_id'] == APP_ID and m['installation_id'] == INSTALLATION

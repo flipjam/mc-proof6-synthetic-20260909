@@ -11,11 +11,11 @@ permissions:
   contents: read
   actions: read
 concurrency:
-  group: proof6-authority-writer-r2
+  group: proof6-authority-writer-r3
   cancel-in-progress: false
 jobs:
   writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-simplified-r2' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-simplified-r2'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3'
     runs-on: ubuntu-24.04
     environment: proof6-writer
     permissions:
@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$RUNNER_ENVIRONMENT" = github-hosted
-          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-simplified-r2
+          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3
           git init --quiet .
           git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
           git fetch --quiet --depth=1 origin "$GITHUB_SHA"

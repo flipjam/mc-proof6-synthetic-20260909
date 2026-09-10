@@ -56,13 +56,13 @@
       "ref_name": {
         "exclude": [],
         "include": [
-          "refs/heads/proof6-writer-runtime-simplified-r2"
+          "refs/heads/proof6-writer-runtime-r3"
         ]
       }
     },
     "enforcement": "active",
-    "id": 22739011,
-    "name": "proof6-runtime-simplified-r2",
+    "id": 22792054,
+    "name": "proof6-runtime-r3",
     "rules": [
       {
         "type": "update"
@@ -77,6 +77,6 @@
     "source": "flipjam/mc-proof6-synthetic-20260909",
     "source_type": "Repository",
     "target": "branch",
-    "updated_at": "2026-09-10T07:15:13.499+00:00"
+    "updated_at": "2026-09-10T15:57:52.931+00:00"
   }
 }
