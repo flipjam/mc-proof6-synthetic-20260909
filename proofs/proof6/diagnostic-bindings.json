@@ -1,0 +1,82 @@
+{
+  "authority_views": [
+    {
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-authority"
+          ]
+        }
+      },
+      "enforcement": "active",
+      "id": 22725068,
+      "name": "proof6-ref-integrity",
+      "rules": [
+        {
+          "type": "creation"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-10T04:36:49.514+00:00"
+    },
+    {
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-authority"
+          ]
+        }
+      },
+      "enforcement": "active",
+      "id": 22725076,
+      "name": "proof6-app-only-update",
+      "rules": [
+        {
+          "type": "update"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-10T04:36:54.247+00:00"
+    }
+  ],
+  "runtime_view": {
+    "conditions": {
+      "ref_name": {
+        "exclude": [],
+        "include": [
+          "refs/heads/proof6-writer-runtime-r2d1"
+        ]
+      }
+    },
+    "enforcement": "active",
+    "id": 22730168,
+    "name": "proof6-runtime-r2d1",
+    "rules": [
+      {
+        "type": "update"
+      },
+      {
+        "type": "deletion"
+      },
+      {
+        "type": "non_fast_forward"
+      }
+    ],
+    "source": "flipjam/mc-proof6-synthetic-20260909",
+    "source_type": "Repository",
+    "target": "branch",
+    "updated_at": "2026-09-10T05:37:11.706+00:00"
+  }
+}
