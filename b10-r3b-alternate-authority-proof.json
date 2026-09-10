@@ -1,0 +1,6 @@
+{
+  "kind": "clearly-labeled-alternate-authority-proof",
+  "authority_ref": "refs/heads/proof6-b10-r3b-fake-authority",
+  "base_authority": "0b84a29f7c04ffbea05183aef49cd7bf99b87aad",
+  "authoritative": false
+}
