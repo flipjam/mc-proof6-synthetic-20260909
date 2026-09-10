@@ -1,0 +1,42 @@
+name: Proof6 protected writer
+on:
+  workflow_dispatch:
+    inputs:
+      proposal:
+        description: Transition proposal JSON; leave empty for setup authentication only
+        required: false
+        default: ''
+        type: string
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: proof6-authority-writer-r2
+  cancel-in-progress: false
+jobs:
+  writer:
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r2d3' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r2d3'
+    runs-on: ubuntu-24.04
+    environment: proof6-writer
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - name: Load exact protected runtime commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$RUNNER_ENVIRONMENT" = github-hosted
+          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r2d3
+          git init --quiet .
+          git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
+          git fetch --quiet --depth=1 origin "$GITHUB_SHA"
+          git checkout --quiet --detach FETCH_HEAD
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+      - name: Verify setup or commit one gated transition
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROOF6_APP_PRIVATE_KEY: ${{ secrets.PROOF6_APP_PRIVATE_KEY }}
+          PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
+        run: python3 -B proofs/proof6/actions_runtime.py
