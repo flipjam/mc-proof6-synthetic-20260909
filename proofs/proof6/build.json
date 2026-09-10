@@ -1,11 +1,12 @@
 {
-  ".github/workflows/proof6-writer.yml": "0519a79760ed8fc2789fdaf027c956810725b1bffd5a53e481e8fe101c9851ed",
+  ".github/workflows/proof6-writer.yml": "29b28c646d09fcc776020a086095ae55af0914b7e31d6754685db2991e985cb2",
   "proofs/proof1/replay.py": "ac9c761cf57d74ef68f35213de333c2d071c1f030ad592cae444c3bee576474e",
   "proofs/proof2/gate.py": "e432172177d7d58d1b9424c4547f31e7223295eeb80d0a3235bd2e7092ca60bf",
-  "proofs/proof6/actions_runtime.py": "0f270979cebf41389fb5d8ab901a33c156f12c1d27a91de122d069093f5867d9",
-  "proofs/proof6/diagnostic-bindings.json": "7437c4b7f3a59c79ea6e6fd10750eb9e97c4601e82d364bd1b3c69b62a12aeea",
+  "proofs/proof6/actions_runtime.py": "7bb8b015b99d16decb66872c883240579d7e8c951fd6d346e0f3446436672dfa",
+  "proofs/proof6/admission.py": "594c828963d1d0e56cca1008e737c515e6eadbbe68487e20f7d5cdc9c529bb62",
+  "proofs/proof6/diagnostic-bindings.json": "7e28c4ddf5ebbbf2eac7913a5fb58c1e923d76d4cdedf480b1176944a7a450f9",
   "proofs/proof6/diagnostics.py": "54f8aefa6c8c1914e01d39410b28945c3d5b38bc5694d34e3f3b61064b9aa934",
   "proofs/proof6/reconcile.py": "eeaa6ef5f09d417d880ed42ba0781e18b65bbfdceb926800742ba654fa71937e",
   "proofs/proof6/ruleset_view.py": "9ae91ea816971b4d2b4ec442ae8a703096f6531b16d5177b9e212cd5503fcaf4",
-  "proofs/proof6/writer.py": "8cf795a8b982d1c1c8393191f275bb8a443a48b0e83a3d79606d4e4d1ecd1f02"
+  "proofs/proof6/writer.py": "6009e10530d73f5344e9c8bf2be7ffb7a3aae331340a0fedf11750c8d4eddc3c"
 }

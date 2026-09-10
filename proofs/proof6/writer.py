@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[2]
 REPO = 'flipjam/mc-proof6-synthetic-20260909'
 REPO_ID = 1363510385
 REF = 'refs/heads/proof6-authority'
-BASELINE = 'ff8174ff7081e6b54e7b77c80958007ac4cd497e'
+BASELINE = 'e7f1179324e8ac1f5fa561e0f05054886bfed50e'
 APP_ID = 4893415
 INSTALLATION = 160504789
 PERMISSIONS = {'contents': 'write', 'metadata': 'read'}
@@ -54,7 +54,9 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
 
 class _Writer:
     def __init__(self, *, frozen_manifest, installation_token,
-                 action_installation_id, action_app_slug, runtime_guard):
+                 action_installation_id, action_app_slug, runtime_guard, receipt_binding=None):
+        self._last_evidence = None
+        self._receipt_binding = receipt_binding or {}
         _require(type(installation_token) is str and bool(installation_token))
         _require(action_installation_id == str(INSTALLATION)
                  and action_app_slug == 'mc-proof-6-gate-writer')
@@ -165,6 +167,10 @@ class _Writer:
                     'action': {'repository': ACTION_REPOSITORY, 'commit': ACTION_COMMIT},
                     'old_sha': None, 'new_sha': None, 'candidate_commit': None,
                     'update_attempted': False, 'remote_outcome': 'not_attempted'}
+        evidence.update(self._receipt_binding)
+        # Keep the same live evidence object across all exception boundaries.
+        # After send becomes possible no outer handler may emit a false no-update receipt.
+        self._last_evidence = evidence
         try:
             _require(self._manifest is not None)
             self._runtime_guard(self._manifest)

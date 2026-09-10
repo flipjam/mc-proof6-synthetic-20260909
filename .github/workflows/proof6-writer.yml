@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3b' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3b'
     runs-on: ubuntu-24.04
     environment: proof6-writer
     permissions:
@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$RUNNER_ENVIRONMENT" = github-hosted
-          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3
+          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3b
           git init --quiet .
           git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
           git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -59,6 +59,7 @@ jobs:
           fi
           echo DIA03_ACTION_OUTPUTS_OK
       - name: Verify setup or commit one gated transition
+        id: execute
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
@@ -67,3 +68,9 @@ jobs:
           PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
           PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
         run: python3 -B proofs/proof6/actions_runtime.py
+      - name: Record skipped writer as pre-update blocked
+        if: always() && steps.execute.outcome == 'skipped'
+        shell: bash
+        env:
+          PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
+        run: python3 -B proofs/proof6/actions_runtime.py --prewriter-blocked

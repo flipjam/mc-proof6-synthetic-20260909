@@ -9,10 +9,11 @@ import urllib.request
 
 from writer import _Writer, _canonical, _require, REPO, REPO_ID, REF
 from reconcile import reconcile
+from admission import admit, binding, blocked
 import diagnostics as dia
 from ruleset_view import visible
 
-RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3'
+RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3b'
 WORKFLOW = '.github/workflows/proof6-writer.yml'
 ENVIRONMENT = 'proof6-writer'
 CONCURRENCY = 'proof6-authority-writer-r3'
@@ -49,7 +50,7 @@ def guard(manifest):
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
-    rule = get(base + '/rulesets/22792054')
+    rule = get(base + '/rulesets/22817913')
     expected_view = json.loads((root / 'proofs/proof6/diagnostic-bindings.json').read_bytes())['runtime_view']
     _require(visible(rule) == expected_view)
     if 'current_user_can_bypass' in rule:
@@ -63,7 +64,7 @@ def guard(manifest):
                  'protected_branches': False, 'custom_branch_policies': True})
     _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
     policy = policies['branch_policies'][0]
-    _require(policy['id'] == 59579447 and policy['name'] == 'proof6-writer-runtime-r3'
+    _require(policy['id'] == 59579447 and policy['name'] == 'proof6-writer-runtime-r3b'
              and policy['type'] == 'branch')
     runtime = {
         'ref': RUNTIME_REF, 'sha': ref['object']['sha'], 'workflow': WORKFLOW,
@@ -88,63 +89,42 @@ def guard(manifest):
 
 
 def reconcile_prior_runs(manifest):
-    """Serialized job admission: prior ambiguous/failed runs require disposition.
-
-    Only frozen-interval runs count. No acceptance mutation can skip this check.
-    Failed runs without a usable receipt block rather than assuming no mutation.
-    """
     first = manifest['first_mutation_run_number']
     _require(type(first) is int and 1 <= first <= int(os.environ['GITHUB_RUN_NUMBER']))
-    page = 1
-    prior = []
+    page, prior = 1, []
     while True:
         runs = get('repos/' + REPO + '/actions/workflows/proof6-writer.yml/runs?per_page=100&page=' + str(page))
-        prior.extend(run for run in runs['workflow_runs']
-                     if first <= run['run_number'] < int(os.environ['GITHUB_RUN_NUMBER'])
-                     and run['head_branch'] == RUNTIME_REF.removeprefix('refs/heads/')
-                     and run['head_sha'] == manifest['runtime']['sha'])
+        prior.extend(runs['workflow_runs'])
         if len(runs['workflow_runs']) < 100:
             break
         page += 1
-    if not prior:
-        return
-    # Every admitted job first reconciles its predecessor. A successful job or
-    # a writer receipt therefore certifies completion of earlier admission.
-    run = max(prior, key=lambda item: item['run_number'])
-    _require(run['status'] == 'completed')
-    raw = subprocess.run(['gh', 'run', 'view', str(run['id']), '--repo', REPO, '--log'],
-                         check=True, capture_output=True, timeout=60).stdout.decode('utf-8')
-    receipts = []
-    for line in raw.splitlines():
-        for marker in ('PROOF6_PENDING ', 'PROOF6_RESULT '):
-            if marker in line:
-                try:
-                    receipts.append(json.loads(line.split(marker, 1)[1]))
-                except ValueError:
-                    pass
-    _require(bool(receipts))
-    receipt = receipts[-1]
-    _require(receipt['manifest_sha256'] == hashlib.sha256(_canonical(manifest)).hexdigest())
-    if run['conclusion'] == 'success':
-        _require(receipt['result'] in ('COMMITTED', 'REJECTED', 'APP_AUTH_SETUP_VERIFIED'))
-        return
-    if receipt.get('update_attempted') is False:
-        return
-    result = reconcile(receipt['old_sha'], receipt['candidate_commit'])
-    result['run_id'] = run['id']
-    print('PROOF6_RECONCILIATION ' + json.dumps(result, sort_keys=True), flush=True)
-    _require(result['result'] in ('COMMITTED', 'NOT_COMMITTED'))
+    def read_log(run):
+        return subprocess.run(['gh', 'run', 'view', str(run['id']), '--attempt',
+                               str(run['run_attempt']), '--repo', REPO, '--log'],
+                              check=True, capture_output=True, timeout=60).stdout.decode('utf-8')
+    identity = current_binding(manifest)
+    def emit(item):
+        print('PROOF6_RECONCILIATION ' + json.dumps(dict(item, **identity), sort_keys=True), flush=True)
+    admit(manifest, int(os.environ['GITHUB_RUN_ID']), prior, read_log, reconcile, emit)
 
 
-def main():
+def current_binding(manifest):
+    return binding(manifest, int(os.environ['GITHUB_RUN_ID']),
+                   int(os.environ['GITHUB_RUN_ATTEMPT']), os.environ['GITHUB_SHA'])
+
+
+def main(context):
+    manifest_text = os.environ.get('PROOF6_FROZEN_MANIFEST', '')
+    manifest = json.loads(manifest_text) if manifest_text else None
+    context['identity'] = current_binding(manifest)
+    if '--prewriter-blocked' in sys.argv:
+        raise ValueError('PREWRITER_STEP_FAILED')
     # The workflow puts input in the event JSON, never interpolated into code.
     event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())
     inputs = event.get('inputs') or {}
     _require(set(inputs) <= {'proposal'})
     proposal = inputs.get('proposal', '')
     _require(type(proposal) is str and len(proposal.encode('utf-8')) <= 65536)
-    manifest_text = os.environ.get('PROOF6_FROZEN_MANIFEST', '')
-    manifest = json.loads(manifest_text) if manifest_text else None
     dia.start('DIA01')
     guard(manifest)
     dia.ok('DIA01_RUNTIME_GUARD_OK')
@@ -167,20 +147,37 @@ def main():
     dia.ok('DIA03_ACTION_OUTPUTS_VERIFIED')
     writer = _Writer(frozen_manifest=manifest, installation_token=token,
                      action_installation_id=action_installation_id,
-                     action_app_slug=action_app_slug, runtime_guard=guard)
+                     action_app_slug=action_app_slug, runtime_guard=guard,
+                     receipt_binding=context['identity'])
+    context['writer'] = writer
     result = (writer.commit_transition(proposal.encode('utf-8')) if proposal else
               writer.verify_setup_auth())
     if not proposal:
         result['manifest_sha256'] = writer._manifest_digest
         result['update_attempted'] = False
+        result['remote_outcome'] = 'not_attempted'
+    result.update(context['identity'])
     print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
     return 0 if result['result'] in ('COMMITTED', 'REJECTED', 'APP_AUTH_SETUP_VERIFIED') else 1
 
 
-if __name__ == '__main__':
+def execute():
+    context = {'writer': None, 'identity': current_binding(None)}
     try:
-        code = main()
-    except Exception as error:
+        return main(context)
+    except BaseException as error:
+        writer = context['writer']
+        evidence = None if writer is None else writer._last_evidence
+        result = blocked(context['identity']) if evidence is None else dict(evidence)
+        if result['update_attempted']:
+            # A failure after handoff never becomes a no-update receipt.
+            result.update(result='INDETERMINATE', remote_outcome='unknown')
+        else:
+            result['result'] = 'BLOCKED'
+        print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
         dia.blocked(error)
-        code = 1
-    sys.exit(code)
+        return 1
+
+
+if __name__ == '__main__':
+    sys.exit(execute())
