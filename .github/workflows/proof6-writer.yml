@@ -73,13 +73,25 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          PROOF6_OPERATION: ${{ inputs.proof_operation }}
           PROOF6_APP_TOKEN: ${{ steps.app-token.outputs.token }}
           PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
           PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
           PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
-        run: >-
-          sudo -n --preserve-env=GH_TOKEN,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT
-          /usr/bin/python3 -B proofs/proof6/actions_runtime.py
+        run: |
+          set -euo pipefail
+          deadline=()
+          if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
+            deadline=(/usr/bin/timeout --signal=KILL 120s)
+          fi
+          # Default timeout process group; never --foreground or --preserve-status.
+          # SIGKILL covers the actual runtime and its process group at the deadline.
+          sudo -n --preserve-env=GH_TOKEN,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT \
+            "${deadline[@]}" /usr/bin/python3 -B proofs/proof6/actions_runtime.py
+          # Completion credit requires successful supervisor exit as well as END.
+          if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
+            echo PROOF6_D04_NATIVE_DEADLINE_COMPLETED
+          fi
       - name: Record skipped writer as pre-update blocked
         if: always() && steps.execute.outcome == 'skipped'
         shell: bash

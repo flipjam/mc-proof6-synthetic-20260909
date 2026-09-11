@@ -261,6 +261,20 @@ class Journal:
                 # Confirmed single-parent resolution competes with any late arm
                 # child at the same head; both siblings cannot commit non-force.
                 self.finish(sha, remote, 'UNARMED')
+            elif remote == p['old'] and sha in self.armed and p['binding']['operation'] == 'D03_REVOKE_CURRENT_TOKEN':
+                from d03_rejection import recover
+                try:
+                    request_id = recover(self, sha)
+                except Exception:
+                    raise ValueError('D03_REJECTION_EVIDENCE_UNAVAILABLE') from None
+                # Re-read after evidence retrieval. A candidate observation wins;
+                # a different/unreadable ref never becomes NOT_COMMITTED.
+                remote = current()
+                if remote == p['candidate']:
+                    self.finish(sha, remote, 'CANDIDATE_OBSERVED')
+                else:
+                    _require(remote == p['old'])
+                    self.finish(sha, remote, 'FINAL_REJECTION', 401, request_id)
             else:
                 raise ValueError('JOURNAL_UNRESOLVED_OR_INCONSISTENT')
         observe({'phase': 'ADMITTED', 'journal_head': self.head})

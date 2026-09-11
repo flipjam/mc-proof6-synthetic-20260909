@@ -2,7 +2,6 @@
 import ctypes
 import os
 from pathlib import Path
-import signal
 import socket
 import time
 
@@ -25,8 +24,8 @@ def isolate_runtime(emit):
     # No forked probe/worker: change THIS Python process, the same interpreter
     # that instantiated _Writer and confirmed protected CONSUMED.
     pid = os.getpid()
-    signal.signal(signal.SIGALRM, lambda *_: os._exit(1))
-    signal.setitimer(signal.ITIMER_REAL, MAX_SECONDS)
+    # The workflow's native timeout process already supervises this process
+    # group with a fixed SIGKILL deadline before this interpreter starts.
     start = time.monotonic()
     emit({'phase': 'START', 'pid': pid, 'maximum_seconds': MAX_SECONDS})
     libc = ctypes.CDLL(None, use_errno=True)

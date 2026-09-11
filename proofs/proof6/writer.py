@@ -174,6 +174,10 @@ class _Writer:
             if re.fullmatch('[A-Za-z0-9:-]{1,128}', request_id):
                 evidence['github_request_id'] = request_id
             if response.status >= 400:
+                if (response.status == 401 and evidence.get('proof_operation') == 'D03_REVOKE_CURRENT_TOKEN'
+                        and evidence.get('github_request_id')):
+                    from d03_rejection import emit
+                    emit(self._journal, evidence['pending_record'], evidence)
                 raise urllib.error.HTTPError('https://api.github.com' + path,
                                              response.status, 'PATCH_REJECTED', {}, None)
             raw = response.read(2_000_001)
