@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3c' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3c'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3d' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3d'
     runs-on: ubuntu-24.04
     environment: proof6-writer
     timeout-minutes: 10
@@ -33,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$RUNNER_ENVIRONMENT" = github-hosted
-          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3c
+          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3d
           git init --quiet .
           git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
           git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -44,7 +44,6 @@ jobs:
           test -x /usr/bin/python3
           /usr/bin/sudo -n /usr/bin/true
       - name: Create exact installation token
-        if: inputs.proof_operation != 'D04_CONNECTIVITY_OUTAGE'
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
         with:
@@ -54,7 +53,6 @@ jobs:
           permission-contents: write
           permission-metadata: read
       - name: Verify official App token outputs
-        if: inputs.proof_operation != 'D04_CONNECTIVITY_OUTAGE'
         shell: bash
         env:
           PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
@@ -79,7 +77,9 @@ jobs:
           PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
           PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
           PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
-        run: python3 -B proofs/proof6/actions_runtime.py
+        run: >-
+          sudo -n --preserve-env=GH_TOKEN,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT
+          /usr/bin/python3 -B proofs/proof6/actions_runtime.py
       - name: Record skipped writer as pre-update blocked
         if: always() && steps.execute.outcome == 'skipped'
         shell: bash

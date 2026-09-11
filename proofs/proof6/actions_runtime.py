@@ -3,18 +3,16 @@ import hashlib
 import json
 import os
 from pathlib import Path
-import subprocess
 import sys
 import urllib.request
 
 from writer import _Writer, _canonical, _require, REPO, REPO_ID, REF
-from reconcile import reconcile
-from admission import admit, binding, blocked
+from admission import binding, blocked
 import diagnostics as dia
 from ruleset_view import visible
 import proof_control
 
-RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3c'
+RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3d'
 WORKFLOW = '.github/workflows/proof6-writer.yml'
 ENVIRONMENT = 'proof6-writer'
 CONCURRENCY = 'proof6-authority-writer-r3'
@@ -38,6 +36,9 @@ def get(path):
 
 
 def guard(manifest):
+    # Candidate cannot run against R3c bindings. Future setup must supply the
+    # reviewed successor manifest with real provisioned identities; no defaults.
+    _require(manifest is not None and manifest['runtime_variant'] == 'r3d')
     _require(os.environ['GITHUB_REPOSITORY'] == REPO
              and os.environ['GITHUB_REPOSITORY_ID'] == str(REPO_ID)
              and os.environ['GITHUB_REF'] == RUNTIME_REF
@@ -51,8 +52,10 @@ def guard(manifest):
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
-    bindings = json.loads((root / 'proofs/proof6/diagnostic-bindings.json').read_bytes())
-    expected_view = bindings['runtime_view']
+    expected_view = manifest['runtime']['ruleset']
+    _require(expected_view['conditions'] == {'ref_name': {'include': [RUNTIME_REF], 'exclude': []}}
+             and expected_view['enforcement'] == 'active'
+             and expected_view['rules'] == [{'type': 'update'}, {'type': 'deletion'}, {'type': 'non_fast_forward'}])
     rule = get(base + '/rulesets/' + str(expected_view['id']))
     _require(visible(rule) == expected_view)
     if 'current_user_can_bypass' in rule:
@@ -66,7 +69,7 @@ def guard(manifest):
                  'protected_branches': False, 'custom_branch_policies': True})
     _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
     policy = policies['branch_policies'][0]
-    _require(policy['id'] == bindings['branch_policy_id'] and policy['name'] == 'proof6-writer-runtime-r3c'
+    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3d'
              and policy['type'] == 'branch')
     runtime = {
         'ref': RUNTIME_REF, 'sha': ref['object']['sha'], 'workflow': WORKFLOW,
@@ -89,29 +92,6 @@ def guard(manifest):
     if manifest is not None:
         _require(manifest['runtime'] == runtime)
     return runtime
-
-
-def reconcile_prior_runs(manifest, operation=''):
-    first = manifest['first_mutation_run_number']
-    _require(type(first) is int and 1 <= first <= int(os.environ['GITHUB_RUN_NUMBER']))
-    page, prior = 1, []
-    while True:
-        runs = get('repos/' + REPO + '/actions/workflows/proof6-writer.yml/runs?per_page=100&page=' + str(page))
-        prior.extend(runs['workflow_runs'])
-        if len(runs['workflow_runs']) < 100:
-            break
-        page += 1
-    def read_log(run):
-        return subprocess.run(['gh', 'run', 'view', str(run['id']), '--attempt',
-                               str(run['run_attempt']), '--repo', REPO, '--log'],
-                              check=True, capture_output=True, timeout=60).stdout.decode('utf-8')
-    identity = current_binding(manifest)
-    def emit(item):
-        print('PROOF6_RECONCILIATION ' + json.dumps(dict(item, **identity), sort_keys=True), flush=True)
-    def observe(item):
-        print('PROOF6_ADMISSION ' + json.dumps(dict(item, **identity), sort_keys=True), flush=True)
-    admit(manifest, int(os.environ['GITHUB_RUN_ID']), prior, read_log, reconcile, emit,
-          requested_operation=operation, observe=observe)
 
 
 def current_binding(manifest):
@@ -138,20 +118,8 @@ def main(context):
     if manifest is not None:
         _require(os.environ['GITHUB_RUN_ATTEMPT'] == '1')
         _require(manifest['proof_plan_sha256'] == plan_digest)
-        reconcile_prior_runs(manifest, operation)
     if operation:
-        # Admission scans all protected run receipts before this one-time claim.
-        # Emit first; no proof work begins unless this durable claim succeeds.
         context['identity'].update(proof_operation=operation, proof_plan_sha256=plan_digest)
-        proof_control.consume(operation, plan_digest, context['identity']['caller'], context['identity'],
-            lambda item: print('PROOF6_CONSUMPTION ' + json.dumps(item, sort_keys=True), flush=True))
-    if operation == proof_control.OUTAGE:
-        from outage import outage
-        _require(not os.environ.get('PROOF6_APP_TOKEN'))
-        result = outage(lambda item: print('PROOF6_OUTAGE ' + json.dumps(dict(item, **context['identity']), sort_keys=True), flush=True))
-        result.update(context['identity'])
-        print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
-        return 0
     # The official action owns key handling and returns only this short-lived token.
     # It is consumed in memory and never printed, persisted, or passed to a shell.
     dia.start('DIA02')
@@ -169,6 +137,28 @@ def main(context):
                      action_app_slug=action_app_slug, runtime_guard=guard,
                      receipt_binding=context['identity'])
     context['writer'] = writer
+    if operation == proof_control.OUTAGE:
+        from journal import Journal
+        from outage import isolate_runtime
+        token = writer._installation_access()
+        writer._enforcement(token)
+        journal = Journal(writer)
+        def current():
+            ref = get('repos/' + REPO + '/git/ref/heads/proof6-authority')
+            _require(ref['ref'] == REF and ref['object']['type'] == 'commit')
+            from writer import _sha
+            return _sha(ref['object']['sha'])
+        journal.recover(current)
+        claim = journal.consume(journal.operation_binding(_canonical(plan['infrastructure']), operation))
+        # Credential no longer needed. Same interpreter now loses connectivity;
+        # it never invokes commit_transition, arms a send or reconnects afterward.
+        writer._installation_token = ''
+        token = ''
+        result = isolate_runtime(lambda item: print('PROOF6_OUTAGE ' + json.dumps(
+            dict(item, consumed_record=claim, **context['identity']), sort_keys=True), flush=True))
+        result.update(context['identity'])
+        print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
+        return 0
     result = (writer.commit_transition(proposal.encode('utf-8'), operation) if proposal else
               writer.verify_setup_auth())
     if not proposal:

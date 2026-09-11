@@ -57,6 +57,7 @@ class _Writer:
     def __init__(self, *, frozen_manifest, installation_token,
                  action_installation_id, action_app_slug, runtime_guard, receipt_binding=None):
         self._last_evidence = None
+        self._transport_candidate = None
         self._receipt_binding = receipt_binding or {}
         _require(type(installation_token) is str and bool(installation_token))
         _require(action_installation_id == str(INSTALLATION)
@@ -81,7 +82,8 @@ class _Writer:
             urllib.request.ProxyHandler({}), _NoRedirect())
 
     def _check_manifest(self, m):
-        _require(m['contract_commit'] == '61fdca35a4edacdee67a7d4ad53078677e13527b'
+        _require(m['contract_commit'] == 'c448ec30125943d9197139e028e9d992b25e8176'
+                 and m['runtime_variant'] == 'r3d'
                  and m['revision'] == 3 and m['frozen'] is True
                  and m['repository_id'] == REPO_ID and m['repository'] == REPO
                  and m['ref'] == REF and m['baseline_commit'] == BASELINE
@@ -94,6 +96,7 @@ class _Writer:
                  and m['authority_visible_sha256'] == VISIBLE_CONFIG_DIGEST
                  and m['accepted_code_sha256'] == CODE)
         _require(m['writer_sha256'] == self._writer_digest)
+        _require(m['build_sha256'] == _digest((ROOT / 'proofs/proof6/build.json').read_bytes()))
         from proof_control import plan
         _require(m['proof_plan_sha256'] == plan()[1])
 
@@ -144,6 +147,8 @@ class _Writer:
             evidence['token_revocation_confirmed'] = True
 
     def _patch(self, token, new, drop_response, evidence):
+        permit, self._transport_candidate = self._transport_candidate, None
+        _require(permit is not None and permit == _sha(new))
         # NONE and D07 share the exact HTTPS construction/send path. No proxy,
         # redirects, alternate endpoints, automatic retries or response relabeling.
         path = '/repos/' + REPO + '/git/refs/heads/proof6-authority'
@@ -195,7 +200,7 @@ class _Writer:
     def verify_setup_auth(self):
         token = self._installation_access()
         self._enforcement(token)
-        runtime = self._runtime_guard(None)
+        runtime = self._runtime_guard(self._manifest)
         dia.ok('DIA13_SETUP_AUTH_VERIFIED')
         return {'result': 'APP_AUTH_SETUP_VERIFIED', 'app_id': APP_ID,
                 'app_slug': self._action_app_slug,
@@ -245,6 +250,12 @@ class _Writer:
                 ref = self._call(token, 'GET', base + '/git/ref/heads/proof6-authority')
                 _require(ref['ref'] == REF and ref['object']['type'] == 'commit')
                 return _sha(ref['object']['sha'])
+            from journal import Journal
+            self._journal = Journal(self)
+            self._journal.recover(current, lambda item: print('PROOF6_ADMISSION ' + _canonical(item).decode(), flush=True))
+            journal_binding = self._journal.operation_binding(proposal_bytes, proof_operation)
+            if proof_operation:
+                evidence['consumed_record'] = self._journal.consume(journal_binding)
             old = current()
             evidence['old_sha'] = old
             comparison = self._call(token, 'GET', base + '/compare/' + BASELINE + '...' + old)
@@ -280,12 +291,20 @@ class _Writer:
                 'tree': _sha(made_tree['sha']), 'parents': [old]})
             new = _sha(made_commit['sha'])
             evidence['candidate_commit'] = new
+            pending = self._journal.begin(journal_binding, old, new, decision)
+            evidence['pending_record'] = pending
             if proof_operation == 'D02_PRE_SEND_STOP':
+                _require(current() == old)
+                evidence['terminal_record'] = self._journal.finish(pending, old, 'UNARMED')
                 evidence.update(result='ERROR', phase='D02_AFTER_ALLOW_BEFORE_TRANSPORT')
                 return evidence
             self._enforcement(token)
             self._runtime_guard(self._manifest)
             _require(current() == old)
+            self._journal.arm(pending)
+            evidence['send_armed_record'] = self._journal.head
+            self._journal.take_send(new)
+            self._transport_candidate = new
             if proof_operation == 'D03_REVOKE_CURRENT_TOKEN':
                 self._revoke_current_token(token, evidence)
             # A single-parent child of old plus force=false rejects a competing
@@ -297,11 +316,23 @@ class _Writer:
             print('PROOF6_PENDING ' + _canonical(evidence).decode('ascii'), flush=True)
             updated = self._patch(token, new, proof_operation == 'D07_DROP_PATCH_RESPONSE', evidence)
             _require(updated['ref'] == REF and updated['object']['sha'] == new)
+            _require(current() == new)
+            evidence['terminal_record'] = self._journal.finish(pending, new, 'CANDIDATE_OBSERVED')
             evidence.update(result='COMMITTED', new_sha=new, remote_outcome='committed')
             return evidence
         except urllib.error.HTTPError as exc:
-            if evidence['update_attempted'] and exc.code in (400, 401, 403, 404, 409, 422):
-                evidence.update(result='ERROR', remote_outcome='explicit_rejection')
+            # Only a final response observed inside the actual PATCH can justify
+            # rejection. A failing journal/GET request is not authority rejection.
+            if (evidence['update_attempted'] and evidence.get('http_status') == exc.code
+                    and exc.code in (400, 401, 403, 404, 409, 422)
+                    and evidence.get('github_request_id')):
+                try:
+                    _require(current() == old)
+                    evidence['terminal_record'] = self._journal.finish(
+                        pending, old, 'FINAL_REJECTION', exc.code, evidence['github_request_id'])
+                    evidence.update(result='ERROR', remote_outcome='explicit_rejection')
+                except Exception:
+                    pass  # Revoked token/log loss cannot erase the armed PENDING.
             return evidence
         except Exception:
             # Never emit exception strings, HTTP bodies, headers, subprocess

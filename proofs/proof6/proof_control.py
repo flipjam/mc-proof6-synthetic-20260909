@@ -12,8 +12,8 @@ PLAN_PATH = Path(__file__).with_name('proof_plan.json')
 def plan():
     raw = PLAN_PATH.read_bytes()
     value = json.loads(raw)
-    _require(value['schema'] == 'PROOF6_R3C_PLAN_V1'
-             and value['contract_commit'] == '61fdca35a4edacdee67a7d4ad53078677e13527b'
+    _require(value['schema'] == 'PROOF6_R3D_PLAN_V1'
+             and value['contract_commit'] == 'c448ec30125943d9197139e028e9d992b25e8176'
              and set(value['faults']) == set(FAULTS)
              and value['caller'] == {'login': 'peaklinesoftware', 'id': 265169095}
              and value['max_consumptions_per_operation'] == 1
@@ -56,14 +56,3 @@ def account_permission(get):
     return {'login': caller['login'], 'id': caller['id'], 'permission': 'write',
             'admin': False, 'maintain': False,
             'environment_qualification': 'required separately in case evidence; not attested by account permission'}
-
-def consume(operation, digest, caller, identity, emit):
-    value, actual = plan()
-    _require(actual == digest and operation in (*FAULTS, OUTAGE)
-             and caller['login'] == value['caller']['login'] and caller['id'] == value['caller']['id'])
-    proposal = None if operation == OUTAGE else value['faults'][operation]['proposal']
-    item = dict(identity, proof_operation=operation, proof_plan_sha256=digest, caller=caller,
-                proposal_sha256=None if proposal is None else hashlib.sha256(_canonical(proposal)).hexdigest(),
-                result='CONSUMED', update_attempted=False, remote_outcome='not_attempted')
-    emit(item)
-    return item

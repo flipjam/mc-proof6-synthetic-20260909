@@ -1,65 +1,45 @@
-"""Fixed 120-second isolated-worker connectivity outage; never a writer fault mode."""
-import json
+"""In-process D04 isolation, invoked only by the actual actions_runtime process."""
+import ctypes
+import os
 from pathlib import Path
+import signal
 import socket
-import subprocess
-import sys
 import time
 
-DURATION = 120
-ROOT = Path(__file__).resolve().parents[2]
+MAX_SECONDS = 120
+CLONE_NEWNET = 0x40000000
+
 
 def isolated():
-    # A new network namespace has only an unconfigured loopback interface and
-    # no route out. Prove the absence of network devices/routes, not just DNS loss.
     devices = sorted(name for _, name in socket.if_nameindex())
-    if devices != ['lo']:
-        raise ValueError('ISOLATION_NOT_ESTABLISHED')
-    routes = Path('/proc/net/route').read_text().splitlines()
-    if len(routes) != 1:
-        raise ValueError('ISOLATION_NOT_ESTABLISHED')
+    if devices != ['lo'] or len(Path('/proc/net/route').read_text().splitlines()) != 1:
+        raise ValueError('ACTUAL_PROCESS_ISOLATION_FAILED')
     try:
-        socket.create_connection(('api.github.com', 443), timeout=3).close()
+        socket.create_connection(('api.github.com', 443), timeout=1).close()
     except OSError:
-        return {'devices': devices, 'ipv4_routes': 0,
-                'api_github_connection': 'unavailable'}
-    raise ValueError('API_CONNECTIVITY_STILL_AVAILABLE')
+        return {'api_github_connection': 'unavailable', 'devices': devices}
+    raise ValueError('ACTUAL_PROCESS_STILL_CONNECTED')
 
-def worker():
-    # No token or caller input enters this child. It occupies the sole serialized
-    # mutation job, cannot write authority, and its namespace dies with the process.
-    emit = lambda phase, **data: print(json.dumps(dict(phase=phase, observed_at_unix=time.time(), **data), sort_keys=True), flush=True)
-    first = isolated()
+
+def isolate_runtime(emit):
+    # No forked probe/worker: change THIS Python process, the same interpreter
+    # that instantiated _Writer and confirmed protected CONSUMED.
+    pid = os.getpid()
+    signal.signal(signal.SIGALRM, lambda *_: os._exit(1))
+    signal.setitimer(signal.ITIMER_REAL, MAX_SECONDS)
     start = time.monotonic()
-    emit('READY', duration_seconds=DURATION, observation=first)
-    while time.monotonic() - start < DURATION:
-        time.sleep(max(0, min(1, DURATION - (time.monotonic() - start))))
-    emit('END', elapsed_seconds=time.monotonic() - start, observation=isolated())
-
-def outage(emit):
-    env = {'PATH': '/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8'}
-    emit({'phase': 'START', 'duration_seconds': DURATION, 'target': 'api.github.com'})
-    # Fixed executable/namespace/child: no caller-selected network controls.
-    with subprocess.Popen(['/usr/bin/sudo', '-n', '/usr/bin/timeout', '--signal=KILL', '135',
-                           '/usr/bin/unshare', '--net', '/usr/bin/python3', '-B',
-                           str(Path(__file__).resolve()), '--isolated-worker'],
-                          env=env, cwd=ROOT, stdout=subprocess.PIPE,
-                          stderr=subprocess.DEVNULL, text=True) as child:
-        observations = []
-        for line in child.stdout:
-            item = json.loads(line)
-            observations.append(item)
-            emit(item)  # READY is visible while the isolated worker holds the lock.
-        code = child.wait(timeout=10)
-    if code != 0 or [x['phase'] for x in observations] != ['READY', 'END']:
-        raise ValueError('OUTAGE_NOT_ESTABLISHED')
-    # Child teardown restores normal worker availability without persistent
-    # host firewall/interface changes. Caller connectivity is independent evidence.
-    return {'result': 'OUTAGE_COMPLETED', 'duration_seconds': DURATION,
-            'update_attempted': False, 'remote_outcome': 'not_attempted',
-            'old_sha': None, 'candidate_commit': None, 'new_sha': None}
-
-if __name__ == '__main__':
-    if sys.argv[1:] != ['--isolated-worker']:
-        raise SystemExit(2)
-    worker()
+    emit({'phase': 'START', 'pid': pid, 'maximum_seconds': MAX_SECONDS})
+    libc = ctypes.CDLL(None, use_errno=True)
+    libc.unshare.argtypes = [ctypes.c_int]
+    libc.unshare.restype = ctypes.c_int
+    if libc.unshare(CLONE_NEWNET) != 0:
+        raise ValueError('ACTUAL_PROCESS_UNSHARE_FAILED')
+    emit({'phase': 'READY', 'pid': pid, 'observation': isolated()})
+    # Reserve time for final verification/exit within the hard 120-second limit.
+    # No setns/reconnection fallback; the next hosted job restores service.
+    while time.monotonic() - start < 115:
+        time.sleep(max(0, min(1, 115 - (time.monotonic() - start))))
+    emit({'phase': 'END', 'pid': pid, 'observation': isolated(),
+          'elapsed_seconds': time.monotonic() - start})
+    return {'result': 'OUTAGE_COMPLETED', 'update_attempted': False,
+            'remote_outcome': 'not_attempted', 'new_sha': None}
