@@ -1,1 +1,1 @@
-{"pending":"a5f7d8436b2f68e6f0f2fc16a5ef64931d653f0e","schema":"PROOF6_R3D_JOURNAL_V1","type":"SEND_ARMED"}
+{"disposition":"COMMITTED","evidence":"CANDIDATE_OBSERVED","observed":"fdf602669253e0a5d3c09f515d4dd41004db043e","pending":"a5f7d8436b2f68e6f0f2fc16a5ef64931d653f0e","request_id":null,"schema":"PROOF6_R3D_JOURNAL_V1","status":null,"type":"TERMINAL"}
