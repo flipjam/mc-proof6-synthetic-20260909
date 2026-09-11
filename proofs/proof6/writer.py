@@ -1,6 +1,7 @@
 """Proof-6 writer using an official GitHub App installation token."""
 import base64
 import hashlib
+import http.client
 import importlib.util
 import json
 from pathlib import Path
@@ -14,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 REPO = 'flipjam/mc-proof6-synthetic-20260909'
 REPO_ID = 1363510385
 REF = 'refs/heads/proof6-authority'
-BASELINE = 'e7f1179324e8ac1f5fa561e0f05054886bfed50e'
+BASELINE = 'a5a1ccee2e564092d6c9992f83ed2ba11b213475'
 APP_ID = 4893415
 INSTALLATION = 160504789
 PERMISSIONS = {'contents': 'write', 'metadata': 'read'}
@@ -80,7 +81,7 @@ class _Writer:
             urllib.request.ProxyHandler({}), _NoRedirect())
 
     def _check_manifest(self, m):
-        _require(m['contract_commit'] == 'c3c8f2d05ab24bfbbe643e2605173820374c6714'
+        _require(m['contract_commit'] == '61fdca35a4edacdee67a7d4ad53078677e13527b'
                  and m['revision'] == 3 and m['frozen'] is True
                  and m['repository_id'] == REPO_ID and m['repository'] == REPO
                  and m['ref'] == REF and m['baseline_commit'] == BASELINE
@@ -93,6 +94,8 @@ class _Writer:
                  and m['authority_visible_sha256'] == VISIBLE_CONFIG_DIGEST
                  and m['accepted_code_sha256'] == CODE)
         _require(m['writer_sha256'] == self._writer_digest)
+        from proof_control import plan
+        _require(m['proof_plan_sha256'] == plan()[1])
 
     def _call(self, token, method, path, body=None):
         _require(path.startswith('/') and not path.startswith('//'))
@@ -128,6 +131,52 @@ class _Writer:
         dia.ok('DIA06_TOKEN_BOUNDARY_CONFIGURED')
         return token
 
+    def _revoke_current_token(self, token, evidence):
+        # Only this invocation's token; no App key, replacement grant or caller URL.
+        request = urllib.request.Request('https://api.github.com/installation/token',
+            method='DELETE', headers={'Authorization': 'Bearer ' + token,
+                                     'Accept': 'application/vnd.github+json',
+                                     'User-Agent': 'mc-proof6-gate-writer',
+                                     'X-GitHub-Api-Version': '2022-11-28'})
+        with self._http.open(request, timeout=30) as response:
+            _require(response.status == 204)
+            evidence['token_revocation_status'] = response.status
+            evidence['token_revocation_confirmed'] = True
+
+    def _patch(self, token, new, drop_response, evidence):
+        # NONE and D07 share the exact HTTPS construction/send path. No proxy,
+        # redirects, alternate endpoints, automatic retries or response relabeling.
+        path = '/repos/' + REPO + '/git/refs/heads/proof6-authority'
+        conn = http.client.HTTPSConnection('api.github.com', timeout=30)
+        try:
+            conn.request('PATCH', path, body=_canonical({'sha': new, 'force': False}),
+                         headers={'Authorization': 'Bearer ' + token,
+                                  'Accept': 'application/vnd.github+json',
+                                  'Content-Type': 'application/json',
+                                  'User-Agent': 'mc-proof6-gate-writer',
+                                  'X-GitHub-Api-Version': '2022-11-28'})
+            evidence['request_transmission_completed'] = True
+            if drop_response:
+                # No getresponse/read/status access has occurred. Delivery to
+                # GitHub remains possible, so this is unknown, never no-update.
+                evidence['response_consumed'] = False
+                evidence['response_path_discarded'] = True
+                raise ConnectionError('PROOF_RESPONSE_DROPPED')
+            response = conn.getresponse()
+            evidence['response_consumed'] = True
+            evidence['http_status'] = response.status
+            request_id = response.getheader('x-github-request-id', '')
+            if re.fullmatch('[A-Za-z0-9:-]{1,128}', request_id):
+                evidence['github_request_id'] = request_id
+            if response.status >= 400:
+                raise urllib.error.HTTPError('https://api.github.com' + path,
+                                             response.status, 'PATCH_REJECTED', {}, None)
+            raw = response.read(2_000_001)
+            _require(200 <= response.status < 300 and len(raw) <= 2_000_000)
+            return json.loads(raw)
+        finally:
+            conn.close()
+
     def _enforcement(self, token):
         bindings = json.loads((ROOT / 'proofs/proof6/diagnostic-bindings.json').read_bytes())
         expected = bindings['authority_views']
@@ -156,7 +205,7 @@ class _Writer:
                 'runtime': runtime,
                 'mutation_attempted': False}
 
-    def commit_transition(self, proposal_bytes):
+    def commit_transition(self, proposal_bytes, proof_operation=''):
         evidence = {'result': 'ERROR', 'manifest_sha256': self._manifest_digest,
                     'writer_sha256': self._writer_digest,
                     'accepted_code_sha256': CODE, 'configuration_sha256': CONFIG_DIGEST,
@@ -173,6 +222,13 @@ class _Writer:
         self._last_evidence = evidence
         try:
             _require(self._manifest is not None)
+            from proof_control import FAULTS, plan
+            if proof_operation:
+                fixed, digest = plan()
+                _require(proof_operation in FAULTS
+                         and self._receipt_binding.get('proof_operation') == proof_operation
+                         and self._receipt_binding.get('proof_plan_sha256') == digest
+                         and proposal_bytes == _canonical(fixed['faults'][proof_operation]['proposal']))
             self._runtime_guard(self._manifest)
             _require(type(proposal_bytes) is bytes and len(proposal_bytes) <= 65536)
             evidence['proposal_sha256'] = _digest(proposal_bytes)
@@ -214,17 +270,24 @@ class _Writer:
             content = base64.b64encode(p1.canonical(candidate)).decode('ascii')
             made_blob = self._call(token, 'POST', base + '/git/blobs',
                                    {'content': content, 'encoding': 'base64'})
+            evidence['candidate_blob'] = _sha(made_blob['sha'])
             made_tree = self._call(token, 'POST', base + '/git/trees', {'tree': [
                 {'path': 'history.json', 'mode': '100644', 'type': 'blob',
                  'sha': _sha(made_blob['sha'])}]})
+            evidence['candidate_tree'] = _sha(made_tree['sha'])
             made_commit = self._call(token, 'POST', base + '/git/commits', {
                 'message': 'Proof-6 transition ' + evidence['proposal_sha256'],
                 'tree': _sha(made_tree['sha']), 'parents': [old]})
             new = _sha(made_commit['sha'])
             evidence['candidate_commit'] = new
+            if proof_operation == 'D02_PRE_SEND_STOP':
+                evidence.update(result='ERROR', phase='D02_AFTER_ALLOW_BEFORE_TRANSPORT')
+                return evidence
             self._enforcement(token)
             self._runtime_guard(self._manifest)
             _require(current() == old)
+            if proof_operation == 'D03_REVOKE_CURRENT_TOKEN':
+                self._revoke_current_token(token, evidence)
             # A single-parent child of old plus force=false rejects a competing
             # sibling winner. No rebase, merge, force, stale retry, or fallback.
             evidence['update_attempted'] = True
@@ -232,8 +295,7 @@ class _Writer:
             evidence['result'] = 'INDETERMINATE'
             # Non-secret write-ahead receipt survives loss of the response.
             print('PROOF6_PENDING ' + _canonical(evidence).decode('ascii'), flush=True)
-            updated = self._call(token, 'PATCH', base + '/git/refs/heads/proof6-authority',
-                                 {'sha': new, 'force': False})
+            updated = self._patch(token, new, proof_operation == 'D07_DROP_PATCH_RESPONSE', evidence)
             _require(updated['ref'] == REF and updated['object']['sha'] == new)
             evidence.update(result='COMMITTED', new_sha=new, remote_outcome='committed')
             return evidence

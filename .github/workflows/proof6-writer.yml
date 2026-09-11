@@ -7,6 +7,11 @@ on:
         required: false
         default: ''
         type: string
+      proof_operation:
+        description: Fixed proof-only operation; normal proposals must leave empty
+        required: false
+        default: ''
+        type: string
 permissions:
   contents: read
   actions: read
@@ -15,9 +20,10 @@ concurrency:
   cancel-in-progress: false
 jobs:
   writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3b' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3b'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3c' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3c'
     runs-on: ubuntu-24.04
     environment: proof6-writer
+    timeout-minutes: 10
     permissions:
       contents: read
       actions: read
@@ -27,13 +33,18 @@ jobs:
         run: |
           set -euo pipefail
           test "$RUNNER_ENVIRONMENT" = github-hosted
-          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3b
+          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3c
           git init --quiet .
           git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
           git fetch --quiet --depth=1 origin "$GITHUB_SHA"
           git checkout --quiet --detach FETCH_HEAD
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -x /usr/bin/unshare
+          test -x /usr/bin/timeout
+          test -x /usr/bin/python3
+          /usr/bin/sudo -n /usr/bin/true
       - name: Create exact installation token
+        if: inputs.proof_operation != 'D04_CONNECTIVITY_OUTAGE'
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
         with:
@@ -43,6 +54,7 @@ jobs:
           permission-contents: write
           permission-metadata: read
       - name: Verify official App token outputs
+        if: inputs.proof_operation != 'D04_CONNECTIVITY_OUTAGE'
         shell: bash
         env:
           PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
