@@ -12,7 +12,7 @@ import diagnostics as dia
 from ruleset_view import visible
 import proof_control
 
-RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3d'
+RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3e'
 WORKFLOW = '.github/workflows/proof6-writer.yml'
 ENVIRONMENT = 'proof6-writer'
 CONCURRENCY = 'proof6-authority-writer-r3'
@@ -49,7 +49,7 @@ def runtime_context():
     for path, digest in json.loads(build_raw).items():
         _require(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest)
     plan_digest = proof_control.plan()[1]
-    _require(plan_digest == '1d998b19393ee2f50d3e48c801d749038aff3cfbc2497c12f14b8021ac7a21d7')
+    _require(plan_digest == 'fd5af499de268003b8a8a6c9261b7708cb76b718e54222d105011c483711ff1c')
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
@@ -61,13 +61,13 @@ def runtime_context():
                  'protected_branches': False, 'custom_branch_policies': True})
     _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
     policy = policies['branch_policies'][0]
-    _require(policy['name'] == 'proof6-writer-runtime-r3d' and policy['type'] == 'branch')
+    _require(policy['name'] == 'proof6-writer-runtime-r3e' and policy['type'] == 'branch')
     return ref, env, policy, hashlib.sha256(build_raw).hexdigest(), plan_digest
 
 
 def guard(manifest):
     # Bootstrap never weakens the final manifest guard on normal/proof requests.
-    _require(manifest is not None and manifest['runtime_variant'] == 'r3d')
+    _require(manifest is not None and manifest['runtime_variant'] == 'r3e')
     ref, env, policy, build_digest, plan_digest = runtime_context()
     base = 'repos/' + REPO
     expected_view = manifest['runtime']['ruleset']
@@ -79,7 +79,7 @@ def guard(manifest):
     if 'current_user_can_bypass' in rule:
         _require(rule['current_user_can_bypass'] == 'never')
     rule = visible(rule)
-    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3d'
+    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3e'
              and policy['type'] == 'branch')
     runtime = {
         'ref': RUNTIME_REF, 'sha': ref['object']['sha'], 'workflow': WORKFLOW,
@@ -197,6 +197,8 @@ def main(context):
     result = writer.commit_transition(proposal.encode('utf-8'), operation)
     result.update(context['identity'])
     print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
+    if operation == 'D03_REMOTE_REJECTION':
+        return 0 if result.get('d03_result') == 'PASS' else 1
     return 0 if result['result'] in ('COMMITTED', 'REJECTED', 'APP_AUTH_SETUP_VERIFIED') else 1
 
 

@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3d' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3d'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3e' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3e'
     runs-on: ubuntu-24.04
     environment: proof6-writer
     timeout-minutes: 10
@@ -33,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$RUNNER_ENVIRONMENT" = github-hosted
-          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3d
+          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3e
           git init --quiet .
           git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
           git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -73,6 +73,7 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          PROOF6_D03_JOB_TOKEN: ${{ github.token }}
           PROOF6_OPERATION: ${{ inputs.proof_operation }}
           PROOF6_APP_TOKEN: ${{ steps.app-token.outputs.token }}
           PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
@@ -86,7 +87,7 @@ jobs:
           fi
           # Default timeout process group; never --foreground or --preserve-status.
           # SIGKILL covers the actual runtime and its process group at the deadline.
-          sudo -n --preserve-env=GH_TOKEN,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT \
+          sudo -n --preserve-env=GH_TOKEN,PROOF6_D03_JOB_TOKEN,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT \
             "${deadline[@]}" /usr/bin/python3 -B proofs/proof6/actions_runtime.py
           # Completion credit requires successful supervisor exit as well as END.
           if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then

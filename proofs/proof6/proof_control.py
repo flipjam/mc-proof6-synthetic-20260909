@@ -5,18 +5,22 @@ from pathlib import Path
 
 from writer import _canonical, _require, REPO
 
-FAULTS = ('D02_PRE_SEND_STOP', 'D03_REVOKE_CURRENT_TOKEN', 'D07_DROP_PATCH_RESPONSE')
+FAULTS = ('D02_PRE_SEND_STOP', 'D03_REMOTE_REJECTION', 'D07_DROP_PATCH_RESPONSE')
 OUTAGE = 'D04_CONNECTIVITY_OUTAGE'
 PLAN_PATH = Path(__file__).with_name('proof_plan.json')
 
 def plan():
     raw = PLAN_PATH.read_bytes()
     value = json.loads(raw)
-    _require(value['schema'] == 'PROOF6_R3D_PLAN_V1'
-             and value['contract_commit'] == 'c448ec30125943d9197139e028e9d992b25e8176'
+    from d03_rejection import POLICY
+    _require(value['schema'] == 'PROOF6_R3E_PLAN_V1'
+             and value['contract_commit'] == '34b940e0537f57e5fa225768a55214bd3d3c5340'
              and set(value['faults']) == set(FAULTS)
              and value['caller'] == {'login': 'peaklinesoftware', 'id': 265169095}
              and value['max_consumptions_per_operation'] == 1
+             and value['d03_boundary'] == POLICY
+             and value['baseline'] == {'authority': 'fdf602669253e0a5d3c09f515d4dd41004db043e',
+                 'state_sha256': 'd8e1a472f8060ece75d385a8bffa5f810c77065d01329409963ffb0a46406c5c', 'roadmap': 6}
              and value['infrastructure'] == {'operation': OUTAGE, 'case': 'D04',
                  'duration_seconds': 120, 'target': 'api.github.com',
                  'concurrency': 'proof6-authority-writer-r3'})

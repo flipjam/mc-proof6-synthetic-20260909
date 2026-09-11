@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 REPO = 'flipjam/mc-proof6-synthetic-20260909'
 REPO_ID = 1363510385
 REF = 'refs/heads/proof6-authority'
-BASELINE = 'a5a1ccee2e564092d6c9992f83ed2ba11b213475'
+BASELINE = 'fdf602669253e0a5d3c09f515d4dd41004db043e'
 APP_ID = 4893415
 INSTALLATION = 160504789
 PERMISSIONS = {'contents': 'write', 'metadata': 'read'}
@@ -91,6 +91,7 @@ class _Writer:
                  action_installation_id, action_app_slug, runtime_guard, receipt_binding=None):
         self._last_evidence = None
         self._transport_candidate = None
+        self._d03_transport_token = None
         self._receipt_binding = receipt_binding or {}
         _require(type(installation_token) is str and bool(installation_token))
         _require(action_installation_id == str(INSTALLATION)
@@ -115,8 +116,8 @@ class _Writer:
             urllib.request.ProxyHandler({}), _NoRedirect())
 
     def _check_manifest(self, m):
-        _require(m['contract_commit'] == 'c448ec30125943d9197139e028e9d992b25e8176'
-                 and m['runtime_variant'] == 'r3d'
+        _require(m['contract_commit'] == '34b940e0537f57e5fa225768a55214bd3d3c5340'
+                 and m['runtime_variant'] == 'r3e'
                  and m['revision'] == 3 and m['frozen'] is True
                  and m['repository_id'] == REPO_ID and m['repository'] == REPO
                  and m['ref'] == REF and m['baseline_commit'] == BASELINE
@@ -167,23 +168,16 @@ class _Writer:
         dia.ok('DIA06_TOKEN_BOUNDARY_CONFIGURED')
         return token
 
-    def _revoke_current_token(self, token, evidence):
-        # Only this invocation's token; no App key, replacement grant or caller URL.
-        request = urllib.request.Request('https://api.github.com/installation/token',
-            method='DELETE', headers={'Authorization': 'Bearer ' + token,
-                                     'Accept': 'application/vnd.github+json',
-                                     'User-Agent': 'mc-proof6-gate-writer',
-                                     'X-GitHub-Api-Version': '2022-11-28'})
-        with self._http.open(request, timeout=30) as response:
-            _require(response.status == 204)
-            evidence['token_revocation_status'] = response.status
-            evidence['token_revocation_confirmed'] = True
-
-    def _patch(self, token, new, drop_response, evidence):
+    def _patch(self, new, drop_response, evidence):
+        d03 = evidence.get('proof_operation') == 'D03_REMOTE_REJECTION'
+        # Credential roles are fixed, never a public or generic transport argument.
+        if d03:
+            token, self._d03_transport_token = self._d03_transport_token, None
+            _require(bool(token) and token != self._installation_token)
+        else:
+            token = self._installation_token
         permit, self._transport_candidate = self._transport_candidate, None
         _require(permit is not None and permit == _sha(new))
-        # NONE and D07 share the exact HTTPS construction/send path. No proxy,
-        # redirects, alternate endpoints, automatic retries or response relabeling.
         path = '/repos/' + REPO + '/git/refs/heads/proof6-authority'
         conn = http.client.HTTPSConnection('api.github.com', timeout=30)
         try:
@@ -195,22 +189,25 @@ class _Writer:
                                   'X-GitHub-Api-Version': '2022-11-28'})
             evidence['request_transmission_completed'] = True
             if drop_response:
-                # No getresponse/read/status access has occurred. Delivery to
-                # GitHub remains possible, so this is unknown, never no-update.
                 evidence['response_consumed'] = False
                 evidence['response_path_discarded'] = True
                 raise ConnectionError('PROOF_RESPONSE_DROPPED')
             response = conn.getresponse()
-            evidence['response_consumed'] = True
             evidence['http_status'] = response.status
-            request_id = response.getheader('x-github-request-id', '')
-            if re.fullmatch('[A-Za-z0-9:-]{1,128}', request_id):
+            request_id = response.getheader('x-github-request-id', None)
+            if request_id and re.fullmatch('[A-Za-z0-9:-]{1,128}', request_id):
                 evidence['github_request_id'] = request_id
+            if d03:
+                from d03_rejection import BODY_LIMIT
+                raw = response.read(BODY_LIMIT + 1)
+                _require(len(raw) <= BODY_LIMIT)
+                evidence['response_consumed'] = True
+                # Internal return only. Unclassified response bodies never enter logs.
+                return dict(raw=raw, request_id=request_id,
+                            rate_limit_remaining=response.getheader('x-ratelimit-remaining', None),
+                            retry_after=response.getheader('retry-after', None))
+            evidence['response_consumed'] = True
             if response.status >= 400:
-                if (response.status == 401 and evidence.get('proof_operation') == 'D03_REVOKE_CURRENT_TOKEN'
-                        and evidence.get('github_request_id')):
-                    from d03_rejection import emit
-                    emit(self._journal, evidence['pending_record'], evidence)
                 raise urllib.error.HTTPError('https://api.github.com' + path,
                                              response.status, 'PATCH_REJECTED', {}, None)
             raw = response.read(2_000_001)
@@ -259,6 +256,8 @@ class _Writer:
                     'old_sha': None, 'new_sha': None, 'candidate_commit': None,
                     'update_attempted': False, 'remote_outcome': 'not_attempted'}
         evidence.update(self._receipt_binding)
+        if proof_operation == 'D03_REMOTE_REJECTION':
+            evidence['d03_result'] = 'FAIL'
         # Keep the same live evidence object across all exception boundaries.
         # After send becomes possible no outer handler may emit a false no-update receipt.
         self._last_evidence = evidence
@@ -340,10 +339,11 @@ class _Writer:
             _require(current() == old)
             self._journal.arm(pending)
             evidence['send_armed_record'] = self._journal.head
+            if proof_operation == 'D03_REMOTE_REJECTION':
+                from d03_job_token import bind
+                self._d03_transport_token, evidence['d03_credential'] = bind(self)
             self._journal.take_send(new)
             self._transport_candidate = new
-            if proof_operation == 'D03_REVOKE_CURRENT_TOKEN':
-                self._revoke_current_token(token, evidence)
             # A single-parent child of old plus force=false rejects a competing
             # sibling winner. No rebase, merge, force, stale retry, or fallback.
             evidence['update_attempted'] = True
@@ -351,7 +351,38 @@ class _Writer:
             evidence['result'] = 'INDETERMINATE'
             # Non-secret write-ahead receipt survives loss of the response.
             print('PROOF6_PENDING ' + _canonical(evidence).decode('ascii'), flush=True)
-            updated = self._patch(token, new, proof_operation == 'D07_DROP_PATCH_RESPONSE', evidence)
+            updated = self._patch(new, proof_operation == 'D07_DROP_PATCH_RESPONSE', evidence)
+            if proof_operation == 'D03_REMOTE_REJECTION':
+                from d03_rejection import body, receipt
+                evidence['d03_result'] = 'FAIL'
+                observed = current()
+                if observed == new:
+                    evidence['terminal_record'] = self._journal.finish(pending, new, 'CANDIDATE_OBSERVED')
+                    evidence.update(result='COMMITTED', new_sha=new, remote_outcome='committed')
+                    return evidence
+                _require(observed == old and evidence['http_status'] == 403)
+                body(updated['raw'])
+                response = dict(transmitted=True, consumed=True, status=evidence['http_status'],
+                                request_id=updated['request_id'], body=updated['raw'].decode('utf-8'),
+                                body_sha256=_digest(updated['raw']),
+                                rate_limit_remaining=updated['rate_limit_remaining'], retry_after=updated['retry_after'])
+                # Recheck enforcement/runtime with the normal App/launcher guards.
+                self._enforcement(token)
+                self._runtime_guard(self._manifest)
+                exact = receipt(self._journal, pending, dict(d03_response=response,
+                    d03_enforcement_unchanged=True, d03_credential=evidence['d03_credential']))
+                evidence['d03_response'] = response
+                evidence['d03_enforcement_unchanged'] = True
+                observed = current()
+                if observed == new:
+                    evidence['terminal_record'] = self._journal.finish(pending, new, 'CANDIDATE_OBSERVED')
+                    evidence.update(result='COMMITTED', new_sha=new, remote_outcome='committed')
+                    return evidence
+                _require(observed == old)
+                evidence['terminal_record'] = self._journal.finish(
+                    pending, old, 'FINAL_REJECTION', 403, response['request_id'], d03=exact)
+                evidence.update(result='ERROR', remote_outcome='explicit_rejection', d03_result='PASS')
+                return evidence
             _require(updated['ref'] == REF and updated['object']['sha'] == new)
             _require(current() == new)
             evidence['terminal_record'] = self._journal.finish(pending, new, 'CANDIDATE_OBSERVED')
@@ -360,7 +391,8 @@ class _Writer:
         except urllib.error.HTTPError as exc:
             # Only a final response observed inside the actual PATCH can justify
             # rejection. A failing journal/GET request is not authority rejection.
-            if (evidence['update_attempted'] and evidence.get('http_status') == exc.code
+            if (proof_operation != 'D03_REMOTE_REJECTION' and evidence['update_attempted']
+                    and evidence.get('http_status') == exc.code
                     and exc.code in (400, 401, 403, 404, 409, 422)
                     and evidence.get('github_request_id')):
                 try:
@@ -369,7 +401,7 @@ class _Writer:
                         pending, old, 'FINAL_REJECTION', exc.code, evidence['github_request_id'])
                     evidence.update(result='ERROR', remote_outcome='explicit_rejection')
                 except Exception:
-                    pass  # Revoked token/log loss cannot erase the armed PENDING.
+                    pass  # Finalization failure cannot erase the armed PENDING.
             return evidence
         except Exception:
             # Never emit exception strings, HTTP bodies, headers, subprocess

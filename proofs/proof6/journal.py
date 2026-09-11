@@ -6,14 +6,14 @@ import re
 
 from writer import REPO, REPO_ID, APP_ID, _canonical, _digest, _require, _sha
 
-REF = 'refs/heads/proof6-operation-journal-r3d'
+REF = 'refs/heads/proof6-operation-journal-r3e'
 PATH = 'operation.json'
-SCHEMA = 'PROOF6_R3D_JOURNAL_V1'
+SCHEMA = 'PROOF6_R3E_JOURNAL_V1'
 FIELDS = {
     'CONSUMED': ['binding'],
     'PENDING': ['binding', 'old', 'candidate', 'gate_sha256'],
     'SEND_ARMED': ['pending'],
-    'TERMINAL': ['pending', 'disposition', 'observed', 'evidence', 'request_id', 'status'],
+    'TERMINAL': ['pending', 'disposition', 'observed', 'evidence', 'request_id', 'status', 'd03'],
 }
 SCHEMA_SHA256 = _digest(_canonical({'schema': SCHEMA, 'fields': FIELDS}))
 GENESIS = {'schema': SCHEMA, 'type': 'GENESIS', 'repository_id': REPO_ID, 'ref': REF}
@@ -85,7 +85,7 @@ class Journal:
                 _require(actual['bypass_actors'] == allowed)
 
     def remote(self):
-        ref = self.call('GET', '/git/ref/heads/proof6-operation-journal-r3d')
+        ref = self.call('GET', '/git/ref/heads/proof6-operation-journal-r3e')
         _require(ref['ref'] == REF and ref['object']['type'] == 'commit')
         return _sha(ref['object']['sha'])
 
@@ -172,6 +172,16 @@ class Journal:
                 _require(target in pending and target not in resolved)
                 p = pending[target]; _sha(r['observed'])
                 evidence = r['evidence']
+                is_d03_rejection = p['binding']['operation'] == 'D03_REMOTE_REJECTION' and evidence == 'FINAL_REJECTION'
+                if is_d03_rejection:
+                    # Revalidate exact protected receipt on EVERY complete replay.
+                    from d03_rejection import validate
+                    self.pending, self.armed, self.rows = pending, armed, rows
+                    validate(self, target, r['d03'])
+                    _require(r['status'] == 403 and type(r['status']) is int
+                             and r['request_id'] == r['d03']['response']['request_id'])
+                else:
+                    _require(r['d03'] is None)
                 if evidence == 'UNARMED':
                     _require(target not in armed and r['observed'] == p['old']
                              and r['disposition'] == 'NOT_COMMITTED' and r['status'] is None and r['request_id'] is None)
@@ -182,7 +192,8 @@ class Journal:
                     _require(evidence == 'FINAL_REJECTION' and target in armed
                              and r['observed'] == p['old'] and r['disposition'] == 'NOT_COMMITTED'
                              and type(r['status']) is int and r['status'] in FINAL_REJECTIONS
-                             and type(r['request_id']) is str and re.fullmatch('[A-Za-z0-9:-]{1,128}', r['request_id']))
+                             and ((is_d03_rejection and r['request_id'] is None) or
+                                  (type(r['request_id']) is str and re.fullmatch('[A-Za-z0-9:-]{1,128}', r['request_id']))))
                 resolved.add(target)
         self.used, self.pending, self.armed, self.resolved = used, pending, armed, resolved
 
@@ -200,7 +211,7 @@ class Journal:
         child_sha = _sha(child['sha'])
         _require(child_sha != parent and self.remote() == parent)
         try:
-            self.call('PATCH', '/git/refs/heads/proof6-operation-journal-r3d', {'sha': child_sha, 'force': False})
+            self.call('PATCH', '/git/refs/heads/proof6-operation-journal-r3e', {'sha': child_sha, 'force': False})
         except Exception:
             # One request only. The exact child must be the current remote head;
             # old/sibling/descendant/unreadable stays blocked, never a retry.
@@ -242,11 +253,11 @@ class Journal:
         # In-memory permit is consumed before transport; even repeated calls on
         # this object cannot resend. Recovery never creates a permit.
 
-    def finish(self, pending, observed, evidence, status=None, request_id=None):
+    def finish(self, pending, observed, evidence, status=None, request_id=None, d03=None):
         p = self.pending[pending]
         disposition = 'COMMITTED' if evidence == 'CANDIDATE_OBSERVED' else 'NOT_COMMITTED'
         return self.append('TERMINAL', pending=pending, disposition=disposition,
-                           observed=observed, evidence=evidence, status=status, request_id=request_id)
+                           observed=observed, evidence=evidence, status=status, request_id=request_id, d03=d03)
 
     def recover(self, current, observe=lambda item: None):
         self.read()
@@ -261,20 +272,6 @@ class Journal:
                 # Confirmed single-parent resolution competes with any late arm
                 # child at the same head; both siblings cannot commit non-force.
                 self.finish(sha, remote, 'UNARMED')
-            elif remote == p['old'] and sha in self.armed and p['binding']['operation'] == 'D03_REVOKE_CURRENT_TOKEN':
-                from d03_rejection import recover
-                try:
-                    request_id = recover(self, sha)
-                except Exception:
-                    raise ValueError('D03_REJECTION_EVIDENCE_UNAVAILABLE') from None
-                # Re-read after evidence retrieval. A candidate observation wins;
-                # a different/unreadable ref never becomes NOT_COMMITTED.
-                remote = current()
-                if remote == p['candidate']:
-                    self.finish(sha, remote, 'CANDIDATE_OBSERVED')
-                else:
-                    _require(remote == p['old'])
-                    self.finish(sha, remote, 'FINAL_REJECTION', 401, request_id)
             else:
                 raise ValueError('JOURNAL_UNRESOLVED_OR_INCONSISTENT')
         observe({'phase': 'ADMITTED', 'journal_head': self.head})
