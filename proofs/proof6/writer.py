@@ -53,6 +53,37 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
         raise ValueError('REDIRECT_REFUSED')
 
 
+def _d03_complete_body(response):
+    """One fixed Content-Length response on the D03 connection-close exchange."""
+    from d03_rejection import BODY_LIMIT
+    lengths = response.headers.get_all('Content-Length', [])
+    _require(not response.headers.defects and len(lengths) == 1
+             and not response.headers.get_all('Transfer-Encoding', []))
+    length = lengths[0].strip(' \t')
+    # Bound decimal parsing as well as body allocation. No signs, lists or folds.
+    _require(re.fullmatch(r'[0-9]{1,4}', length) is not None)
+    declared = int(length)
+    _require(declared <= BODY_LIMIT and response.length == declared
+             and response.chunked is False and response.fp is not None)
+    stream = response.fp
+    chunks = []
+    remaining = declared
+    while remaining:
+        chunk = stream.read(remaining)
+        _require(type(chunk) is bytes and 0 < len(chunk) <= remaining)
+        chunks.append(chunk)
+        remaining -= len(chunk)
+    # HTTPResponse.read caps at Content-Length and can hide excess bytes. This
+    # fixed, non-reused connection requests close; require EOF AFTER the declared
+    # length, never use EOF as a substitute for framing. Timeout remains unknown.
+    _require(stream.read(1) == b'')
+    raw = b''.join(chunks)
+    response.close()
+    return raw, dict(response_framing='content_length', declared_body_length=declared,
+                     consumed_body_length=len(raw), response_complete=True,
+                     connection_eof=True)
+
+
 def setup_bootstrap_diagnostics(*, installation_token, action_installation_id, action_app_slug):
     """Standalone fixed GET-only diagnostics. Never construct a writer or gate."""
     _require(type(installation_token) is str and bool(installation_token)
@@ -186,7 +217,8 @@ class _Writer:
                                   'Accept': 'application/vnd.github+json',
                                   'Content-Type': 'application/json',
                                   'User-Agent': 'mc-proof6-gate-writer',
-                                  'X-GitHub-Api-Version': '2022-11-28'})
+                                  'X-GitHub-Api-Version': '2022-11-28',
+                                  **({'Connection': 'close'} if d03 else {})})
             evidence['request_transmission_completed'] = True
             if drop_response:
                 evidence['response_consumed'] = False
@@ -198,12 +230,10 @@ class _Writer:
             if request_id and re.fullmatch('[A-Za-z0-9:-]{1,128}', request_id):
                 evidence['github_request_id'] = request_id
             if d03:
-                from d03_rejection import BODY_LIMIT
-                raw = response.read(BODY_LIMIT + 1)
-                _require(len(raw) <= BODY_LIMIT)
+                raw, completion = _d03_complete_body(response)
                 evidence['response_consumed'] = True
                 # Internal return only. Unclassified response bodies never enter logs.
-                return dict(raw=raw, request_id=request_id,
+                return dict(raw=raw, completion=completion, request_id=request_id,
                             rate_limit_remaining=response.getheader('x-ratelimit-remaining', None),
                             retry_after=response.getheader('retry-after', None))
             evidence['response_consumed'] = True
@@ -365,7 +395,8 @@ class _Writer:
                 response = dict(transmitted=True, consumed=True, status=evidence['http_status'],
                                 request_id=updated['request_id'], body=updated['raw'].decode('utf-8'),
                                 body_sha256=_digest(updated['raw']),
-                                rate_limit_remaining=updated['rate_limit_remaining'], retry_after=updated['retry_after'])
+                                rate_limit_remaining=updated['rate_limit_remaining'], retry_after=updated['retry_after'],
+                                **updated['completion'])
                 # Recheck enforcement/runtime with the normal App/launcher guards.
                 self._enforcement(token)
                 self._runtime_guard(self._manifest)

@@ -59,7 +59,9 @@ def validate(journal, pending, receipt):
     _require(receipt['enforcement_unchanged'] is True)
     r = receipt['response']
     _require(set(r) == {'transmitted', 'consumed', 'status', 'request_id', 'body',
-                        'body_sha256', 'rate_limit_remaining', 'retry_after'})
+                        'body_sha256', 'rate_limit_remaining', 'retry_after',
+                        'response_framing', 'declared_body_length', 'consumed_body_length',
+                        'response_complete', 'connection_eof'})
     _require(r['transmitted'] is True and r['consumed'] is True
              and type(r['status']) is int and r['status'] == 403
              and r['retry_after'] is None
@@ -69,5 +71,10 @@ def validate(journal, pending, receipt):
     _require(r['request_id'] is None or (type(r['request_id']) is str
              and re.fullmatch('[A-Za-z0-9:-]{1,128}', r['request_id'])))
     raw = r['body'].encode('utf-8')
+    _require(r['response_framing'] == 'content_length' and r['response_complete'] is True
+             and r['connection_eof'] is True
+             and type(r['declared_body_length']) is int
+             and type(r['consumed_body_length']) is int
+             and 0 <= r['declared_body_length'] == r['consumed_body_length'] == len(raw) <= BODY_LIMIT)
     body(raw)
     _require(_digest(raw) == r['body_sha256'])
