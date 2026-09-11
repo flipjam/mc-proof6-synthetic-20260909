@@ -6,7 +6,7 @@ from pathlib import Path
 import sys
 import urllib.request
 
-from writer import _Writer, _canonical, _require, REPO, REPO_ID, REF
+from writer import _Writer, _canonical, _require, REPO, REPO_ID, REF, setup_bootstrap_diagnostics
 from admission import binding, blocked
 import diagnostics as dia
 from ruleset_view import visible
@@ -35,23 +35,41 @@ def get(path):
         return json.load(response)
 
 
-def guard(manifest):
-    # Candidate cannot run against R3c bindings. Future setup must supply the
-    # reviewed successor manifest with real provisioned identities; no defaults.
-    _require(manifest is not None and manifest['runtime_variant'] == 'r3d')
+def runtime_context():
+    """Fixed precredential context shared by bootstrap and frozen execution."""
     _require(os.environ['GITHUB_REPOSITORY'] == REPO
              and os.environ['GITHUB_REPOSITORY_ID'] == str(REPO_ID)
              and os.environ['GITHUB_REF'] == RUNTIME_REF
              and os.environ['GITHUB_WORKFLOW_REF'] == REPO + '/' + WORKFLOW + '@' + RUNTIME_REF
              and os.environ['RUNNER_ENVIRONMENT'] == 'github-hosted'
-             and os.environ['GITHUB_EVENT_NAME'] == 'workflow_dispatch')
+             and os.environ['GITHUB_EVENT_NAME'] == 'workflow_dispatch'
+             and os.environ['GITHUB_RUN_ATTEMPT'] == '1')
     root = Path(__file__).resolve().parents[2]
     build_raw = (root / 'proofs/proof6/build.json').read_bytes()
     for path, digest in json.loads(build_raw).items():
         _require(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest)
+    plan_digest = proof_control.plan()[1]
+    _require(plan_digest == '1d998b19393ee2f50d3e48c801d749038aff3cfbc2497c12f14b8021ac7a21d7')
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
+    env = get(base + '/environments/' + ENVIRONMENT)
+    policies = get(base + '/environments/' + ENVIRONMENT + '/deployment-branch-policies')
+    _require(env['id'] == 21620162130 and env['name'] == ENVIRONMENT
+             and env['can_admins_bypass'] is False
+             and env['deployment_branch_policy'] == {
+                 'protected_branches': False, 'custom_branch_policies': True})
+    _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
+    policy = policies['branch_policies'][0]
+    _require(policy['name'] == 'proof6-writer-runtime-r3d' and policy['type'] == 'branch')
+    return ref, env, policy, hashlib.sha256(build_raw).hexdigest(), plan_digest
+
+
+def guard(manifest):
+    # Bootstrap never weakens the final manifest guard on normal/proof requests.
+    _require(manifest is not None and manifest['runtime_variant'] == 'r3d')
+    ref, env, policy, build_digest, plan_digest = runtime_context()
+    base = 'repos/' + REPO
     expected_view = manifest['runtime']['ruleset']
     _require(expected_view['conditions'] == {'ref_name': {'include': [RUNTIME_REF], 'exclude': []}}
              and expected_view['enforcement'] == 'active'
@@ -61,19 +79,11 @@ def guard(manifest):
     if 'current_user_can_bypass' in rule:
         _require(rule['current_user_can_bypass'] == 'never')
     rule = visible(rule)
-    env = get(base + '/environments/' + ENVIRONMENT)
-    policies = get(base + '/environments/' + ENVIRONMENT + '/deployment-branch-policies')
-    _require(env['id'] == 21620162130 and env['name'] == ENVIRONMENT
-             and env['can_admins_bypass'] is False
-             and env['deployment_branch_policy'] == {
-                 'protected_branches': False, 'custom_branch_policies': True})
-    _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
-    policy = policies['branch_policies'][0]
     _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3d'
              and policy['type'] == 'branch')
     runtime = {
         'ref': RUNTIME_REF, 'sha': ref['object']['sha'], 'workflow': WORKFLOW,
-        'build_sha256': hashlib.sha256(build_raw).hexdigest(),
+        'build_sha256': build_digest,
         'ruleset': rule, 'environment_id': env['id'], 'environment': ENVIRONMENT,
         'deployment_branch_policy': env['deployment_branch_policy'],
         'branch_policy': {k: policy[k] for k in ('id', 'name', 'type')},
@@ -88,7 +98,7 @@ def guard(manifest):
         'app_slug': 'mc-proof-6-gate-writer',
         'secret': 'PROOF6_APP_PRIVATE_KEY',
         'manifest_variable': 'PROOF6_FROZEN_MANIFEST',
-        'proof_plan_sha256': proof_control.plan()[1]}
+        'proof_plan_sha256': plan_digest}
     if manifest is not None:
         _require(manifest['runtime'] == runtime)
     return runtime
@@ -101,14 +111,39 @@ def current_binding(manifest):
 
 def main(context):
     manifest_text = os.environ.get('PROOF6_FROZEN_MANIFEST', '')
-    manifest = json.loads(manifest_text) if manifest_text else None
-    context['identity'] = current_binding(manifest)
+    context['identity'] = current_binding(None)
     if '--prewriter-blocked' in sys.argv:
         raise ValueError('PREWRITER_STEP_FAILED')
     # The workflow puts input in the event JSON, never interpolated into code.
     event = json.loads(Path(os.environ['GITHUB_EVENT_PATH']).read_text())
-    inputs = event.get('inputs') or {}
+    inputs = event.get('inputs', {})
     proposal, operation, plan, plan_digest = proof_control.request(inputs)
+    if manifest_text == '' and proposal == '' and operation == '':
+        ref, env, policy, build_digest, checked_plan = runtime_context()
+        _require(checked_plan == plan_digest)
+        # This branch cannot instantiate a writer, journal, gate or fault path.
+        # Credential is used only by the standalone three-GET diagnostic.
+        result = setup_bootstrap_diagnostics(
+            installation_token=os.environ.pop('PROOF6_APP_TOKEN', ''),
+            action_installation_id=os.environ.pop('PROOF6_APP_INSTALLATION_ID', ''),
+            action_app_slug=os.environ.pop('PROOF6_APP_SLUG', ''))
+        result.update(context['identity'])
+        result.update(phase='SETUP_BOOTSTRAP', frozen=False, manifest_sha256=None,
+                      update_attempted=False, remote_outcome='not_attempted',
+                      journal_mutation_attempted=False, proof_consumption_attempted=False,
+                      acceptance_credit=False, repository=REPO, runtime_ref=RUNTIME_REF,
+                      runtime_sha=ref['object']['sha'], build_sha256=build_digest,
+                      proof_plan_sha256=checked_plan, environment_id=env['id'],
+                      branch_policy=policy, actor=os.environ['GITHUB_ACTOR'],
+                      actor_id=os.environ['GITHUB_ACTOR_ID'],
+                      triggering_actor=os.environ['GITHUB_TRIGGERING_ACTOR'])
+        print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
+        return 0
+    # A present manifest, even JSON null, never reopens bootstrap. Empty requests
+    # after freeze reject; the old writer-based setup route is not reachable.
+    _require(bool(proposal or operation))
+    manifest = json.loads(manifest_text) if manifest_text else None
+    context['identity'] = current_binding(manifest)
     dia.start('DIA01')
     guard(manifest)
     dia.ok('DIA01_RUNTIME_GUARD_OK')
@@ -159,14 +194,7 @@ def main(context):
         result.update(context['identity'])
         print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
         return 0
-    result = (writer.commit_transition(proposal.encode('utf-8'), operation) if proposal else
-              writer.verify_setup_auth())
-    if not proposal:
-        result['proof_plan_sha256'] = plan_digest
-        result['prospective_caller_account'] = proof_control.account_permission(get)
-        result['manifest_sha256'] = writer._manifest_digest
-        result['update_attempted'] = False
-        result['remote_outcome'] = 'not_attempted'
+    result = writer.commit_transition(proposal.encode('utf-8'), operation)
     result.update(context['identity'])
     print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
     return 0 if result['result'] in ('COMMITTED', 'REJECTED', 'APP_AUTH_SETUP_VERIFIED') else 1

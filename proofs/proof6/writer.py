@@ -53,6 +53,39 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
         raise ValueError('REDIRECT_REFUSED')
 
 
+def setup_bootstrap_diagnostics(*, installation_token, action_installation_id, action_app_slug):
+    """Standalone fixed GET-only diagnostics. Never construct a writer or gate."""
+    _require(type(installation_token) is str and bool(installation_token)
+             and action_installation_id == str(INSTALLATION)
+             and action_app_slug == 'mc-proof-6-gate-writer')
+    http = urllib.request.build_opener(urllib.request.ProxyHandler({}), _NoRedirect())
+    replies = []
+    # No method, target, body, ref or path argument exists on this helper.
+    for path in ('/installation/repositories?per_page=100',
+                 '/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22725068',
+                 '/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22725076'):
+        request = urllib.request.Request('https://api.github.com' + path, method='GET', headers={
+            'Authorization': 'Bearer ' + installation_token, 'Accept': 'application/vnd.github+json',
+            'User-Agent': 'mc-proof6-gate-writer', 'X-GitHub-Api-Version': '2022-11-28'})
+        with http.open(request, timeout=30) as response:
+            raw = response.read(2_000_001)
+        _require(len(raw) <= 2_000_000)
+        replies.append(json.loads(raw))
+    listing = replies[0]
+    _require(listing['total_count'] == 1 and len(listing['repositories']) == 1)
+    repository = listing['repositories'][0]
+    _require(repository['id'] == REPO_ID and repository['full_name'] == REPO
+             and repository['private'] is False)
+    bindings = json.loads((ROOT / 'proofs/proof6/diagnostic-bindings.json').read_bytes())
+    views = [visible(rule) for rule in replies[1:]]
+    _require(views == bindings['authority_views'] and _digest(_canonical(views)) == VISIBLE_CONFIG_DIGEST)
+    return {'result': 'APP_AUTH_SETUP_VERIFIED', 'app_id': APP_ID, 'installation_id': INSTALLATION,
+            'app_slug': action_app_slug, 'repository_id': REPO_ID,
+            'configured_token_permissions': PERMISSIONS,
+            'action': {'repository': ACTION_REPOSITORY, 'commit': ACTION_COMMIT},
+            'effective_admin_permission_verified': False, 'writer_key_isolation_verified': False}
+
+
 class _Writer:
     def __init__(self, *, frozen_manifest, installation_token,
                  action_installation_id, action_app_slug, runtime_guard, receipt_binding=None):
