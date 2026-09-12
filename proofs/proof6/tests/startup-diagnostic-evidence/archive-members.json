@@ -1,0 +1,9 @@
+[
+  "0_signal_setup.txt",
+  "signal_setup/system.txt",
+  "signal_setup/1_Set up job.txt",
+  "signal_setup/2_Load exact diagnostic commit.txt",
+  "signal_setup/3_Reproduce fixed helper startup with bounded diagnostics.txt",
+  "signal_setup/5_Require setup helper completion and both processes reaped.txt",
+  "signal_setup/6_Complete job.txt"
+]

@@ -1,0 +1,1659 @@
+[
+  {
+    "prefix": "PROOF6_STARTUP_SHELL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.0537556Z",
+    "record": {
+      "euid": 1001,
+      "pid": 2090,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "OUTER_START",
+      "utc_epoch": "1789255133.052216"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_SHELL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.0599232Z",
+    "record": {
+      "euid": 0,
+      "pid": 2092,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "socket_path_bytes": 89,
+      "stage": "ROOT_CREATED",
+      "utc_epoch": "1789255133.059617"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_SHELL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.3648942Z",
+    "record": {
+      "euid": 0,
+      "exit_code": 1,
+      "pid": 2092,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "HELPER_EXIT_BEFORE_READY",
+      "utc_epoch": "1789255133.364579"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4331645Z",
+    "record": {
+      "acceptance_credit": false,
+      "argv_mode_valid": true,
+      "cwd_bytes": 75,
+      "euid": 0,
+      "kernel": "6.17.0-1022-azure",
+      "monotonic": 1471.978959386,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "script_path_bytes": 103,
+      "source_base": "d4d0d448026b9f0dd0728a852d757543b550208e",
+      "source_sha256": "00dc111dc1dd71d6e60071d32ab21ad5d76874b5b515cb073290dcdd30cd58a4",
+      "stage": "PYTHON_ENTRY",
+      "token_slot_present": false,
+      "utc": "2026-09-12T23:18:53.432730+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4333554Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.97909102,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0496",
+      "utc": "2026-09-12T23:18:53.432867+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4334737Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.979140673,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0060",
+      "utc": "2026-09-12T23:18:53.432917+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4335842Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.979169124,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0061",
+      "utc": "2026-09-12T23:18:53.432946+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4336950Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.979191758,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0062",
+      "utc": "2026-09-12T23:18:53.432969+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4338620Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.979217205,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0063",
+      "utc": "2026-09-12T23:18:53.432994+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4340076Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.979240219,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0064",
+      "utc": "2026-09-12T23:18:53.433017+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4341567Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.979261941,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0065",
+      "utc": "2026-09-12T23:18:53.433039+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4342669Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.979283362,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0066",
+      "utc": "2026-09-12T23:18:53.433061+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4343761Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.979304864,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0067",
+      "utc": "2026-09-12T23:18:53.433082+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4345197Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.979952065,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0068",
+      "utc": "2026-09-12T23:18:53.433728+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4346328Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.97997566,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0069",
+      "utc": "2026-09-12T23:18:53.433753+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4347421Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980044601,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0497",
+      "utc": "2026-09-12T23:18:53.433820+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4349055Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980136216,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0500",
+      "utc": "2026-09-12T23:18:53.433913+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4351102Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980171117,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0501",
+      "utc": "2026-09-12T23:18:53.433948+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4352741Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980217966,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0502",
+      "utc": "2026-09-12T23:18:53.433995+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4353863Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980277633,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0504",
+      "utc": "2026-09-12T23:18:53.434054+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4355023Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980314648,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0505",
+      "utc": "2026-09-12T23:18:53.434091+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4356154Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.98033624,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0514",
+      "utc": "2026-09-12T23:18:53.434114+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4357251Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980357611,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0515",
+      "utc": "2026-09-12T23:18:53.434135+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4358442Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980378832,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0517",
+      "utc": "2026-09-12T23:18:53.434156+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4359534Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980400264,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0518",
+      "utc": "2026-09-12T23:18:53.434178+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4360633Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980468914,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0519",
+      "utc": "2026-09-12T23:18:53.434246+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4361725Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980516334,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0522",
+      "utc": "2026-09-12T23:18:53.434294+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_D04_SIGNAL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4363491Z",
+    "record": {
+      "acceptance_credit": false,
+      "binding": {
+        "attempt": 1,
+        "context": "proof6/d04-signal/34725078051/1/0e8a4f6dc9af749a8ecfd65c2fa626005da5b40f",
+        "run_id": 34725078051,
+        "runtime_sha": "0e8a4f6dc9af749a8ecfd65c2fa626005da5b40f",
+        "target_sha": "0e8a4f6dc9af749a8ecfd65c2fa626005da5b40f"
+      },
+      "exit_code": 1,
+      "interrupted": false,
+      "kind": "HELPER_REAPED",
+      "schema": "PROOF6_R3H_D04_SIGNAL_V1",
+      "utc": "2026-09-12T23:18:53.434308+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4365116Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.98055399,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0524",
+      "utc": "2026-09-12T23:18:53.434332+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4366217Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980605966,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0525",
+      "utc": "2026-09-12T23:18:53.434384+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4367299Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980620597,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0526",
+      "utc": "2026-09-12T23:18:53.434398+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_SHELL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4368336Z",
+    "record": {
+      "euid": 0,
+      "native_pid": 2095,
+      "pid": 2094,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "NATIVE_STARTED",
+      "utc_epoch": "1789255133.060507"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4370033Z",
+    "record": {
+      "acceptance_credit": false,
+      "argv_mode_valid": true,
+      "cwd_bytes": 75,
+      "euid": 0,
+      "kernel": "6.17.0-1022-azure",
+      "monotonic": 1471.818248147,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "script_path_bytes": 103,
+      "source_base": "d4d0d448026b9f0dd0728a852d757543b550208e",
+      "source_sha256": "00dc111dc1dd71d6e60071d32ab21ad5d76874b5b515cb073290dcdd30cd58a4",
+      "stage": "PYTHON_ENTRY",
+      "token_slot_present": true,
+      "utc": "2026-09-12T23:18:53.272019+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4371752Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "serve_setup",
+      "monotonic": 1471.818351299,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0417",
+      "utc": "2026-09-12T23:18:53.272128+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4372857Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "_serve",
+      "monotonic": 1471.818403445,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0425",
+      "utc": "2026-09-12T23:18:53.272181+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4373950Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818425798,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0060",
+      "utc": "2026-09-12T23:18:53.272203+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4375042Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818447039,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0061",
+      "utc": "2026-09-12T23:18:53.272225+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4376121Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818463724,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0062",
+      "utc": "2026-09-12T23:18:53.272242+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4377207Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818478195,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0063",
+      "utc": "2026-09-12T23:18:53.272256+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4378365Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818492486,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0064",
+      "utc": "2026-09-12T23:18:53.272271+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4379451Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818505846,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0065",
+      "utc": "2026-09-12T23:18:53.272284+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4380525Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818519726,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0066",
+      "utc": "2026-09-12T23:18:53.272298+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4381705Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818533476,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0067",
+      "utc": "2026-09-12T23:18:53.272312+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4382788Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.819088792,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0068",
+      "utc": "2026-09-12T23:18:53.272865+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4383873Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.819112768,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0069",
+      "utc": "2026-09-12T23:18:53.272890+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4384957Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "_serve",
+      "monotonic": 1471.819131575,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0426",
+      "utc": "2026-09-12T23:18:53.272909+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4386150Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819154108,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0203",
+      "utc": "2026-09-12T23:18:53.272932+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4387229Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819302797,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0206",
+      "utc": "2026-09-12T23:18:53.273080+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4388495Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819410175,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0207",
+      "utc": "2026-09-12T23:18:53.273187+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4389591Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819430565,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0208",
+      "utc": "2026-09-12T23:18:53.273208+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4390672Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819610849,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0209",
+      "utc": "2026-09-12T23:18:53.273388+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4391754Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819676806,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0210",
+      "utc": "2026-09-12T23:18:53.273455+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4392845Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819689906,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0211",
+      "utc": "2026-09-12T23:18:53.273468+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4393945Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819753769,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0212",
+      "utc": "2026-09-12T23:18:53.273531+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4395030Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819768211,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0213",
+      "utc": "2026-09-12T23:18:53.273546+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4396115Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.81978783,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0214",
+      "utc": "2026-09-12T23:18:53.273566+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4397213Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819804254,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0217",
+      "utc": "2026-09-12T23:18:53.273582+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4398754Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": 2,
+      "errno_name": "ENOENT",
+      "euid": 0,
+      "exception": "FileNotFoundError",
+      "function": "custody",
+      "monotonic": 1471.819876159,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0213",
+      "utc": "2026-09-12T23:18:53.273654+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4400046Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819893184,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0215",
+      "utc": "2026-09-12T23:18:53.273671+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4401128Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819906644,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0216",
+      "utc": "2026-09-12T23:18:53.273685+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4402217Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819920044,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0218",
+      "utc": "2026-09-12T23:18:53.273698+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4403426Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody_values",
+      "monotonic": 1471.8199788,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0183",
+      "utc": "2026-09-12T23:18:53.273756+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4404837Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody_values",
+      "known_unexpected_keys": [
+        "DEBIAN_FRONTEND"
+      ],
+      "monotonic": 1471.82002636,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0184",
+      "token_slot_present": true,
+      "unexpected_environment_key_count": 48,
+      "utc": "2026-09-12T23:18:53.273803+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4406420Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "function": "custody_values",
+      "monotonic": 1471.820058978,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0184",
+      "utc": "2026-09-12T23:18:53.273836+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4408196Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "function": "custody",
+      "monotonic": 1471.8200805,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0218",
+      "utc": "2026-09-12T23:18:53.273858+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4409951Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "function": "_serve",
+      "monotonic": 1471.820095522,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0426",
+      "utc": "2026-09-12T23:18:53.273873+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4411671Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "function": "serve_setup",
+      "monotonic": 1471.820108541,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0417",
+      "utc": "2026-09-12T23:18:53.273887+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4413262Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "last_stage": "SOURCE_L0184",
+      "monotonic": 1471.820137974,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "UNHANDLED_FAILURE",
+      "utc": "2026-09-12T23:18:53.273916+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_D04_SIGNAL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4414390Z",
+    "record": {
+      "acceptance_credit": false,
+      "exception": "ValueError",
+      "kind": "BLOCKED",
+      "schema": "PROOF6_R3H_D04_SIGNAL_V1",
+      "utc": "2026-09-12T23:18:53.273934+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_SHELL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4415191Z",
+    "record": {
+      "euid": 0,
+      "exit_code": 1,
+      "pid": 2094,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "NATIVE_REAPED",
+      "utc_epoch": "1789255133.280581"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4416119Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "cleanup",
+      "monotonic": 1471.980638464,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0527",
+      "utc": "2026-09-12T23:18:53.434416+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4417577Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "function": "cleanup",
+      "monotonic": 1471.980659074,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0527",
+      "utc": "2026-09-12T23:18:53.434437+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4419220Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "last_stage": "SOURCE_L0527",
+      "monotonic": 1471.980692884,
+      "pid": 2102,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "UNHANDLED_FAILURE",
+      "utc": "2026-09-12T23:18:53.434471+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_D04_SIGNAL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4420347Z",
+    "record": {
+      "acceptance_credit": false,
+      "exception": "ValueError",
+      "kind": "BLOCKED",
+      "schema": "PROOF6_R3H_D04_SIGNAL_V1",
+      "utc": "2026-09-12T23:18:53.434489+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_SHELL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4673619Z",
+    "record": {
+      "euid": 0,
+      "native_pid": 2095,
+      "pid": 2094,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "NATIVE_STARTED",
+      "utc_epoch": "1789255133.060507"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4676999Z",
+    "record": {
+      "acceptance_credit": false,
+      "argv_mode_valid": true,
+      "cwd_bytes": 75,
+      "euid": 0,
+      "kernel": "6.17.0-1022-azure",
+      "monotonic": 1471.818248147,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "script_path_bytes": 103,
+      "source_base": "d4d0d448026b9f0dd0728a852d757543b550208e",
+      "source_sha256": "00dc111dc1dd71d6e60071d32ab21ad5d76874b5b515cb073290dcdd30cd58a4",
+      "stage": "PYTHON_ENTRY",
+      "token_slot_present": true,
+      "utc": "2026-09-12T23:18:53.272019+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4679545Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "serve_setup",
+      "monotonic": 1471.818351299,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0417",
+      "utc": "2026-09-12T23:18:53.272128+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4680711Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "_serve",
+      "monotonic": 1471.818403445,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0425",
+      "utc": "2026-09-12T23:18:53.272181+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4681804Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818425798,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0060",
+      "utc": "2026-09-12T23:18:53.272203+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4682879Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818447039,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0061",
+      "utc": "2026-09-12T23:18:53.272225+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4683966Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818463724,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0062",
+      "utc": "2026-09-12T23:18:53.272242+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4685052Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818478195,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0063",
+      "utc": "2026-09-12T23:18:53.272256+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4686127Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818492486,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0064",
+      "utc": "2026-09-12T23:18:53.272271+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4687203Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818505846,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0065",
+      "utc": "2026-09-12T23:18:53.272284+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4688496Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818519726,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0066",
+      "utc": "2026-09-12T23:18:53.272298+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4689745Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.818533476,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0067",
+      "utc": "2026-09-12T23:18:53.272312+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4690831Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.819088792,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0068",
+      "utc": "2026-09-12T23:18:53.272865+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4691905Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "binding",
+      "monotonic": 1471.819112768,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0069",
+      "utc": "2026-09-12T23:18:53.272890+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4693031Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "_serve",
+      "monotonic": 1471.819131575,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0426",
+      "utc": "2026-09-12T23:18:53.272909+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4694244Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819154108,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0203",
+      "utc": "2026-09-12T23:18:53.272932+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4695330Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819302797,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0206",
+      "utc": "2026-09-12T23:18:53.273080+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4696435Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819410175,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0207",
+      "utc": "2026-09-12T23:18:53.273187+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4697518Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819430565,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0208",
+      "utc": "2026-09-12T23:18:53.273208+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4698768Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819610849,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0209",
+      "utc": "2026-09-12T23:18:53.273388+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4699861Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819676806,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0210",
+      "utc": "2026-09-12T23:18:53.273455+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4700967Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819689906,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0211",
+      "utc": "2026-09-12T23:18:53.273468+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4702051Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819753769,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0212",
+      "utc": "2026-09-12T23:18:53.273531+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4703120Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819768211,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0213",
+      "utc": "2026-09-12T23:18:53.273546+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4704215Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.81978783,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0214",
+      "utc": "2026-09-12T23:18:53.273566+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4705288Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819804254,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0217",
+      "utc": "2026-09-12T23:18:53.273582+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4706683Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": 2,
+      "errno_name": "ENOENT",
+      "euid": 0,
+      "exception": "FileNotFoundError",
+      "function": "custody",
+      "monotonic": 1471.819876159,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0213",
+      "utc": "2026-09-12T23:18:53.273654+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4708107Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819893184,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0215",
+      "utc": "2026-09-12T23:18:53.273671+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4709175Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819906644,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0216",
+      "utc": "2026-09-12T23:18:53.273685+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4710253Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody",
+      "monotonic": 1471.819920044,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0218",
+      "utc": "2026-09-12T23:18:53.273698+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4711440Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody_values",
+      "monotonic": 1471.8199788,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0183",
+      "utc": "2026-09-12T23:18:53.273756+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4713123Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "function": "custody_values",
+      "known_unexpected_keys": [
+        "DEBIAN_FRONTEND"
+      ],
+      "monotonic": 1471.82002636,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "SOURCE_L0184",
+      "token_slot_present": true,
+      "unexpected_environment_key_count": 48,
+      "utc": "2026-09-12T23:18:53.273803+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4715773Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "function": "custody_values",
+      "monotonic": 1471.820058978,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0184",
+      "utc": "2026-09-12T23:18:53.273836+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4718413Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "function": "custody",
+      "monotonic": 1471.8200805,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0218",
+      "utc": "2026-09-12T23:18:53.273858+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4720837Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "function": "_serve",
+      "monotonic": 1471.820095522,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0426",
+      "utc": "2026-09-12T23:18:53.273873+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4722565Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "function": "serve_setup",
+      "monotonic": 1471.820108541,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "EXCEPTION_AT_SOURCE_L0417",
+      "utc": "2026-09-12T23:18:53.273887+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4724433Z",
+    "record": {
+      "acceptance_credit": false,
+      "errno": null,
+      "errno_name": null,
+      "euid": 0,
+      "exception": "ValueError",
+      "last_stage": "SOURCE_L0184",
+      "monotonic": 1471.820137974,
+      "pid": 2098,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "UNHANDLED_FAILURE",
+      "utc": "2026-09-12T23:18:53.273916+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_D04_SIGNAL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4726168Z",
+    "record": {
+      "acceptance_credit": false,
+      "exception": "ValueError",
+      "kind": "BLOCKED",
+      "schema": "PROOF6_R3H_D04_SIGNAL_V1",
+      "utc": "2026-09-12T23:18:53.273934+00:00"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_SHELL",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4727020Z",
+    "record": {
+      "euid": 0,
+      "exit_code": 1,
+      "pid": 2094,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "NATIVE_REAPED",
+      "utc_epoch": "1789255133.280581"
+    }
+  },
+  {
+    "prefix": "PROOF6_STARTUP_DIAGNOSTIC",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4728337Z",
+    "record": {
+      "acceptance_credit": false,
+      "euid": 0,
+      "monotonic": 1472.014062777,
+      "pid": 2104,
+      "retained_records": 39,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "stage": "FAILURE_INDEPENDENT_REPLAY",
+      "utc": "2026-09-12T23:18:53.467833+00:00"
+    }
+  },
+  {
+    "prefix": "DIAGNOSTIC_RESULT",
+    "provider_log_timestamp": "2026-09-12T23:18:53.4729312Z",
+    "record": {
+      "acceptance_credit": false,
+      "cleanup_exit": 1,
+      "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1",
+      "status_posts": 0
+    }
+  }
+]

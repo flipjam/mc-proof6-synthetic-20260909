@@ -1,0 +1,215 @@
+﻿2026-09-12T23:18:51.8859334Z Current runner version: '2.337.0'
+2026-09-12T23:18:51.8880403Z ##[group]Runner Image Provisioner
+2026-09-12T23:18:51.8881150Z Hosted Compute Agent
+2026-09-12T23:18:51.8881633Z Version: 20260828.587
+2026-09-12T23:18:51.8882187Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-12T23:18:51.8882834Z Build Date: 2026-08-28T16:44:25Z
+2026-09-12T23:18:51.8883390Z Worker ID: {77fae242-e233-4e5f-89d6-02d546d782d2}
+2026-09-12T23:18:51.8884057Z Azure Region: eastus
+2026-09-12T23:18:51.8884518Z ##[endgroup]
+2026-09-12T23:18:51.8885612Z ##[group]Operating System
+2026-09-12T23:18:51.8886156Z Ubuntu
+2026-09-12T23:18:51.8886593Z 24.04.5
+2026-09-12T23:18:51.8887058Z LTS
+2026-09-12T23:18:51.8887485Z ##[endgroup]
+2026-09-12T23:18:51.8888196Z ##[group]Runner Image
+2026-09-12T23:18:51.8888835Z Image: ubuntu-24.04
+2026-09-12T23:18:51.8889332Z Version: 20260907.300.1
+2026-09-12T23:18:51.8890396Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-12T23:18:51.8891647Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-12T23:18:51.8892516Z ##[endgroup]
+2026-09-12T23:18:51.8893438Z ##[group]GITHUB_TOKEN Permissions
+2026-09-12T23:18:51.8895357Z Metadata: read
+2026-09-12T23:18:51.8895848Z Statuses: write
+2026-09-12T23:18:51.8896414Z ##[endgroup]
+2026-09-12T23:18:51.8898356Z Secret source: Actions
+2026-09-12T23:18:51.8899160Z Cache mode: write
+2026-09-12T23:18:51.8899941Z Prepare workflow directory
+2026-09-12T23:18:51.9152600Z Prepare all required actions
+2026-09-12T23:18:51.9236757Z Complete job name: signal_setup
+2026-09-12T23:18:51.9816079Z ##[group]Run set -euo pipefail
+2026-09-12T23:18:51.9816734Z [36;1mset -euo pipefail[0m
+2026-09-12T23:18:51.9817367Z [36;1mtest "$RUNNER_ENVIRONMENT" = github-hosted[0m
+2026-09-12T23:18:51.9818413Z [36;1mtest "$GITHUB_REF" = refs/heads/codex/proof6-r3h-s1-startup-diagnostic-20260912-01[0m
+2026-09-12T23:18:51.9819362Z [36;1mgit init --quiet .[0m
+2026-09-12T23:18:51.9820137Z [36;1mgit remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git[0m
+2026-09-12T23:18:51.9820985Z [36;1mgit fetch --quiet --depth=1 origin "$GITHUB_SHA"[0m
+2026-09-12T23:18:51.9821707Z [36;1mgit checkout --quiet --detach FETCH_HEAD[0m
+2026-09-12T23:18:51.9822368Z [36;1mtest "$(git rev-parse HEAD)" = "$GITHUB_SHA"[0m
+2026-09-12T23:18:51.9822998Z [36;1mtest -x /usr/bin/unshare[0m
+2026-09-12T23:18:51.9823587Z [36;1mtest -x /usr/bin/timeout[0m
+2026-09-12T23:18:51.9824105Z [36;1mtest -x /usr/bin/python3[0m
+2026-09-12T23:18:51.9824797Z [36;1m/usr/bin/sudo -n /usr/bin/true[0m
+2026-09-12T23:18:52.0190735Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-12T23:18:52.0191638Z ##[endgroup]
+2026-09-12T23:18:53.0360079Z ##[group]Run set -euo pipefail
+2026-09-12T23:18:53.0361287Z [36;1mset -euo pipefail[0m
+2026-09-12T23:18:53.0363674Z [36;1mprintf 'PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"OUTER_START","utc_epoch":"%s","pid":%s,"euid":%s}\n' "$EPOCHREALTIME" "$$" "$EUID"[0m
+2026-09-12T23:18:53.0368390Z [36;1msudo -n --preserve-env=PROOF6_D04_STATUS_TOKEN,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /bin/bash <<'FIXED_HELPER_SUPERVISOR'[0m
+2026-09-12T23:18:53.0371542Z [36;1mset -euo pipefail[0m
+2026-09-12T23:18:53.0372538Z [36;1mstage=ROOT_PATH[0m
+2026-09-12T23:18:53.0373507Z [36;1mdiagnostic_exit() {[0m
+2026-09-12T23:18:53.0374441Z [36;1m  code=$?[0m
+2026-09-12T23:18:53.0376674Z [36;1m  printf 'PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"%s","utc_epoch":"%s","pid":%s,"euid":%s,"exit_code":%s}\n' "$stage" "$EPOCHREALTIME" "$$" "$EUID" "$code"[0m
+2026-09-12T23:18:53.0379194Z [36;1m}[0m
+2026-09-12T23:18:53.0380019Z [36;1mtrap diagnostic_exit EXIT[0m
+2026-09-12T23:18:53.0381306Z [36;1mroot="/tmp/proof6-d04-signal-${GITHUB_RUN_ID}-1-${GITHUB_SHA}"[0m
+2026-09-12T23:18:53.0382683Z [36;1mtest ! -e "$root"[0m
+2026-09-12T23:18:53.0383806Z [36;1mstage=ROOT_CREATE[0m
+2026-09-12T23:18:53.0384723Z [36;1mmkdir -m 700 "$root"[0m
+2026-09-12T23:18:53.0385647Z [36;1mstage=ROOT_CREATED[0m
+2026-09-12T23:18:53.0388402Z [36;1mprintf 'PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"ROOT_CREATED","utc_epoch":"%s","pid":%s,"euid":%s,"socket_path_bytes":%s}\n' "$EPOCHREALTIME" "$$" "$EUID" "$((${#root}+12))"[0m
+2026-09-12T23:18:53.0391006Z [36;1m([0m
+2026-09-12T23:18:53.0391753Z [36;1m  set +e[0m
+2026-09-12T23:18:53.0392560Z [36;1m  trap - EXIT[0m
+2026-09-12T23:18:53.0394099Z [36;1m  /usr/bin/timeout --signal=KILL 120s /usr/bin/python3 -I -B proofs/proof6/d04_signal.py serve-setup &[0m
+2026-09-12T23:18:53.0395808Z [36;1m  native=$![0m
+2026-09-12T23:18:53.0396793Z [36;1m  printf '%s\n' "$native" > "$root/native.pid"[0m
+2026-09-12T23:18:53.0399609Z [36;1m  printf 'PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"NATIVE_STARTED","utc_epoch":"%s","pid":%s,"euid":%s,"native_pid":%s}\n' "$EPOCHREALTIME" "$BASHPID" "$EUID" "$native"[0m
+2026-09-12T23:18:53.0402153Z [36;1m  wait "$native"[0m
+2026-09-12T23:18:53.0403038Z [36;1m  result=$?[0m
+2026-09-12T23:18:53.0405377Z [36;1m  printf 'PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"NATIVE_REAPED","utc_epoch":"%s","pid":%s,"euid":%s,"exit_code":%s}\n' "$EPOCHREALTIME" "$BASHPID" "$EUID" "$result"[0m
+2026-09-12T23:18:53.0408169Z [36;1m  printf '%s\n' "$result" > "$root/reaped.exit"[0m
+2026-09-12T23:18:53.0409394Z [36;1m) </dev/null >"$root/helper.log" 2>&1 &[0m
+2026-09-12T23:18:53.0410509Z [36;1mstage=IPC_READY_WAIT[0m
+2026-09-12T23:18:53.0411465Z [36;1mfor ((i=0; i<100; i++)); do[0m
+2026-09-12T23:18:53.0412881Z [36;1m  if test -f "$root/reaped.exit"; then stage=HELPER_EXIT_BEFORE_READY; exit 1; fi[0m
+2026-09-12T23:18:53.0414661Z [36;1m  if test -f "$root/started.json"; then stage=IPC_READY; exit 0; fi[0m
+2026-09-12T23:18:53.0416004Z [36;1m  sleep 0.1[0m
+2026-09-12T23:18:53.0416824Z [36;1mdone[0m
+2026-09-12T23:18:53.0417630Z [36;1mstage=IPC_READY_TIMEOUT[0m
+2026-09-12T23:18:53.0418708Z [36;1mexit 1[0m
+2026-09-12T23:18:53.0419544Z [36;1mFIXED_HELPER_SUPERVISOR[0m
+2026-09-12T23:18:53.0454471Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-12T23:18:53.0455683Z env:
+2026-09-12T23:18:53.0463803Z   PROOF6_D04_STATUS_TOKEN: ***
+2026-09-12T23:18:53.0464737Z ##[endgroup]
+2026-09-12T23:18:53.0537556Z PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"OUTER_START","utc_epoch":"1789255133.052216","pid":2090,"euid":1001}
+2026-09-12T23:18:53.0599232Z PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"ROOT_CREATED","utc_epoch":"1789255133.059617","pid":2092,"euid":0,"socket_path_bytes":89}
+2026-09-12T23:18:53.3648942Z PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"HELPER_EXIT_BEFORE_READY","utc_epoch":"1789255133.364579","pid":2092,"euid":0,"exit_code":1}
+2026-09-12T23:18:53.3669651Z ##[error]Process completed with exit code 1.
+2026-09-12T23:18:53.3719273Z ##[group]Run set +e
+2026-09-12T23:18:53.3719547Z [36;1mset +e[0m
+2026-09-12T23:18:53.3720255Z [36;1msudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/python3 -I -B proofs/proof6/d04_signal.py cleanup-setup[0m
+2026-09-12T23:18:53.3720981Z [36;1mresult=$?[0m
+2026-09-12T23:18:53.3721397Z [36;1msudo -n --preserve-env=GITHUB_RUN_ID,GITHUB_SHA /usr/bin/python3 -I -B proofs/proof6/d04_startup_diagnostic.py[0m
+2026-09-12T23:18:53.3721841Z [36;1mreplay=$?[0m
+2026-09-12T23:18:53.3722092Z [36;1mif test "$replay" -ne 0; then result=1; fi[0m
+2026-09-12T23:18:53.3722633Z [36;1mprintf 'DIAGNOSTIC_RESULT {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","cleanup_exit":%s,"acceptance_credit":false,"status_posts":0}\n' "$result"[0m
+2026-09-12T23:18:53.3723146Z [36;1mexit "$result"[0m
+2026-09-12T23:18:53.3755971Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-12T23:18:53.3756533Z ##[endgroup]
+2026-09-12T23:18:53.4331645Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "argv_mode_valid": true, "cwd_bytes": 75, "euid": 0, "kernel": "6.17.0-1022-azure", "monotonic": 1471.978959386, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "script_path_bytes": 103, "source_base": "d4d0d448026b9f0dd0728a852d757543b550208e", "source_sha256": "00dc111dc1dd71d6e60071d32ab21ad5d76874b5b515cb073290dcdd30cd58a4", "stage": "PYTHON_ENTRY", "token_slot_present": false, "utc": "2026-09-12T23:18:53.432730+00:00"}
+2026-09-12T23:18:53.4333554Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.97909102, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0496", "utc": "2026-09-12T23:18:53.432867+00:00"}
+2026-09-12T23:18:53.4334737Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.979140673, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0060", "utc": "2026-09-12T23:18:53.432917+00:00"}
+2026-09-12T23:18:53.4335842Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.979169124, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0061", "utc": "2026-09-12T23:18:53.432946+00:00"}
+2026-09-12T23:18:53.4336950Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.979191758, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0062", "utc": "2026-09-12T23:18:53.432969+00:00"}
+2026-09-12T23:18:53.4338620Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.979217205, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0063", "utc": "2026-09-12T23:18:53.432994+00:00"}
+2026-09-12T23:18:53.4340076Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.979240219, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0064", "utc": "2026-09-12T23:18:53.433017+00:00"}
+2026-09-12T23:18:53.4341567Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.979261941, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0065", "utc": "2026-09-12T23:18:53.433039+00:00"}
+2026-09-12T23:18:53.4342669Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.979283362, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0066", "utc": "2026-09-12T23:18:53.433061+00:00"}
+2026-09-12T23:18:53.4343761Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.979304864, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0067", "utc": "2026-09-12T23:18:53.433082+00:00"}
+2026-09-12T23:18:53.4345197Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.979952065, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0068", "utc": "2026-09-12T23:18:53.433728+00:00"}
+2026-09-12T23:18:53.4346328Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.97997566, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0069", "utc": "2026-09-12T23:18:53.433753+00:00"}
+2026-09-12T23:18:53.4347421Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980044601, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0497", "utc": "2026-09-12T23:18:53.433820+00:00"}
+2026-09-12T23:18:53.4349055Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980136216, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0500", "utc": "2026-09-12T23:18:53.433913+00:00"}
+2026-09-12T23:18:53.4351102Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980171117, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0501", "utc": "2026-09-12T23:18:53.433948+00:00"}
+2026-09-12T23:18:53.4352741Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980217966, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0502", "utc": "2026-09-12T23:18:53.433995+00:00"}
+2026-09-12T23:18:53.4353863Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980277633, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0504", "utc": "2026-09-12T23:18:53.434054+00:00"}
+2026-09-12T23:18:53.4355023Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980314648, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0505", "utc": "2026-09-12T23:18:53.434091+00:00"}
+2026-09-12T23:18:53.4356154Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.98033624, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0514", "utc": "2026-09-12T23:18:53.434114+00:00"}
+2026-09-12T23:18:53.4357251Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980357611, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0515", "utc": "2026-09-12T23:18:53.434135+00:00"}
+2026-09-12T23:18:53.4358442Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980378832, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0517", "utc": "2026-09-12T23:18:53.434156+00:00"}
+2026-09-12T23:18:53.4359534Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980400264, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0518", "utc": "2026-09-12T23:18:53.434178+00:00"}
+2026-09-12T23:18:53.4360633Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980468914, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0519", "utc": "2026-09-12T23:18:53.434246+00:00"}
+2026-09-12T23:18:53.4361725Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980516334, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0522", "utc": "2026-09-12T23:18:53.434294+00:00"}
+2026-09-12T23:18:53.4363491Z PROOF6_D04_SIGNAL {"acceptance_credit": false, "binding": {"attempt": 1, "context": "proof6/d04-signal/34725078051/1/0e8a4f6dc9af749a8ecfd65c2fa626005da5b40f", "run_id": 34725078051, "runtime_sha": "0e8a4f6dc9af749a8ecfd65c2fa626005da5b40f", "target_sha": "0e8a4f6dc9af749a8ecfd65c2fa626005da5b40f"}, "exit_code": 1, "interrupted": false, "kind": "HELPER_REAPED", "schema": "PROOF6_R3H_D04_SIGNAL_V1", "utc": "2026-09-12T23:18:53.434308+00:00"}
+2026-09-12T23:18:53.4365116Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.98055399, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0524", "utc": "2026-09-12T23:18:53.434332+00:00"}
+2026-09-12T23:18:53.4366217Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980605966, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0525", "utc": "2026-09-12T23:18:53.434384+00:00"}
+2026-09-12T23:18:53.4367299Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980620597, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0526", "utc": "2026-09-12T23:18:53.434398+00:00"}
+2026-09-12T23:18:53.4368336Z PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"NATIVE_STARTED","utc_epoch":"1789255133.060507","pid":2094,"euid":0,"native_pid":2095}
+2026-09-12T23:18:53.4370033Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "argv_mode_valid": true, "cwd_bytes": 75, "euid": 0, "kernel": "6.17.0-1022-azure", "monotonic": 1471.818248147, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "script_path_bytes": 103, "source_base": "d4d0d448026b9f0dd0728a852d757543b550208e", "source_sha256": "00dc111dc1dd71d6e60071d32ab21ad5d76874b5b515cb073290dcdd30cd58a4", "stage": "PYTHON_ENTRY", "token_slot_present": true, "utc": "2026-09-12T23:18:53.272019+00:00"}
+2026-09-12T23:18:53.4371752Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "serve_setup", "monotonic": 1471.818351299, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0417", "utc": "2026-09-12T23:18:53.272128+00:00"}
+2026-09-12T23:18:53.4372857Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "_serve", "monotonic": 1471.818403445, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0425", "utc": "2026-09-12T23:18:53.272181+00:00"}
+2026-09-12T23:18:53.4373950Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818425798, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0060", "utc": "2026-09-12T23:18:53.272203+00:00"}
+2026-09-12T23:18:53.4375042Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818447039, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0061", "utc": "2026-09-12T23:18:53.272225+00:00"}
+2026-09-12T23:18:53.4376121Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818463724, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0062", "utc": "2026-09-12T23:18:53.272242+00:00"}
+2026-09-12T23:18:53.4377207Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818478195, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0063", "utc": "2026-09-12T23:18:53.272256+00:00"}
+2026-09-12T23:18:53.4378365Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818492486, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0064", "utc": "2026-09-12T23:18:53.272271+00:00"}
+2026-09-12T23:18:53.4379451Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818505846, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0065", "utc": "2026-09-12T23:18:53.272284+00:00"}
+2026-09-12T23:18:53.4380525Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818519726, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0066", "utc": "2026-09-12T23:18:53.272298+00:00"}
+2026-09-12T23:18:53.4381705Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818533476, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0067", "utc": "2026-09-12T23:18:53.272312+00:00"}
+2026-09-12T23:18:53.4382788Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.819088792, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0068", "utc": "2026-09-12T23:18:53.272865+00:00"}
+2026-09-12T23:18:53.4383873Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.819112768, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0069", "utc": "2026-09-12T23:18:53.272890+00:00"}
+2026-09-12T23:18:53.4384957Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "_serve", "monotonic": 1471.819131575, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0426", "utc": "2026-09-12T23:18:53.272909+00:00"}
+2026-09-12T23:18:53.4386150Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819154108, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0203", "utc": "2026-09-12T23:18:53.272932+00:00"}
+2026-09-12T23:18:53.4387229Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819302797, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0206", "utc": "2026-09-12T23:18:53.273080+00:00"}
+2026-09-12T23:18:53.4388495Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819410175, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0207", "utc": "2026-09-12T23:18:53.273187+00:00"}
+2026-09-12T23:18:53.4389591Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819430565, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0208", "utc": "2026-09-12T23:18:53.273208+00:00"}
+2026-09-12T23:18:53.4390672Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819610849, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0209", "utc": "2026-09-12T23:18:53.273388+00:00"}
+2026-09-12T23:18:53.4391754Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819676806, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0210", "utc": "2026-09-12T23:18:53.273455+00:00"}
+2026-09-12T23:18:53.4392845Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819689906, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0211", "utc": "2026-09-12T23:18:53.273468+00:00"}
+2026-09-12T23:18:53.4393945Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819753769, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0212", "utc": "2026-09-12T23:18:53.273531+00:00"}
+2026-09-12T23:18:53.4395030Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819768211, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0213", "utc": "2026-09-12T23:18:53.273546+00:00"}
+2026-09-12T23:18:53.4396115Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.81978783, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0214", "utc": "2026-09-12T23:18:53.273566+00:00"}
+2026-09-12T23:18:53.4397213Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819804254, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0217", "utc": "2026-09-12T23:18:53.273582+00:00"}
+2026-09-12T23:18:53.4398754Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": 2, "errno_name": "ENOENT", "euid": 0, "exception": "FileNotFoundError", "function": "custody", "monotonic": 1471.819876159, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0213", "utc": "2026-09-12T23:18:53.273654+00:00"}
+2026-09-12T23:18:53.4400046Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819893184, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0215", "utc": "2026-09-12T23:18:53.273671+00:00"}
+2026-09-12T23:18:53.4401128Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819906644, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0216", "utc": "2026-09-12T23:18:53.273685+00:00"}
+2026-09-12T23:18:53.4402217Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819920044, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0218", "utc": "2026-09-12T23:18:53.273698+00:00"}
+2026-09-12T23:18:53.4403426Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody_values", "monotonic": 1471.8199788, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0183", "utc": "2026-09-12T23:18:53.273756+00:00"}
+2026-09-12T23:18:53.4404837Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody_values", "known_unexpected_keys": ["DEBIAN_FRONTEND"], "monotonic": 1471.82002636, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0184", "token_slot_present": true, "unexpected_environment_key_count": 48, "utc": "2026-09-12T23:18:53.273803+00:00"}
+2026-09-12T23:18:53.4406420Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "function": "custody_values", "monotonic": 1471.820058978, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0184", "utc": "2026-09-12T23:18:53.273836+00:00"}
+2026-09-12T23:18:53.4408196Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "function": "custody", "monotonic": 1471.8200805, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0218", "utc": "2026-09-12T23:18:53.273858+00:00"}
+2026-09-12T23:18:53.4409951Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "function": "_serve", "monotonic": 1471.820095522, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0426", "utc": "2026-09-12T23:18:53.273873+00:00"}
+2026-09-12T23:18:53.4411671Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "function": "serve_setup", "monotonic": 1471.820108541, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0417", "utc": "2026-09-12T23:18:53.273887+00:00"}
+2026-09-12T23:18:53.4413262Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "last_stage": "SOURCE_L0184", "monotonic": 1471.820137974, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "UNHANDLED_FAILURE", "utc": "2026-09-12T23:18:53.273916+00:00"}
+2026-09-12T23:18:53.4414390Z PROOF6_D04_SIGNAL {"acceptance_credit": false, "exception": "ValueError", "kind": "BLOCKED", "schema": "PROOF6_R3H_D04_SIGNAL_V1", "utc": "2026-09-12T23:18:53.273934+00:00"}
+2026-09-12T23:18:53.4415191Z PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"NATIVE_REAPED","utc_epoch":"1789255133.280581","pid":2094,"euid":0,"exit_code":1}
+2026-09-12T23:18:53.4416119Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "cleanup", "monotonic": 1471.980638464, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0527", "utc": "2026-09-12T23:18:53.434416+00:00"}
+2026-09-12T23:18:53.4417577Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "function": "cleanup", "monotonic": 1471.980659074, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0527", "utc": "2026-09-12T23:18:53.434437+00:00"}
+2026-09-12T23:18:53.4419220Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "last_stage": "SOURCE_L0527", "monotonic": 1471.980692884, "pid": 2102, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "UNHANDLED_FAILURE", "utc": "2026-09-12T23:18:53.434471+00:00"}
+2026-09-12T23:18:53.4420347Z PROOF6_D04_SIGNAL {"acceptance_credit": false, "exception": "ValueError", "kind": "BLOCKED", "schema": "PROOF6_R3H_D04_SIGNAL_V1", "utc": "2026-09-12T23:18:53.434489+00:00"}
+2026-09-12T23:18:53.4673619Z PROOF6_STARTUP_SHELL {"euid": 0, "native_pid": 2095, "pid": 2094, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "NATIVE_STARTED", "utc_epoch": "1789255133.060507"}
+2026-09-12T23:18:53.4676999Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "argv_mode_valid": true, "cwd_bytes": 75, "euid": 0, "kernel": "6.17.0-1022-azure", "monotonic": 1471.818248147, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "script_path_bytes": 103, "source_base": "d4d0d448026b9f0dd0728a852d757543b550208e", "source_sha256": "00dc111dc1dd71d6e60071d32ab21ad5d76874b5b515cb073290dcdd30cd58a4", "stage": "PYTHON_ENTRY", "token_slot_present": true, "utc": "2026-09-12T23:18:53.272019+00:00"}
+2026-09-12T23:18:53.4679545Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "serve_setup", "monotonic": 1471.818351299, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0417", "utc": "2026-09-12T23:18:53.272128+00:00"}
+2026-09-12T23:18:53.4680711Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "_serve", "monotonic": 1471.818403445, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0425", "utc": "2026-09-12T23:18:53.272181+00:00"}
+2026-09-12T23:18:53.4681804Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818425798, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0060", "utc": "2026-09-12T23:18:53.272203+00:00"}
+2026-09-12T23:18:53.4682879Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818447039, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0061", "utc": "2026-09-12T23:18:53.272225+00:00"}
+2026-09-12T23:18:53.4683966Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818463724, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0062", "utc": "2026-09-12T23:18:53.272242+00:00"}
+2026-09-12T23:18:53.4685052Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818478195, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0063", "utc": "2026-09-12T23:18:53.272256+00:00"}
+2026-09-12T23:18:53.4686127Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818492486, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0064", "utc": "2026-09-12T23:18:53.272271+00:00"}
+2026-09-12T23:18:53.4687203Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818505846, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0065", "utc": "2026-09-12T23:18:53.272284+00:00"}
+2026-09-12T23:18:53.4688496Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818519726, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0066", "utc": "2026-09-12T23:18:53.272298+00:00"}
+2026-09-12T23:18:53.4689745Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.818533476, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0067", "utc": "2026-09-12T23:18:53.272312+00:00"}
+2026-09-12T23:18:53.4690831Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.819088792, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0068", "utc": "2026-09-12T23:18:53.272865+00:00"}
+2026-09-12T23:18:53.4691905Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "binding", "monotonic": 1471.819112768, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0069", "utc": "2026-09-12T23:18:53.272890+00:00"}
+2026-09-12T23:18:53.4693031Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "_serve", "monotonic": 1471.819131575, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0426", "utc": "2026-09-12T23:18:53.272909+00:00"}
+2026-09-12T23:18:53.4694244Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819154108, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0203", "utc": "2026-09-12T23:18:53.272932+00:00"}
+2026-09-12T23:18:53.4695330Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819302797, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0206", "utc": "2026-09-12T23:18:53.273080+00:00"}
+2026-09-12T23:18:53.4696435Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819410175, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0207", "utc": "2026-09-12T23:18:53.273187+00:00"}
+2026-09-12T23:18:53.4697518Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819430565, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0208", "utc": "2026-09-12T23:18:53.273208+00:00"}
+2026-09-12T23:18:53.4698768Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819610849, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0209", "utc": "2026-09-12T23:18:53.273388+00:00"}
+2026-09-12T23:18:53.4699861Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819676806, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0210", "utc": "2026-09-12T23:18:53.273455+00:00"}
+2026-09-12T23:18:53.4700967Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819689906, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0211", "utc": "2026-09-12T23:18:53.273468+00:00"}
+2026-09-12T23:18:53.4702051Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819753769, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0212", "utc": "2026-09-12T23:18:53.273531+00:00"}
+2026-09-12T23:18:53.4703120Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819768211, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0213", "utc": "2026-09-12T23:18:53.273546+00:00"}
+2026-09-12T23:18:53.4704215Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.81978783, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0214", "utc": "2026-09-12T23:18:53.273566+00:00"}
+2026-09-12T23:18:53.4705288Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819804254, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0217", "utc": "2026-09-12T23:18:53.273582+00:00"}
+2026-09-12T23:18:53.4706683Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": 2, "errno_name": "ENOENT", "euid": 0, "exception": "FileNotFoundError", "function": "custody", "monotonic": 1471.819876159, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0213", "utc": "2026-09-12T23:18:53.273654+00:00"}
+2026-09-12T23:18:53.4708107Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819893184, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0215", "utc": "2026-09-12T23:18:53.273671+00:00"}
+2026-09-12T23:18:53.4709175Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819906644, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0216", "utc": "2026-09-12T23:18:53.273685+00:00"}
+2026-09-12T23:18:53.4710253Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody", "monotonic": 1471.819920044, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0218", "utc": "2026-09-12T23:18:53.273698+00:00"}
+2026-09-12T23:18:53.4711440Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody_values", "monotonic": 1471.8199788, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0183", "utc": "2026-09-12T23:18:53.273756+00:00"}
+2026-09-12T23:18:53.4713123Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "function": "custody_values", "known_unexpected_keys": ["DEBIAN_FRONTEND"], "monotonic": 1471.82002636, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "SOURCE_L0184", "token_slot_present": true, "unexpected_environment_key_count": 48, "utc": "2026-09-12T23:18:53.273803+00:00"}
+2026-09-12T23:18:53.4715773Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "function": "custody_values", "monotonic": 1471.820058978, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0184", "utc": "2026-09-12T23:18:53.273836+00:00"}
+2026-09-12T23:18:53.4718413Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "function": "custody", "monotonic": 1471.8200805, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0218", "utc": "2026-09-12T23:18:53.273858+00:00"}
+2026-09-12T23:18:53.4720837Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "function": "_serve", "monotonic": 1471.820095522, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0426", "utc": "2026-09-12T23:18:53.273873+00:00"}
+2026-09-12T23:18:53.4722565Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "function": "serve_setup", "monotonic": 1471.820108541, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "EXCEPTION_AT_SOURCE_L0417", "utc": "2026-09-12T23:18:53.273887+00:00"}
+2026-09-12T23:18:53.4724433Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "errno": null, "errno_name": null, "euid": 0, "exception": "ValueError", "last_stage": "SOURCE_L0184", "monotonic": 1471.820137974, "pid": 2098, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "UNHANDLED_FAILURE", "utc": "2026-09-12T23:18:53.273916+00:00"}
+2026-09-12T23:18:53.4726168Z PROOF6_D04_SIGNAL {"acceptance_credit": false, "exception": "ValueError", "kind": "BLOCKED", "schema": "PROOF6_R3H_D04_SIGNAL_V1", "utc": "2026-09-12T23:18:53.273934+00:00"}
+2026-09-12T23:18:53.4727020Z PROOF6_STARTUP_SHELL {"euid": 0, "exit_code": 1, "pid": 2094, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "NATIVE_REAPED", "utc_epoch": "1789255133.280581"}
+2026-09-12T23:18:53.4728337Z PROOF6_STARTUP_DIAGNOSTIC {"acceptance_credit": false, "euid": 0, "monotonic": 1472.014062777, "pid": 2104, "retained_records": 39, "schema": "PROOF6_STARTUP_DIAGNOSTIC_V1", "stage": "FAILURE_INDEPENDENT_REPLAY", "utc": "2026-09-12T23:18:53.467833+00:00"}
+2026-09-12T23:18:53.4729312Z DIAGNOSTIC_RESULT {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","cleanup_exit":1,"acceptance_credit":false,"status_posts":0}
+2026-09-12T23:18:53.4730659Z ##[error]Process completed with exit code 1.
+2026-09-12T23:18:53.4797786Z Cleaning up orphan processes
