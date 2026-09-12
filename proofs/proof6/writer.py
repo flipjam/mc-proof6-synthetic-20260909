@@ -147,8 +147,8 @@ class _Writer:
             urllib.request.ProxyHandler({}), _NoRedirect())
 
     def _check_manifest(self, m):
-        _require(m['contract_commit'] == 'd754156067cf1aa2318e7b04d7fcf47902eb9846'
-                 and m['runtime_variant'] == 'r3h'
+        _require(m['contract_commit'] == '2cb629820e3bd04e7c7edaa2b2364682e4dc5f1b'
+                 and m['runtime_variant'] == 'r3i'
                  and m['revision'] == 3 and m['frozen'] is True
                  and m['repository_id'] == REPO_ID and m['repository'] == REPO
                  and m['ref'] == REF and m['baseline_commit'] == BASELINE

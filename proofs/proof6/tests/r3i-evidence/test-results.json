@@ -1,0 +1,89 @@
+{
+  "acceptance_credit": false,
+  "accepted_R3h_baseline_tests": 404,
+  "build_sha256": "4c47624a97c3c2a62af523bd12ecd5ef95d019ceaf6a5d00e909e3cfb05f69e5",
+  "groups": [
+    {
+      "exit_code": 0,
+      "group": "retained",
+      "seconds": 70.308,
+      "sha256": "def7ad38c433e016349be1941f56d2c68f6510b5524824003e92b9f650a2efca",
+      "tests": 198
+    },
+    {
+      "exit_code": 0,
+      "group": "prior-focused",
+      "seconds": 3.096,
+      "sha256": "fb7f7fce057dc4365dc93986d4940344e7161b45ca9c1da371e07eceef04ae3a",
+      "tests": 68
+    },
+    {
+      "exit_code": 0,
+      "group": "correction",
+      "seconds": 1.01,
+      "sha256": "c74e5c982bef9b895208f0fcac3234ce5d62cc67467fe60a6be619666aa645df",
+      "tests": 20
+    },
+    {
+      "exit_code": 0,
+      "group": "focused",
+      "seconds": 1.966,
+      "sha256": "bca844217be683623b5d055128b0e1328a3c12ef0f3902c01b2e9b4cb1f499f0",
+      "tests": 60
+    },
+    {
+      "exit_code": 0,
+      "group": "bounded",
+      "seconds": 1.895,
+      "sha256": "0f7747dbac452e56ffc83305f82e63b09c426d3d36ee33918b2709a4e06d38ff",
+      "tests": 20
+    },
+    {
+      "exit_code": 0,
+      "group": "startup",
+      "seconds": 2.203,
+      "sha256": "09ceea22f33d839b71aefa272589b54efbfd36307bbc8d83ad96760d9a5be2f5",
+      "tests": 20
+    },
+    {
+      "exit_code": 0,
+      "group": "native-prerequisite",
+      "seconds": 1.825,
+      "sha256": "8805680f7ea490174fa00581ac023ebbddf5e79ad2c950d27c9988c0ba806a0d",
+      "tests": 3
+    },
+    {
+      "exit_code": 0,
+      "group": "native-signal",
+      "seconds": 34.466,
+      "sha256": "71ff47f3dce2b4087252f15d37e689a65524d60ae49807a8d7fea75b567110fa",
+      "tests": 7
+    },
+    {
+      "exit_code": 0,
+      "group": "native-bounded",
+      "seconds": 1.968,
+      "sha256": "70c9ffcda7bb6e0fb7973126206302130025605676c9db53276c5662c598dd4d",
+      "tests": 28
+    },
+    {
+      "exit_code": 0,
+      "group": "native-startup",
+      "seconds": 3.002,
+      "sha256": "959e36b545f846cb563dec4920eb96abbbbae8543ba5b646281da503c4cc2339",
+      "tests": 9
+    },
+    {
+      "exit_code": 0,
+      "group": "inventory",
+      "seconds": 11.238,
+      "sha256": "7aa20ccfa2acbce2b9c3e87558050b937889dbcc8ed3aa056253cae184eb19e6",
+      "tests": 0
+    }
+  ],
+  "hosted_R3i_runs": 0,
+  "plan_sha256": "81926d6ce00e3b36f84404b217b29c22e4224b2f002115382614feb1a42c3617",
+  "result": "PASS",
+  "source_base": "d4d0d448026b9f0dd0728a852d757543b550208e",
+  "tests": 433
+}

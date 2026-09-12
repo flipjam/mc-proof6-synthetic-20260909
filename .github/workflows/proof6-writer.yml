@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   signal_setup:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3h' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3h'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3i' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3i'
       && inputs.proof_operation == '' && inputs.proposal == ''
     runs-on: ubuntu-24.04
     environment: proof6-writer
@@ -35,7 +35,7 @@ jobs:
       run: |
         set -euo pipefail
         test "$RUNNER_ENVIRONMENT" = github-hosted
-        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3h
+        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3i
         git init --quiet .
         git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
         git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -60,7 +60,7 @@ jobs:
         mkdir -m 700 "$root"
         (
           set +e
-          /usr/bin/timeout --signal=KILL 120s /usr/bin/python3 -I -B proofs/proof6/d04_signal.py serve-setup &
+          /usr/bin/python3 -I -B proofs/proof6/d04_signal.py launch-setup &
           native=$!
           printf '%s\n' "$native" > "$root/native.pid"
           wait "$native"
@@ -80,21 +80,28 @@ jobs:
       shell: bash
       run: |
         set -euo pipefail
-        sudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/timeout --signal=KILL 20s /usr/bin/python3 -I -B proofs/proof6/d04_signal.py qualify-setup </dev/null
+        sudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/python3 -I -B proofs/proof6/d04_signal.py launch-peer </dev/null
     - name: Require setup helper completion and both processes reaped
       id: qualified
       if: always() && vars.PROOF6_FROZEN_MANIFEST == ''
       shell: bash
       run: |
-        set -euo pipefail
+        set -uo pipefail
+        set +e
         result=$(sudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/python3 -I -B proofs/proof6/d04_signal.py cleanup-setup)
+        cleanup_exit=$?
         printf '%s\n' "$result"
+        if test "$cleanup_exit" -ne 0; then
+          sudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/python3 -I -B proofs/proof6/d04_signal.py replay-startup
+          exit "$cleanup_exit"
+        fi
+        set -e
         qualification=$(printf '%s\n' "$result" | sed -n 's/^PROOF6_SIGNAL_SETUP_OUTPUT //p')
         test -n "$qualification"
         printf 'qualification=%s\n' "$qualification" >> "$GITHUB_OUTPUT"
   writer:
     needs: signal_setup
-    if: always() && !cancelled() && (needs.signal_setup.result == 'success' || needs.signal_setup.result == 'skipped') && github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3h' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3h'
+    if: always() && !cancelled() && (needs.signal_setup.result == 'success' || needs.signal_setup.result == 'skipped') && github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3i' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3i'
       && inputs.proof_operation != 'D04_CONNECTIVITY_OUTAGE'
     runs-on: ubuntu-24.04
     environment: proof6-writer
@@ -108,7 +115,7 @@ jobs:
       run: |
         set -euo pipefail
         test "$RUNNER_ENVIRONMENT" = github-hosted
-        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3h
+        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3i
         git init --quiet .
         git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
         git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -200,7 +207,7 @@ jobs:
       run: |-
         python3 -B proofs/proof6/actions_runtime.py --prewriter-blocked
   d04_writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3h' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3h'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3i' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3i'
       && inputs.proof_operation == 'D04_CONNECTIVITY_OUTAGE'
     runs-on: ubuntu-24.04
     environment: proof6-writer
@@ -213,7 +220,7 @@ jobs:
       run: |
         set -euo pipefail
         test "$RUNNER_ENVIRONMENT" = github-hosted
-        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3h
+        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3i
         git init --quiet .
         git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
         git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -249,7 +256,7 @@ jobs:
         mkdir -m 700 "$root"
         (
           set +e
-          /usr/bin/timeout --signal=KILL 120s /usr/bin/python3 -I -B proofs/proof6/d04_signal.py serve &
+          /usr/bin/python3 -I -B proofs/proof6/d04_signal.py launch-helper &
           native=$!
           printf '%s\n' "$native" > "$root/native.pid"
           wait "$native"
@@ -308,7 +315,7 @@ jobs:
         # SIGKILL covers the actual runtime and its process group at the deadline.
         set +e
         sudo -n --preserve-env=PROOF6_D04_SETUP_QUALIFICATION,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_JOB,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT,RUNNER_OS,RUNNER_ARCH,ImageOS,ImageVersion \
-          "${deadline[@]}" /usr/bin/python3 -B proofs/proof6/actions_runtime.py </dev/null
+          "${deadline[@]}" /usr/bin/python3 -I -B proofs/proof6/d04_signal.py launch-writer </dev/null
         supervisor_exit=$?
         if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
           if [[ "$supervisor_exit" == 0 ]]; then
@@ -333,5 +340,10 @@ jobs:
       if: always()
       shell: bash
       run: |
-        set -euo pipefail
+        set +e
         sudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/python3 -I -B proofs/proof6/d04_signal.py cleanup
+        cleanup_exit=$?
+        if test "$cleanup_exit" -ne 0; then
+          sudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/python3 -I -B proofs/proof6/d04_signal.py replay-startup
+        fi
+        exit "$cleanup_exit"

@@ -1,0 +1,100 @@
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2661134, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.201385+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.266176, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.201447+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2662217, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.201492+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2663026, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.201573+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.266327, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ARGV_FDS", "utc": "2026-09-12T23:43:54.201597+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2663501, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.201620+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.26638, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ARGV_FDS", "utc": "2026-09-12T23:43:54.201651+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2665992, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.201870+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2666383, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ARGV_FDS", "utc": "2026-09-12T23:43:54.201909+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2667175, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.201988+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2667423, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ARGV_FDS", "utc": "2026-09-12T23:43:54.202013+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.266979, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.202250+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2670045, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ARGV_FDS", "utc": "2026-09-12T23:43:54.202275+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.26703, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.202300+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2670503, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ARGV_FDS", "utc": "2026-09-12T23:43:54.202320+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2671291, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.202400+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2671529, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ARGV_FDS", "utc": "2026-09-12T23:43:54.202423+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2672239, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.202494+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2672474, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ARGV_FDS", "utc": "2026-09-12T23:43:54.202518+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2672725, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.202543+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.267309, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ARGV_FDS", "utc": "2026-09-12T23:43:54.202579+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2673682, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.202639+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2675963, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.202867+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293775.2676285, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-12T23:43:54.202899+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.568469, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "EFFECTIVE_PERMISSIONS", "utc": "2026-09-12T23:43:55.503742+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.5686968, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "EFFECTIVE_PERMISSIONS", "utc": "2026-09-12T23:43:55.503968+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.5687943, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "EFFECTIVE_PERMISSIONS", "utc": "2026-09-12T23:43:55.504065+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.5688811, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "EFFECTIVE_PERMISSIONS", "utc": "2026-09-12T23:43:55.504152+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.5689639, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "EFFECTIVE_PERMISSIONS", "utc": "2026-09-12T23:43:55.504234+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.5690462, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "EFFECTIVE_PERMISSIONS", "utc": "2026-09-12T23:43:55.504317+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.569163, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "RUNNER_HEADER", "utc": "2026-09-12T23:43:55.504434+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.5694668, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "EFFECTIVE_PERMISSIONS", "utc": "2026-09-12T23:43:55.504738+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.5696493, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "RUNNER_HEADER", "utc": "2026-09-12T23:43:55.504920+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.569786, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "RUNNER_HEADER", "utc": "2026-09-12T23:43:55.505057+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 293776.5698865, "pid": 25116, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "EFFECTIVE_PERMISSIONS", "utc": "2026-09-12T23:43:55.505157+00:00"}
+test_end_requires_both_exact_provider_acknowledgments (__main__.ClientSequence.test_end_requires_both_exact_provider_acknowledgments) ... ok
+test_missing_ready_ack_prevents_end_post (__main__.ClientSequence.test_missing_ready_ack_prevents_end_post) ... ok
+test_ready_never_waits_for_provider_ack (__main__.ClientSequence.test_ready_never_waits_for_provider_ack) ... ok
+test_app_environment_in_helper_fails (__main__.Custody.test_app_environment_in_helper_fails) ... ok
+test_argv_exposure_fails (__main__.Custody.test_argv_exposure_fails) ... ok
+test_exact_roles_no_secret_in_receipt (__main__.Custody.test_exact_roles_no_secret_in_receipt) ... ok
+test_helper_hello_rejects_nested_extra_credential_data (__main__.Custody.test_helper_hello_rejects_nested_extra_credential_data) ... ok
+test_inherited_secret_descriptor_fails (__main__.Custody.test_inherited_secret_descriptor_fails) ... ok
+test_readable_output_descriptor_fails (__main__.Custody.test_readable_output_descriptor_fails) ... ok
+test_shared_credential_file_stdin_fails (__main__.Custody.test_shared_credential_file_stdin_fails) ... ok
+test_status_environment_in_writer_fails (__main__.Custody.test_status_environment_in_writer_fails) ... ok
+test_token_ipc_payload_fails (__main__.Custody.test_token_ipc_payload_fails) ... ok
+test_unrecognized_environment_alias_fails (__main__.Custody.test_unrecognized_environment_alias_fails) ... ok
+test_writer_client_has_no_discovery_or_api_path (__main__.Custody.test_writer_client_has_no_discovery_or_api_path) ... ok
+test_eof_or_unsolicited_packet_fails (__main__.Deadline.test_eof_or_unsolicited_packet_fails) ... ok
+test_fifty_second_reserve_required (__main__.Deadline.test_fifty_second_reserve_required) ... ok
+test_live_idle_channel_qualified_and_timeout_restored (__main__.Deadline.test_live_idle_channel_qualified_and_timeout_restored) ... ok
+test_ancillary_descriptor_delivery_and_noncanonical_packet_rejected (__main__.Events.test_ancillary_descriptor_delivery_and_noncanonical_packet_rejected) ... ok
+test_boolean_attempt_rejected (__main__.Events.test_boolean_attempt_rejected) ... ok
+test_duplicate_json_and_oversize_rejected (__main__.Events.test_duplicate_json_and_oversize_rejected) ... ok
+test_duplicate_ready_and_contradictory_end (__main__.Events.test_duplicate_ready_and_contradictory_end) ... ok
+test_early_end_rejected (__main__.Events.test_early_end_rejected) ... ok
+test_end_at_30_seconds_qualified (__main__.Events.test_end_at_30_seconds_qualified) ... ok
+test_end_before_ready_rejected (__main__.Events.test_end_before_ready_rejected) ... ok
+test_exact_run_attempt_runtime_target_context (__main__.Events.test_exact_run_attempt_runtime_target_context) ... ok
+test_failed_fresh_end_rejected (__main__.Events.test_failed_fresh_end_rejected) ... ok
+test_helper_prerequisite_cannot_be_ready (__main__.Events.test_helper_prerequisite_cannot_be_ready) ... ok
+test_malformed_extra_and_missing_fields (__main__.Events.test_malformed_extra_and_missing_fields) ... ok
+test_qualified_ready (__main__.Events.test_qualified_ready) ... ok
+test_socket_packet_truncation_and_eof (__main__.Events.test_socket_packet_truncation_and_eof) ... ok
+test_stale_and_future_ready (__main__.Events.test_stale_and_future_ready) ... ok
+test_unqualified_actual_writer_rejected (__main__.Events.test_unqualified_actual_writer_rejected) ... ok
+test_wrong_actual_pid_rejected (__main__.Events.test_wrong_actual_pid_rejected) ... ok
+test_actual_failure_consumed_without_refund (__main__.Ordering.test_actual_failure_consumed_without_refund) ... ok
+test_ambiguous_consumption_never_claims_unspent (__main__.Ordering.test_ambiguous_consumption_never_claims_unspent) ... ok
+test_context_mismatch_blocks_before_consumption (__main__.Ordering.test_context_mismatch_blocks_before_consumption) ... ok
+test_failed_prerequisite_no_consumption_or_authority (__main__.Ordering.test_failed_prerequisite_no_consumption_or_authority) ... ok
+test_helper_dies_after_handshake_before_consumption (__main__.Ordering.test_helper_dies_after_handshake_before_consumption) ... ok
+test_helper_failure_leaves_unconsumed (__main__.Ordering.test_helper_failure_leaves_unconsumed) ... ok
+test_journal_changes_during_child_blocks (__main__.Ordering.test_journal_changes_during_child_blocks) ... ok
+test_journal_move_during_readiness_blocks (__main__.Ordering.test_journal_move_during_readiness_blocks) ... ok
+test_pass_precedes_consumption_and_actual_isolation (__main__.Ordering.test_pass_precedes_consumption_and_actual_isolation) ... ok
+test_postconsumption_signal_failure_never_refunds (__main__.Ordering.test_postconsumption_signal_failure_never_refunds) ... ok
+test_readiness_between_prerequisite_and_consume (__main__.Ordering.test_readiness_between_prerequisite_and_consume) ... ok
+test_setup_failure_blocks_before_app_diagnostic (__main__.Ordering.test_setup_failure_blocks_before_app_diagnostic) ... ok
+test_unresolved_recovery_cannot_append_before_prerequisite (__main__.Ordering.test_unresolved_recovery_cannot_append_before_prerequisite) ... ok
+test_unspent_can_be_newly_admitted (__main__.Ordering.test_unspent_can_be_newly_admitted) ... ok
+test_broader_or_missing_effective_scope_rejected (__main__.Permissions.test_broader_or_missing_effective_scope_rejected) ... ok
+test_exact_effective_scope (__main__.Permissions.test_exact_effective_scope) ... ok
+test_missing_audited_header_rejected (__main__.Permissions.test_missing_audited_header_rejected) ... ok
+test_unknown_runner_blocked_before_job_payload_read (__main__.Permissions.test_unknown_runner_blocked_before_job_payload_read) ... ok
+test_wrong_job_source_rejected (__main__.Permissions.test_wrong_job_source_rejected) ... ok
+test_120_caps_and_always_cleanup (__main__.Wiring.test_120_caps_and_always_cleanup) ... ok
+test_exact_permissions_and_exclusive_jobs (__main__.Wiring.test_exact_permissions_and_exclusive_jobs) ... ok
+test_exact_token_delivery (__main__.Wiring.test_exact_token_delivery) ... ok
+test_fixed_endpoint_context_and_no_ref_mutation (__main__.Wiring.test_fixed_endpoint_context_and_no_ref_mutation) ... ok
+test_new_read_wiring_does_not_substitute_d03_token (__main__.Wiring.test_new_read_wiring_does_not_substitute_d03_token) ... ok
+test_no_authority_consumer (__main__.Wiring.test_no_authority_consumer) ... ok
+test_no_new_action_secret_or_input (__main__.Wiring.test_no_new_action_secret_or_input) ... ok
+test_plan_requires_live_patch_and_end (__main__.Wiring.test_plan_requires_live_patch_and_end) ... ok
+
+----------------------------------------------------------------------
+Ran 60 tests in 1.434s
+
+OK

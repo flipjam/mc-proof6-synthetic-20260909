@@ -15,8 +15,8 @@ def plan():
     from d03_rejection import POLICY
     from d04_capability import POLICY as D04_POLICY
     from d04_signal import POLICY as SIGNAL_POLICY
-    _require(value['schema'] == 'PROOF6_R3H_PLAN_V1'
-             and value['contract_commit'] == 'd754156067cf1aa2318e7b04d7fcf47902eb9846'
+    _require(value['schema'] == 'PROOF6_R3I_PLAN_V1'
+             and value['contract_commit'] == '2cb629820e3bd04e7c7edaa2b2364682e4dc5f1b'
              and set(value['faults']) == set(FAULTS)
              and value['caller'] == {'login': 'peaklinesoftware', 'id': 265169095}
              and value['max_consumptions_per_operation'] == 1
@@ -31,9 +31,9 @@ def plan():
     rows = value['cases']
     _require(len(rows) == 72 and {r['id'] for r in rows} == expected_ids
              and all(r['disposition'] == 'FRESH' and r['method'] for r in rows)
-             and sum(r['reason'] == 'FRESH_R3H' for r in rows) == 56
+             and sum(r['reason'] == 'FRESH_R3I' for r in rows) == 56
              and sum(r['reason'] == 'NO_VALID_PRIOR_EVIDENCE_SO_FRESH' for r in rows) == 16
-             and value['accounting'] == {'FRESH_R3H':56, 'NO_VALID_PRIOR_EVIDENCE_SO_FRESH':16,
+             and value['accounting'] == {'FRESH_R3I':56, 'NO_VALID_PRIOR_EVIDENCE_SO_FRESH':16,
                                          'inherited':0, 'NOT_APPLICABLE':0, 'total':72}
              and value['workflow_budget'] == {'setup_bootstrap':1, 'ordinary':3, 'fault':4, 'recovery':2, 'total':10}
              and value['recovery']['completion_requests_in_R7'] == 2

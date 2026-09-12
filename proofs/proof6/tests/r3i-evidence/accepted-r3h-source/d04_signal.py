@@ -1,6 +1,5 @@
 """Fixed D04 evidence transport. No authority, journal, or credential fallback."""
 import datetime
-import errno
 import array
 import json
 import math
@@ -19,8 +18,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import d04_capability as capability
 
 REPO = 'flipjam/mc-proof6-synthetic-20260909'
-RUNTIME = 'refs/heads/proof6-writer-runtime-r3i'
-SCHEMA = 'PROOF6_R3I_D04_SIGNAL_V1'
+RUNTIME = 'refs/heads/proof6-writer-runtime-r3h'
+SCHEMA = 'PROOF6_R3H_D04_SIGNAL_V1'
 TOKEN_SLOT = 'PROOF6_D04_STATUS_TOKEN'
 PERMISSIONS = {'Metadata': 'read', 'Statuses': 'write'}
 RUNNER_VERSION = '2.337.0'
@@ -28,7 +27,7 @@ RUNNER_COMMIT = '397b032cbf865e9c3ddfab89d533ec19325e1273'
 WINDOW = 30
 MAX_PACKET = 16384
 CONTROL_BYTES = 4096  # Linux SCM_MAX_FD=253 plus credential/control headers.
-POLICY = {'acceptance_credit': False, 'actual_writer_cap_seconds': 120, 'actual_writer_token': 'no GITHUB_TOKEN; public fixed GETs; existing App Metadata:read only for fixed caller-permission GET', 'audited_provider_runner': {'commit': '397b032cbf865e9c3ddfab89d533ec19325e1273', 'masking': 'verify version/commit in bounded header BEFORE reading masked startup job payload', 'version': '2.337.0'}, 'canary_evidence': 'a272b335e884e88ddc88155f5bd1691d1a647606', 'canary_run': 34715785446, 'canary_source': '2b7d0fa62e41bc500f6bf2dc5c540910501cabc3', 'context': 'proof6/d04-signal/<run_id>/1/<runtime_sha>', 'effective_permissions': {'Metadata': 'read', 'Statuses': 'write'}, 'end': '30 seconds after READY; fresh actual writer recheck; ordered local END', 'helper_alarm_seconds': 105, 'helper_job': 'd04_writer', 'helper_permissions': {'statuses': 'write'}, 'ipc': 'fixed AF_UNIX SOCK_SEQPACKET; bounded 4096-byte ancillary reception, close all received SCM_RIGHTS, reject all control/truncation; completion enables SO_PASSCRED and requires control-free EOF plus POLLRDHUP, rejecting every trailing packet', 'ipc_namespace_limit': 'Pathname AF_UNIX; connected before unshare. Offline custody/IPC models do not attest a hosted cross-netns run; local WSL CLONE_NEWNET denied errno 13.', 'native_helper_cap_seconds': 120, 'normal_permissions': {'actions': 'read', 'contents': 'read'}, 'observer_policy': 'Poll full statuses for exact runtime target/context. Require READY pending, END success, exact binding/PID/target_url and creator github-actions[bot] id 41898282; retain REST timestamps/IDs and in_progress observations. Final credit requires exactly the two HTTP-201 status IDs in trusted helper receipts, matching actual writer READY/END and the intervening ordinary PATCH. Extra/forged/ambiguous statuses lose credit; shared bot identity alone does not authenticate the origin job.', 'preconsumption': 'isolation prerequisite, helper custody/effective permissions, target/context GET, peer handshake, unchanged journal reread', 'preconsumption_remaining_helper_seconds': 50, 'provider_timeout_seconds': 5, 'ready': 'actual writer unshare and all accepted predicates qualified', 'schema': 'PROOF6_R3I_D04_SIGNAL_V1', 'setup': {'D04_consumption': False, 'acceptance_credit': False, 'actual_isolation': False, 'authority_or_journal_mutation': False, 'cleanup_entry': 'cleanup-setup', 'helper_entry': 'serve-setup', 'job': 'signal_setup', 'peer_entry': 'qualify-setup', 'permissions': {'Metadata': 'read', 'Statuses': 'write'}, 'required_before_freeze': 'S1 requires isolation prerequisite, exact bound signal setup result with both processes reaped, and existing App authentication', 'same_audit_custody_ipc': True, 'status_posts': 0}, 'target': 'exact frozen runtime commit', 'verification_limit': 'GET and effective grant do not prove future POST success or live propagation; independent disposition required before freeze; post-consumption failure permanently spends D04; public GET rate limits and time spent confirming CONSUMED can still exhaust the remaining window', 'launch_environment': {'method': 'fixed-role os.execve environment before existing initial-env custody audit', 'roles': ['helper', 'setup-helper', 'setup-peer', 'writer'], 'wrong_credential_delivery': 'reject before filtering', 'credential_argv_ipc_files': False, 'new_permissions': False, 'retained_startup_diagnostics': 'fixed stage, PID, euid, monotonic/UTC, bounded exception/errno; failure-independent fixed log replay'}}
+POLICY = {'acceptance_credit': False, 'actual_writer_cap_seconds': 120, 'actual_writer_token': 'no GITHUB_TOKEN; public fixed GETs; existing App Metadata:read only for fixed caller-permission GET', 'audited_provider_runner': {'commit': '397b032cbf865e9c3ddfab89d533ec19325e1273', 'masking': 'verify version/commit in bounded header BEFORE reading masked startup job payload', 'version': '2.337.0'}, 'canary_evidence': 'a272b335e884e88ddc88155f5bd1691d1a647606', 'canary_run': 34715785446, 'canary_source': '2b7d0fa62e41bc500f6bf2dc5c540910501cabc3', 'context': 'proof6/d04-signal/<run_id>/1/<runtime_sha>', 'effective_permissions': {'Metadata': 'read', 'Statuses': 'write'}, 'end': '30 seconds after READY; fresh actual writer recheck; ordered local END', 'helper_alarm_seconds': 105, 'helper_job': 'd04_writer', 'helper_permissions': {'statuses': 'write'}, 'ipc': 'fixed AF_UNIX SOCK_SEQPACKET; bounded 4096-byte ancillary reception, close all received SCM_RIGHTS, reject all control/truncation; completion enables SO_PASSCRED and requires control-free EOF plus POLLRDHUP, rejecting every trailing packet', 'native_helper_cap_seconds': 120, 'normal_permissions': {'actions': 'read', 'contents': 'read'}, 'preconsumption': 'isolation prerequisite, helper custody/effective permissions, target/context GET, peer handshake, unchanged journal reread', 'preconsumption_remaining_helper_seconds': 50, 'provider_timeout_seconds': 5, 'ready': 'actual writer unshare and all accepted predicates qualified', 'schema': 'PROOF6_R3H_D04_SIGNAL_V1', 'target': 'exact frozen runtime commit', 'verification_limit': 'GET and effective grant do not prove future POST success or live propagation; independent disposition required before freeze; post-consumption failure permanently spends D04; public GET rate limits and time spent confirming CONSUMED can still exhaust the remaining window', 'observer_policy': 'Poll full statuses for exact runtime target/context. Require READY pending, END success, exact binding/PID/target_url and creator github-actions[bot] id 41898282; retain REST timestamps/IDs and in_progress observations. Final credit requires exactly the two HTTP-201 status IDs in trusted helper receipts, matching actual writer READY/END and the intervening ordinary PATCH. Extra/forged/ambiguous statuses lose credit; shared bot identity alone does not authenticate the origin job.', 'ipc_namespace_limit': 'Pathname AF_UNIX; connected before unshare. Offline custody/IPC models do not attest a hosted cross-netns run; local WSL CLONE_NEWNET denied errno 13.', 'setup': {'job': 'signal_setup', 'helper_entry': 'serve-setup', 'peer_entry': 'qualify-setup', 'cleanup_entry': 'cleanup-setup', 'permissions': {'Metadata': 'read', 'Statuses': 'write'}, 'same_audit_custody_ipc': True, 'status_posts': 0, 'actual_isolation': False, 'authority_or_journal_mutation': False, 'D04_consumption': False, 'acceptance_credit': False, 'required_before_freeze': 'S1 requires isolation prerequisite, exact bound signal setup result with both processes reaped, and existing App authentication'}}
 
 
 def require(value):
@@ -77,34 +76,6 @@ def directory(b):
 def receipt(kind, **data):
     print('PROOF6_D04_SIGNAL ' + json.dumps(dict(data, schema=SCHEMA, kind=kind, utc=utc()),
                                          sort_keys=True, allow_nan=False), flush=True)
-
-
-STARTUP_STAGES = {'ENTRY', 'LAUNCH_ENVIRONMENT', 'LAUNCH_EXEC', 'BINDING',
-    'CUSTODY_ENVIRONMENT', 'CUSTODY_ARGV_FDS', 'WORKER_ANCESTRY', 'WORKER_LOG_SOURCE',
-    'RUNNER_HEADER', 'EFFECTIVE_PERMISSIONS', 'ROOT_MODE', 'SOCKET_CREATE',
-    'SOCKET_BIND', 'SOCKET_LISTEN', 'IPC_READY', 'PEER_QUALIFICATION', 'REAPING'}
-_STARTUP_STAGE = 'ENTRY'
-
-
-def startup_stage(stage):
-    global _STARTUP_STAGE
-    require(stage in STARTUP_STAGES)
-    _STARTUP_STAGE = stage
-    receipt('STARTUP_STAGE', stage=stage, pid=os.getpid(), euid=getattr(os, 'geteuid', lambda: None)(),
-            monotonic=time.monotonic(), acceptance_credit=False)
-
-
-def startup_failure(error):
-    number = getattr(error, 'errno', None)
-    number = number if type(number) is int and 0 <= number <= 4096 else None
-    names = {'ValueError', 'KeyError', 'TypeError', 'OSError', 'PermissionError',
-             'FileNotFoundError', 'FileExistsError', 'TimeoutError',
-             'ProcessLookupError', 'UnicodeDecodeError', 'JSONDecodeError',
-             'BrokenPipeError', 'ConnectionResetError'}
-    name = type(error).__name__
-    receipt('BLOCKED', stage=_STARTUP_STAGE, exception=name if name in names else 'OTHER_EXCEPTION',
-            errno=number, errno_name=errno.errorcode.get(number), pid=os.getpid(),
-            euid=getattr(os, 'geteuid', lambda: None)(), monotonic=time.monotonic(), acceptance_credit=False)
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -208,42 +179,7 @@ WRITER_ENV = {'GITHUB_JOB', 'GITHUB_RUN_NUMBER', 'GITHUB_ACTOR', 'GITHUB_ACTOR_I
     'PROOF6_APP_SLUG', 'PROOF6_FROZEN_MANIFEST', 'PROOF6_D04_SETUP_QUALIFICATION'}
 
 
-def launch_environment(role, initial):
-    """Fixed execution-path environment; never weaken the later initial-env audit."""
-    require(role in ('helper', 'setup-helper', 'setup-peer', 'writer'))
-    helper = role in ('helper', 'setup-helper')
-    allowed = PUBLIC_ENV | SYSTEM_ENV | ({TOKEN_SLOT} if helper else
-                                         (WRITER_ENV if role == 'writer' else set()))
-    # Reject wrong credentials BEFORE filtering. Scrubbing cross-delivery is not
-    # custody. The helper launch path never receives an App credential; peer and
-    # writer launch paths never receive the status credential, even empty.
-    require(TOKEN_SLOT in initial and bool(initial[TOKEN_SLOT]) if helper else TOKEN_SLOT not in initial)
-    require(not any((k.startswith('PROOF6_APP') and k not in (WRITER_ENV if role == 'writer' else set()))
-                    or k in ('GH_TOKEN', 'PROOF6_D03_JOB_TOKEN')
-                    or (k == 'PROOF6_FROZEN_MANIFEST' and role != 'writer') for k in initial))
-    return {k: v for k, v in initial.items() if k in allowed}
-
-
-def launch(role):
-    # Same PID exec, no token argv/IPC/files, no caller-selected command. The
-    # helper supervisor still records timeout's PID and reaps it exactly once.
-    startup_stage('LAUNCH_ENVIRONMENT')
-    env = launch_environment(role, os.environ)
-    binding()
-    if role in ('helper', 'setup-helper', 'setup-peer'):
-        mode = {'helper': 'serve', 'setup-helper': 'serve-setup', 'setup-peer': 'qualify-setup'}[role]
-        argv = ['/usr/bin/timeout', '--signal=KILL', '20s' if role == 'setup-peer' else '120s',
-                '/usr/bin/python3', '-I', '-B', 'proofs/proof6/d04_signal.py', mode]
-    else:
-        require(role == 'writer')
-        # The workflow's existing 120-second supervisor remains outside this exec.
-        argv = ['/usr/bin/python3', '-B', 'proofs/proof6/actions_runtime.py']
-    startup_stage('LAUNCH_EXEC')
-    os.execve(argv[0], argv, env)
-
-
 def custody_values(helper, initial_env, argv, descriptors, setup=False):
-    startup_stage('CUSTODY_ENVIRONMENT')
     allowed = PUBLIC_ENV | SYSTEM_ENV | ({TOKEN_SLOT} if helper else (set() if setup else WRITER_ENV))
     require(set(initial_env) <= allowed)
     require(TOKEN_SLOT in initial_env if helper else TOKEN_SLOT not in initial_env)
@@ -252,7 +188,6 @@ def custody_values(helper, initial_env, argv, descriptors, setup=False):
     if setup:
         expected = [b'/usr/bin/python3', b'-I', b'-B', b'proofs/proof6/d04_signal.py',
                     b'serve-setup' if helper else b'qualify-setup']
-    startup_stage('CUSTODY_ARGV_FDS')
     require(argv == expected and set(descriptors) == {0, 1, 2})
     require(descriptors[0] == ('/dev/null', os.O_RDONLY))
     for fd in (1, 2):
@@ -393,7 +328,6 @@ class Client:
 
 
 def masked_worker_record(stream):
-    startup_stage('RUNNER_HEADER')
     # Do not read the job payload until its actual provider build matches the
     # audited secret-mask-before-Trace.Info implementation. Unknown builds block.
     prefix = b''
@@ -412,7 +346,6 @@ def masked_worker_record(stream):
 
 
 def _worker_log():
-    startup_stage('WORKER_ANCESTRY')
     # Only our actual Runner.Worker ancestor and its already-open diagnostic.
     # No caller path, environment override, retained Actions log or API token.
     pid = os.getppid()
@@ -430,7 +363,6 @@ def _worker_log():
                 if target.parent == expected and re.fullmatch(r'Worker_[A-Za-z0-9_.-]+\.log', target.name):
                     logs.append(fd)
             require(len(logs) == 1)
-            startup_stage('WORKER_LOG_SOURCE')
             with logs[0].open('rb') as stream:
                 return masked_worker_record(stream)
         parents = re.findall(r'^PPid:\s+(\d+)$', (proc / 'status').read_text(), re.M)
@@ -440,7 +372,6 @@ def _worker_log():
 
 
 def _permission_evidence(raw, binding, setup=False):
-    startup_stage('EFFECTIVE_PERMISSIONS')
     # Runner initializes its secret masker BEFORE recording this startup message.
     # Never retain, hash, print or return the whole diagnostic/message. Only the
     # non-secret allowlist below enters protected evidence; no token inspection.
@@ -491,7 +422,6 @@ def _serve(setup):
     # the App-token action. It never imports writer/journal/admission or reads
     # the writer's environment or credential stores. Its sole ancestor inspection
     # is the fixed provider-masked Worker startup diagnostic for permissions.
-    startup_stage('BINDING')
     b = binding()
     custody(True, setup)
     require(not any(k.startswith('PROOF6_APP') or k in ('GH_TOKEN', 'PROOF6_D03_JOB_TOKEN',
@@ -499,7 +429,6 @@ def _serve(setup):
     token = os.environ.pop(TOKEN_SLOT)
     require(token and token not in '\0'.join(sys.argv))
     permissions = _permission_evidence(_worker_log(), b, setup) if setup else _permission_evidence(_worker_log(), b)
-    startup_stage('ROOT_MODE')
     root = directory(b)
     require(root.is_dir() and root.stat().st_uid == 0 and root.stat().st_mode & 0o077 == 0)
     # Exact startup identity/effective permissions are read before the workflow
@@ -516,17 +445,13 @@ def _serve(setup):
     signal.signal(signal.SIGTERM, deadline)
     expires = time.monotonic() + 105
     signal.alarm(105)
-    startup_stage('SOCKET_CREATE')
     with socket.socket(socket.AF_UNIX, socket.SOCK_SEQPACKET) as server:
-        startup_stage('SOCKET_BIND')
         server.bind(str(root / 'events.sock'))
-        startup_stage('SOCKET_LISTEN')
         server.listen(1); server.settimeout(90)
         marker = {'schema': SCHEMA, 'pid': os.getpid(), 'binding': b,
                   'permissions': PERMISSIONS, 'provider_preflight': preflight,
                   'deadline': expires}
         (root / 'started.json').write_bytes(canonical(marker))
-        startup_stage('IPC_READY')
         receipt('HELPER_STARTED', **marker, permission_evidence=permissions, acceptance_credit=False)
         conn, _ = server.accept()
         with conn:
@@ -568,7 +493,6 @@ def _serve(setup):
 
 
 def cleanup(setup=False):
-    startup_stage('REAPING')
     b = binding(); root = directory(b)
     require(root.is_dir() and root.stat().st_uid == 0)
     # Always execute after the actual writer. A live helper now represents a
@@ -609,21 +533,7 @@ def cleanup(setup=False):
         print('PROOF6_SIGNAL_SETUP_OUTPUT ' + canonical(value).decode(), flush=True)
 
 
-def replay_startup():
-    """Failure-independent replay of the fixed helper's bounded structured log."""
-    root = directory(binding())
-    require(root.is_dir() and root.stat().st_uid == 0)
-    raw = (root / 'helper.log').read_bytes()
-    require(len(raw) <= 262144)
-    for line in raw.splitlines():
-        if line.startswith(b'PROOF6_D04_SIGNAL '):
-            value = json.loads(line[len(b'PROOF6_D04_SIGNAL '):], object_pairs_hook=unique)
-            require(value['schema'] == SCHEMA)
-            print('PROOF6_D04_SIGNAL ' + canonical(value).decode('ascii'), flush=True)
-
-
 def qualify_setup():
-    startup_stage('PEER_QUALIFICATION')
     b = binding()
     custody(False, True)
     with socket.socket(socket.AF_UNIX, socket.SOCK_SEQPACKET) as conn:
@@ -663,13 +573,9 @@ def setup_qualification(raw):
 if __name__ == '__main__':
     try:
         require(len(sys.argv) == 2 and sys.argv[1] in (
-            'serve', 'cleanup', 'serve-setup', 'qualify-setup', 'cleanup-setup',
-            'launch-helper', 'launch-setup', 'launch-peer', 'launch-writer', 'replay-startup'))
+            'serve', 'cleanup', 'serve-setup', 'qualify-setup', 'cleanup-setup'))
         {'serve': serve, 'cleanup': cleanup, 'serve-setup': serve_setup,
-         'qualify-setup': qualify_setup, 'cleanup-setup': lambda: cleanup(True),
-         'launch-helper': lambda: launch('helper'), 'launch-setup': lambda: launch('setup-helper'),
-         'launch-peer': lambda: launch('setup-peer'), 'launch-writer': lambda: launch('writer'),
-         'replay-startup': replay_startup}[sys.argv[1]]()
+         'qualify-setup': qualify_setup, 'cleanup-setup': lambda: cleanup(True)}[sys.argv[1]]()
     except BaseException as error:
-        startup_failure(error)
+        receipt('BLOCKED', exception=type(error).__name__, acceptance_credit=False)
         sys.exit(1)

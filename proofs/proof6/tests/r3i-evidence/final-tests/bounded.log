@@ -1,0 +1,25 @@
+test_custody_failure_blocks (__main__.Bootstrap.test_custody_failure_blocks) ... ok
+test_extra_credential_or_wrong_types_block (__main__.Bootstrap.test_extra_credential_or_wrong_types_block) ... ok
+test_missing_isolation_setup_still_blocks (__main__.Bootstrap.test_missing_isolation_setup_still_blocks) ... ok
+test_missing_signal_setup_blocks_before_App_diagnostic (__main__.Bootstrap.test_missing_signal_setup_blocks_before_App_diagnostic) ... ok
+test_same_or_invalid_process_identity_blocks (__main__.Bootstrap.test_same_or_invalid_process_identity_blocks) ... ok
+test_status_POST_or_acceptance_credit_blocks (__main__.Bootstrap.test_status_POST_or_acceptance_credit_blocks) ... ok
+test_unknown_runner_blocks (__main__.Bootstrap.test_unknown_runner_blocks) ... ok
+test_unknown_runner_commit_blocks (__main__.Bootstrap.test_unknown_runner_commit_blocks) ... ok
+test_unreaped_helper_or_producer_blocks (__main__.Bootstrap.test_unreaped_helper_or_producer_blocks) ... ok
+test_valid_bound_setup_receipt_bootstraps_without_mutation (__main__.Bootstrap.test_valid_bound_setup_receipt_bootstraps_without_mutation) ... ok
+test_wrong_effective_permission_blocks (__main__.Bootstrap.test_wrong_effective_permission_blocks) ... ok
+test_wrong_run_attempt_runtime_or_target_blocks (__main__.Bootstrap.test_wrong_run_attempt_runtime_or_target_blocks) ... ok
+test_D04_workflow_job_byte_semantics_unchanged (__main__.Scope.test_D04_workflow_job_byte_semantics_unchanged) ... ok
+test_only_authorized_normal_job_wiring_changed (__main__.Scope.test_only_authorized_normal_job_wiring_changed) ... ok
+test_original_safety_modules_byte_identical_to_partial (__main__.Scope.test_original_safety_modules_byte_identical_to_partial) ... ok
+test_plan_all_rows_and_campaign_except_S1_unchanged (__main__.Scope.test_plan_all_rows_and_campaign_except_S1_unchanged) ... ok
+test_setup_exact_permission_and_no_App_action (__main__.Scope.test_setup_exact_permission_and_no_App_action) ... ok
+test_setup_gate_and_frozen_recovery_behavior (__main__.Scope.test_setup_gate_and_frozen_recovery_behavior) ... ok
+test_setup_source_no_authority_or_acceptance_path (__main__.Scope.test_setup_source_no_authority_or_acceptance_path) ... ok
+test_setup_token_delivered_only_to_helper_step (__main__.Scope.test_setup_token_delivered_only_to_helper_step) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 1.406s
+
+OK

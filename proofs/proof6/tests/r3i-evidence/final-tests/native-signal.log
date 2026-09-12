@@ -1,0 +1,12 @@
+test_helper_app_receipt_fails_before_readiness (__main__.Native) ... ok
+test_inherited_descriptor_fails_and_helper_reaped (__main__.Native) ... ok
+test_missing_end_never_completes (__main__.Native) ... ok
+test_production_cleanup_terminates_and_confirms_reaping (__main__.Native) ... ok
+test_provider_preflight_failure_blocks_startup (__main__.Native) ... ok
+test_ready_end_30_seconds_custody_and_reaping (__main__.Native) ... ok
+test_writer_status_receipt_fails_and_helper_reaped (__main__.Native) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 34.114s
+
+OK

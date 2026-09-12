@@ -1,0 +1,70 @@
+{
+  "source": "d4d0d448026b9f0dd0728a852d757543b550208e",
+  "tests": 404,
+  "result": "PASS",
+  "groups": [
+    {
+      "group": "retained",
+      "tests": 198,
+      "exit_code": 0,
+      "sha256": "f7b94bfe859dd3ca389b52fb783b85d759dda01bf16565fbd44f8ba8d56a8016",
+      "seconds": 72.107
+    },
+    {
+      "group": "prior-focused",
+      "tests": 68,
+      "exit_code": 0,
+      "sha256": "20de225b63651512aa3ad75aae27a7dea833cfffba498faa108e925eebee5256",
+      "seconds": 3.336
+    },
+    {
+      "group": "correction",
+      "tests": 20,
+      "exit_code": 0,
+      "sha256": "69634208887079bb849c5892a76ee79f92dd9424f0c6dabddd279089858b3abf",
+      "seconds": 1.083
+    },
+    {
+      "group": "focused",
+      "tests": 60,
+      "exit_code": 0,
+      "sha256": "70ca76cc890e60fbebce7bbc7b5294bd9ee03fe494b7a508b82bebc04da85dce",
+      "seconds": 2.048
+    },
+    {
+      "group": "bounded",
+      "tests": 20,
+      "exit_code": 0,
+      "sha256": "8df379b143596c547ebf3c9ffa163c03b135ca252857a123f9ceff2754b96719",
+      "seconds": 1.977
+    },
+    {
+      "group": "native-prerequisite",
+      "tests": 3,
+      "exit_code": 0,
+      "sha256": "c90a3dab8e83cbb4b945bcd2cb069a730a4f8bd1d58d4032219fcc7c3a347439",
+      "seconds": 1.874
+    },
+    {
+      "group": "native-signal",
+      "tests": 7,
+      "exit_code": 0,
+      "sha256": "c03ee8291e772184e30b621a69d0b1d605f88fa920682f3adcb4ab075e382fce",
+      "seconds": 34.518
+    },
+    {
+      "group": "native-bounded",
+      "tests": 28,
+      "exit_code": 0,
+      "sha256": "e13c9a170254d46b32774ae363173dd21a96b3e647491e19bbbda5cf40e39358",
+      "seconds": 2.034
+    },
+    {
+      "group": "inventory",
+      "tests": 0,
+      "exit_code": 0,
+      "sha256": "aeb7e97764f463b630b586c9cfca7b0073847f9753eccf50418ef13738a8464a",
+      "seconds": 8.677
+    }
+  ]
+}

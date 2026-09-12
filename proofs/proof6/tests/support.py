@@ -8,15 +8,19 @@ sys.path.insert(0, str(ROOT / 'proofs/proof6'))
 legacy = types.ModuleType('legacy')
 raw = Path(__file__).with_name('legacy_r3e.py').read_text()
 # Identity-only substitution of fixture inputs; no production monkeypatch.
-raw = raw.replace('proof6-operation-journal-r3e', 'proof6-operation-journal-r3h')
-raw = raw.replace('proof6-writer-runtime-r3e', 'proof6-writer-runtime-r3h')
-raw = raw.replace("'r3e'", "'r3h'")
+raw = raw.replace('proof6-operation-journal-r3e', 'proof6-operation-journal-r3i')
+raw = raw.replace('proof6-writer-runtime-r3e', 'proof6-writer-runtime-r3i')
+raw = raw.replace("'r3e'", "'r3i'")
 raw = raw.replace('34b940e0537f57e5fa225768a55214bd3d3c5340',
-                  'd754156067cf1aa2318e7b04d7fcf47902eb9846')
+                  '2cb629820e3bd04e7c7edaa2b2364682e4dc5f1b')
 # Fixed clock fixture only: original assertions are unchanged.
 raw = raw.replace('side_effect=[0,115,116]', 'side_effect=[0,0,30,30]')
 raw = raw.replace("subprocess.check_output(['git', '-C', str(ROOT), 'show', w.BASELINE + ':history.json'])",
                   "(ROOT / 'proofs/proof6/tests/baseline-history.json').read_bytes()")
+# Bind the retained native-cap assertion to the fixed exec launcher. The final
+# writer argv and real outer timeout/custody are separately tested natively.
+raw = raw.replace('"${deadline[@]}" /usr/bin/python3 -B proofs/proof6/actions_runtime.py',
+                  '"${deadline[@]}" /usr/bin/python3 -I -B proofs/proof6/d04_signal.py launch-writer')
 sys.argv.insert(1, str(ROOT))
 exec(compile(raw, 'legacy_r3e.py (identity adapter)', 'exec'), legacy.__dict__)
 

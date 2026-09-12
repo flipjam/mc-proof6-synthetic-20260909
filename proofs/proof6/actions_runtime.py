@@ -15,7 +15,7 @@ import d04_capability
 import d04_prerequisite
 import d04_signal
 
-RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3h'
+RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3i'
 WORKFLOW = '.github/workflows/proof6-writer.yml'
 ENVIRONMENT = 'proof6-writer'
 CONCURRENCY = 'proof6-authority-writer-r3'
@@ -64,7 +64,7 @@ def runtime_context():
     for path, digest in json.loads(build_raw).items():
         _require(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest)
     plan_digest = proof_control.plan()[1]
-    _require(plan_digest == '804a7c48581ddbb6910e69860a4a982b9d3cedbd1937ba6b32a2606f9536adc0')
+    _require(plan_digest == '81926d6ce00e3b36f84404b217b29c22e4224b2f002115382614feb1a42c3617')
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
@@ -76,13 +76,13 @@ def runtime_context():
                  'protected_branches': False, 'custom_branch_policies': True})
     _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
     policy = policies['branch_policies'][0]
-    _require(policy['name'] == 'proof6-writer-runtime-r3h' and policy['type'] == 'branch')
+    _require(policy['name'] == 'proof6-writer-runtime-r3i' and policy['type'] == 'branch')
     return ref, env, policy, hashlib.sha256(build_raw).hexdigest(), plan_digest
 
 
 def guard(manifest):
     # Bootstrap never weakens the final manifest guard on normal/proof requests.
-    _require(manifest is not None and manifest['runtime_variant'] == 'r3h')
+    _require(manifest is not None and manifest['runtime_variant'] == 'r3i')
     ref, env, policy, build_digest, plan_digest = runtime_context()
     base = 'repos/' + REPO
     expected_view = manifest['runtime']['ruleset']
@@ -94,7 +94,7 @@ def guard(manifest):
     if 'current_user_can_bypass' in rule:
         _require(rule['current_user_can_bypass'] == 'never')
     rule = visible(rule)
-    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3h'
+    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3i'
              and policy['type'] == 'branch')
     runtime = {
         'ref': RUNTIME_REF, 'sha': ref['object']['sha'], 'workflow': WORKFLOW,
