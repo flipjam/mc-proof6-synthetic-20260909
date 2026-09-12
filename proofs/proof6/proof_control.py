@@ -13,7 +13,8 @@ def plan():
     raw = PLAN_PATH.read_bytes()
     value = json.loads(raw)
     from d03_rejection import POLICY
-    _require(value['schema'] == 'PROOF6_R3F_PLAN_V1'
+    from d04_capability import POLICY as D04_POLICY
+    _require(value['schema'] == 'PROOF6_R3G_PLAN_V1'
              and value['contract_commit'] == '2f93acf267b99207c7f8220cb6246787a98806ec'
              and set(value['faults']) == set(FAULTS)
              and value['caller'] == {'login': 'peaklinesoftware', 'id': 265169095}
@@ -29,13 +30,18 @@ def plan():
     rows = value['cases']
     _require(len(rows) == 72 and {r['id'] for r in rows} == expected_ids
              and all(r['disposition'] == 'FRESH' and r['method'] for r in rows)
-             and sum(r['reason'] == 'FRESH_R3F' for r in rows) == 56
+             and sum(r['reason'] == 'FRESH_R3G' for r in rows) == 56
              and sum(r['reason'] == 'NO_VALID_PRIOR_EVIDENCE_SO_FRESH' for r in rows) == 16
-             and value['accounting'] == {'FRESH_R3F':56, 'NO_VALID_PRIOR_EVIDENCE_SO_FRESH':16,
+             and value['accounting'] == {'FRESH_R3G':56, 'NO_VALID_PRIOR_EVIDENCE_SO_FRESH':16,
                                          'inherited':0, 'NOT_APPLICABLE':0, 'total':72}
              and value['workflow_budget'] == {'setup_bootstrap':1, 'ordinary':3, 'fault':4, 'recovery':2, 'total':10}
              and value['recovery']['completion_requests_in_R7'] == 2
              and value['recovery']['caller_selectors'] == [])
+    groups = set(value['workflow_runs']) | set(value['external_evidence_groups'])
+    _require(value['d04_capability'] == D04_POLICY
+             and len(value['workflow_runs']) == value['workflow_budget']['total']
+             and all(row['evidence_groups'] and set(row['evidence_groups']) <= groups for row in rows)
+             and value['diagnostic_provenance']['acceptance_credit'] is False)
     return value, hashlib.sha256(raw).hexdigest()
 
 def request(inputs):

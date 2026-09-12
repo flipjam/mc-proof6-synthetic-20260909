@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3f' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3f'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3g' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3g'
     runs-on: ubuntu-24.04
     environment: proof6-writer
     timeout-minutes: 10
@@ -33,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$RUNNER_ENVIRONMENT" = github-hosted
-          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3f
+          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3g
           git init --quiet .
           git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
           git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -43,6 +43,18 @@ jobs:
           test -x /usr/bin/timeout
           test -x /usr/bin/python3
           /usr/bin/sudo -n /usr/bin/true
+      - name: Qualify fixed D04 capability before setup token
+        id: d04-setup
+        if: vars.PROOF6_FROZEN_MANIFEST == ''
+        shell: bash
+        run: |
+          set -uo pipefail
+          set +e
+          qualification=$(sudo -n --preserve-env=RUNNER_ENVIRONMENT,RUNNER_OS,RUNNER_ARCH,ImageOS,ImageVersion /usr/bin/python3 -I -B proofs/proof6/d04_prerequisite.py)
+          prerequisite_exit=$?
+          printf 'PROOF6_D04_PREREQUISITE %s\n' "$qualification"
+          test "$prerequisite_exit" = 0 || exit "$prerequisite_exit"
+          printf 'qualification=%s\n' "$qualification" >> "$GITHUB_OUTPUT"
       - name: Create exact installation token
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
@@ -75,6 +87,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           PROOF6_D03_JOB_TOKEN: ${{ github.token }}
           PROOF6_OPERATION: ${{ inputs.proof_operation }}
+          PROOF6_D04_SETUP_QUALIFICATION: ${{ steps.d04-setup.outputs.qualification }}
           PROOF6_APP_TOKEN: ${{ steps.app-token.outputs.token }}
           PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
           PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
@@ -87,8 +100,18 @@ jobs:
           fi
           # Default timeout process group; never --foreground or --preserve-status.
           # SIGKILL covers the actual runtime and its process group at the deadline.
-          sudo -n --preserve-env=GH_TOKEN,PROOF6_D03_JOB_TOKEN,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT \
+          set +e
+          sudo -n --preserve-env=PROOF6_D04_SETUP_QUALIFICATION,GH_TOKEN,PROOF6_D03_JOB_TOKEN,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT,RUNNER_OS,RUNNER_ARCH,ImageOS,ImageVersion \
             "${deadline[@]}" /usr/bin/python3 -B proofs/proof6/actions_runtime.py
+          supervisor_exit=$?
+          if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
+            if [[ "$supervisor_exit" == 0 ]]; then
+              printf 'PROOF6_D04_SUPERVISOR {"phase":"SUPERVISOR_COMPLETED","exit_code":0}\n'
+            else
+              printf 'PROOF6_D04_SUPERVISOR {"phase":"SUPERVISOR_FAILED","exit_code":%s}\n' "$supervisor_exit"
+            fi
+          fi
+          test "$supervisor_exit" = 0 || exit "$supervisor_exit"
           # Completion credit requires successful supervisor exit as well as END.
           if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
             echo PROOF6_D04_NATIVE_DEADLINE_COMPLETED

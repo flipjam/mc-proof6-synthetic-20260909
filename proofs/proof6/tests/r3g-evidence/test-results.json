@@ -1,0 +1,26 @@
+[
+  {
+    "elapsed_seconds": 66.605,
+    "exit_code": 0,
+    "label": "retained",
+    "log": "retained-final.log",
+    "sha256": "74e8a6a89d205d2178912f981e22f95274c603f7a2ea9ce0260a3384926cf9b8",
+    "test_count": 198
+  },
+  {
+    "elapsed_seconds": 3.48,
+    "exit_code": 0,
+    "label": "focused",
+    "log": "focused-final.log",
+    "sha256": "1c520ffb654727f29d58027e213a1b5866c36386dda65e3b0f1b832b7fae05da",
+    "test_count": 68
+  },
+  {
+    "elapsed_seconds": 1.721,
+    "exit_code": 0,
+    "label": "native",
+    "log": "native-final.log",
+    "sha256": "f48f0ce7f221cc593ded88c2ca30e7165901ab0da02d139c2e06f15835957c75",
+    "test_count": 3
+  }
+]

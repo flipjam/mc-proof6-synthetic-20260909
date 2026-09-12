@@ -11,8 +11,10 @@ from admission import binding, blocked
 import diagnostics as dia
 from ruleset_view import visible
 import proof_control
+import d04_capability
+import d04_prerequisite
 
-RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3f'
+RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3g'
 WORKFLOW = '.github/workflows/proof6-writer.yml'
 ENVIRONMENT = 'proof6-writer'
 CONCURRENCY = 'proof6-authority-writer-r3'
@@ -49,7 +51,7 @@ def runtime_context():
     for path, digest in json.loads(build_raw).items():
         _require(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest)
     plan_digest = proof_control.plan()[1]
-    _require(plan_digest == '8ac4e07cd2b36e1266e0dcc155a763e151d36a888a23fb0f23d0ea545fb05c82')
+    _require(plan_digest == 'f208f6bf2a095be2ee81076b12308c265301845dd9431081a59a1912afcbb50c')
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
@@ -61,13 +63,13 @@ def runtime_context():
                  'protected_branches': False, 'custom_branch_policies': True})
     _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
     policy = policies['branch_policies'][0]
-    _require(policy['name'] == 'proof6-writer-runtime-r3f' and policy['type'] == 'branch')
+    _require(policy['name'] == 'proof6-writer-runtime-r3g' and policy['type'] == 'branch')
     return ref, env, policy, hashlib.sha256(build_raw).hexdigest(), plan_digest
 
 
 def guard(manifest):
     # Bootstrap never weakens the final manifest guard on normal/proof requests.
-    _require(manifest is not None and manifest['runtime_variant'] == 'r3f')
+    _require(manifest is not None and manifest['runtime_variant'] == 'r3g')
     ref, env, policy, build_digest, plan_digest = runtime_context()
     base = 'repos/' + REPO
     expected_view = manifest['runtime']['ruleset']
@@ -79,7 +81,7 @@ def guard(manifest):
     if 'current_user_can_bypass' in rule:
         _require(rule['current_user_can_bypass'] == 'never')
     rule = visible(rule)
-    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3f'
+    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3g'
              and policy['type'] == 'branch')
     runtime = {
         'ref': RUNTIME_REF, 'sha': ref['object']['sha'], 'workflow': WORKFLOW,
@@ -124,6 +126,8 @@ def main(context):
     if manifest_text == '' and proposal == '' and operation == '':
         ref, env, policy, build_digest, checked_plan = runtime_context()
         _require(checked_plan == plan_digest)
+        qualification = d04_prerequisite.setup_qualification(
+            os.environ.pop('PROOF6_D04_SETUP_QUALIFICATION', ''))
         # This branch cannot instantiate a writer, journal, gate or fault path.
         # Credential is used only by the standalone three-GET diagnostic.
         result = setup_bootstrap_diagnostics(
@@ -135,6 +139,7 @@ def main(context):
                       update_attempted=False, remote_outcome='not_attempted',
                       journal_mutation_attempted=False, proof_consumption_attempted=False,
                       acceptance_credit=False, repository=REPO, runtime_ref=RUNTIME_REF,
+                      d04_setup_qualification=qualification,
                       runtime_sha=ref['object']['sha'], build_sha256=build_digest,
                       proof_plan_sha256=checked_plan, environment_id=env['id'],
                       branch_policy=policy, actor=os.environ['GITHUB_ACTOR'],
@@ -181,6 +186,8 @@ def main(context):
     if operation == proof_control.OUTAGE:
         from journal import Journal
         from outage import isolate_runtime
+        context['d04'] = {'stage': 'ADMISSION', 'consumption_attempted': False,
+                          'consumed_record': None, 'prerequisite': None}
         token = writer._installation_access()
         writer._enforcement(token)
         journal = Journal(writer)
@@ -189,8 +196,26 @@ def main(context):
             _require(ref['ref'] == REF and ref['object']['type'] == 'commit')
             from writer import _sha
             return _sha(ref['object']['sha'])
+        # D04 admission itself may not append a recovery terminal before a
+        # failed prerequisite. Unresolved sends need the existing recovery-only
+        # entry first; already complete history is reconciled read-only here.
+        _require(set(journal.pending) <= journal.resolved)
         journal.recover(current)
+        _require(operation not in journal.used)
+        context['d04']['stage'] = 'PREREQUISITE'
+        prerequisite = d04_prerequisite.run()
+        context['d04']['prerequisite'] = prerequisite
+        print('PROOF6_D04_PREREQUISITE ' + json.dumps(prerequisite, sort_keys=True), flush=True)
+        _require(prerequisite['qualified'] is True)
+        # Recheck exact journal membership after the child, under the same sole
+        # workflow concurrency boundary. No new lifecycle may be skipped.
+        context['d04']['stage'] = 'PRECONSUMPTION_RECHECK'
+        head = journal.head
+        journal.read()
+        _require(journal.head == head and operation not in journal.used)
+        context['d04'].update(stage='CONSUMPTION', consumption_attempted=True)
         claim = journal.consume(journal.operation_binding(_canonical(plan['infrastructure']), operation))
+        context['d04'].update(stage='ACTUAL_ISOLATION', consumed_record=claim)
         # Credential no longer needed. Same interpreter now loses connectivity;
         # it never invokes commit_transition, arms a send or reconnects afterward.
         writer._installation_token = ''
@@ -213,6 +238,18 @@ def execute():
     try:
         return main(context)
     except BaseException as error:
+        if context.get('d04'):
+            d04 = context['d04']
+            result = blocked(context['identity'])
+            result.update(result='D04_FAILED_CONSUMED' if d04['consumed_record'] else
+                          'D04_CONSUMPTION_UNCONFIRMED' if d04['consumption_attempted'] else
+                          'PRECONDITION_BLOCKED', d04=d04, acceptance_credit=False)
+            if isinstance(error, d04_capability.CapabilityError):
+                result['d04_diagnostic'] = error.record
+            else:
+                result['d04_exception'] = d04_capability.exception(error)
+            print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
+            return 1
         writer = context['writer']
         evidence = None if writer is None else writer._last_evidence
         result = blocked(context['identity']) if evidence is None else dict(evidence)

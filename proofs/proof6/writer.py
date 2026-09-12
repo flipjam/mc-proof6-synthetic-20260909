@@ -148,7 +148,7 @@ class _Writer:
 
     def _check_manifest(self, m):
         _require(m['contract_commit'] == '2f93acf267b99207c7f8220cb6246787a98806ec'
-                 and m['runtime_variant'] == 'r3f'
+                 and m['runtime_variant'] == 'r3g'
                  and m['revision'] == 3 and m['frozen'] is True
                  and m['repository_id'] == REPO_ID and m['repository'] == REPO
                  and m['ref'] == REF and m['baseline_commit'] == BASELINE

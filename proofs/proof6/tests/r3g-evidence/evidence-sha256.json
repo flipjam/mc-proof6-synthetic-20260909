@@ -1,0 +1,20 @@
+{
+  "proofs/proof6/tests/R3G_REVIEW.md": "da70c6980d2dec614ef26e85c92d356cf42d2501285b97654cbddc26bfdc4208",
+  "proofs/proof6/tests/r3g-evidence/.gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
+  "proofs/proof6/tests/r3g-evidence/authority-matrix.md": "c3e68b3926ccf2c08bcf8d216efd918a9b401961e6d9c13f35eeb9b8ef243d55",
+  "proofs/proof6/tests/r3g-evidence/baseline-regression.py.log": "e246b6cc090acb833d86f169892ca343dbed57fabe456bdaea552a66306a5011",
+  "proofs/proof6/tests/r3g-evidence/baseline-reviewer_regression.py.log": "d6f7494264faa789ed1ef65e3dd70f0f44526b1177037c1eb2e68420d2b0ee38",
+  "proofs/proof6/tests/r3g-evidence/baseline-test_caller_types.py.log": "6d1b640875321a697740ec308dabc84e05653f4ee87d3862ff11ec8fde45b3c8",
+  "proofs/proof6/tests/r3g-evidence/baseline-test_r3f.py.log": "b64b00a42c69cc13e45405219ef9dccf26a224b3a645e5a5b19c767aa409e170",
+  "proofs/proof6/tests/r3g-evidence/baseline-verification.json": "9f3b6527ac9287da9a23ce8fa4390818336ce1c8c970caead239a58161504998",
+  "proofs/proof6/tests/r3g-evidence/diagnostic-record.json": "89be3b8ca12a10625cd407a28de5aced4f9c9e1847948fc8d80b7ca69c7f47ec",
+  "proofs/proof6/tests/r3g-evidence/focused-final.log": "1c520ffb654727f29d58027e213a1b5866c36386dda65e3b0f1b832b7fae05da",
+  "proofs/proof6/tests/r3g-evidence/native-final.log": "f48f0ce7f221cc593ded88c2ca30e7165901ab0da02d139c2e06f15835957c75",
+  "proofs/proof6/tests/r3g-evidence/protected-state-after.json": "2369bf07a3d4cb25e5999e319aa0aebb8ae84279271e27eb98f54f4e73f6f587",
+  "proofs/proof6/tests/r3g-evidence/protected-state-before.json": "2369bf07a3d4cb25e5999e319aa0aebb8ae84279271e27eb98f54f4e73f6f587",
+  "proofs/proof6/tests/r3g-evidence/provenance.json": "6ed65731ce9355799ebc2f4abcf95517cd71009dff86afc8690cd247508f0511",
+  "proofs/proof6/tests/r3g-evidence/retained-final.log": "74e8a6a89d205d2178912f981e22f95274c603f7a2ea9ce0260a3384926cf9b8",
+  "proofs/proof6/tests/r3g-evidence/source-inventory.json": "a80a110a9e8fc02232fc8a5c9ed33745ba7d38cf07fd0c69c600a09459715c67",
+  "proofs/proof6/tests/r3g-evidence/test-results.json": "5722a6f98dd93c7e9fd15443da611aa79af8ab4a031682d49a13e8143f845a98",
+  "proofs/proof6/tests/r3g-evidence/workflow-runs-before-after.json": "8f4d93cef18d209ea56f3a962acc4df6f14ff7e4155eae514da1f3203aab0b89"
+}

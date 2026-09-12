@@ -8,9 +8,9 @@ sys.path.insert(0, str(ROOT / 'proofs/proof6'))
 legacy = types.ModuleType('legacy')
 raw = Path(__file__).with_name('legacy_r3e.py').read_text()
 # Identity-only substitution of fixture inputs; no production monkeypatch.
-raw = raw.replace('proof6-operation-journal-r3e', 'proof6-operation-journal-r3f')
-raw = raw.replace('proof6-writer-runtime-r3e', 'proof6-writer-runtime-r3f')
-raw = raw.replace("'r3e'", "'r3f'")
+raw = raw.replace('proof6-operation-journal-r3e', 'proof6-operation-journal-r3g')
+raw = raw.replace('proof6-writer-runtime-r3e', 'proof6-writer-runtime-r3g')
+raw = raw.replace("'r3e'", "'r3g'")
 raw = raw.replace('34b940e0537f57e5fa225768a55214bd3d3c5340',
                   '2f93acf267b99207c7f8220cb6246787a98806ec')
 # Fixed clock fixture only: original assertions are unchanged.
@@ -19,6 +19,17 @@ raw = raw.replace("subprocess.check_output(['git', '-C', str(ROOT), 'show', w.BA
                   "(ROOT / 'proofs/proof6/tests/baseline-history.json').read_bytes()")
 sys.argv.insert(1, str(ROOT))
 exec(compile(raw, 'legacy_r3e.py (identity adapter)', 'exec'), legacy.__dict__)
+
+# Supply the new prior-step setup qualification as an inert fixture. Original
+# bootstrap assertions remain verbatim; missing/failed prerequisite is tested
+# separately against the production validator and workflow dependency.
+from d04_fixtures import prerequisite
+_bootstrap_context = legacy.Bootstrap.context
+def _qualified_setup_context(test):
+    result = _bootstrap_context(test)
+    result['PROOF6_D04_SETUP_QUALIFICATION'] = legacy.json.dumps(prerequisite())
+    return result
+legacy.Bootstrap.context = _qualified_setup_context
 
 
 def begin_valid(test, op='', n=50):

@@ -1,0 +1,63 @@
+test_empty_frozen_request_qualified_recovery_only (__main__.V1.test_empty_frozen_request_qualified_recovery_only) ... ok
+test_fixed_operations_once (__main__.V1.test_fixed_operations_once) ... ok
+test_malformed_and_raw_gate_output (__main__.V1.test_malformed_and_raw_gate_output) ... ok
+test_no_caller_fault_content (__main__.V1.test_no_caller_fault_content) ... ok
+test_normal_proposal_whitespace_is_normatively_bound (__main__.V1.test_normal_proposal_whitespace_is_normatively_bound) ... ok
+test_public_input_keys (__main__.V1.test_public_input_keys) ... ok
+test_stale_allow_and_replay (__main__.V1.test_stale_allow_and_replay) ... ok
+test_broken_ancestry (__main__.V2.test_broken_ancestry) ... ok
+test_detached_terminal_cannot_release_old (__main__.V2.test_detached_terminal_cannot_release_old) ... ok
+test_duplicate_terminal_blocks_without_repair (__main__.V2.test_duplicate_terminal_blocks_without_repair) ... ok
+test_missing_unreadable_and_lookalike (__main__.V2.test_missing_unreadable_and_lookalike) ... ok
+test_noncanonical_json_and_extra_fields (__main__.V2.test_noncanonical_json_and_extra_fields) ... ok
+test_terminal_later_in_ancestry (__main__.V2.test_terminal_later_in_ancestry) ... ok
+test_unknown_schema (__main__.V2.test_unknown_schema) ... ok
+test_wrong_operation_and_malformed_terminal (__main__.V2.test_wrong_operation_and_malformed_terminal) ... ok
+test_arbitrary_descendant_not_accepted (__main__.V3.test_arbitrary_descendant_not_accepted) ... ok
+test_not_committed_candidate_contradiction (__main__.V3.test_not_committed_candidate_contradiction) ... ok
+test_old_alone_blocks (__main__.V3.test_old_alone_blocks) ... ok
+test_skipped_obligation (__main__.V3.test_skipped_obligation) ... ok
+test_unarmed_missing_terminal_is_not_completion_exception (__main__.V3.test_unarmed_missing_terminal_is_not_completion_exception) ... ok
+test_unexpected_third_sha (__main__.V3.test_unexpected_third_sha) ... ok
+test_valid_old_rejection_then_legitimate_transition (__main__.V3.test_valid_old_rejection_then_legitimate_transition) ... ok
+test_wrong_gate_or_proposal_binding (__main__.V3.test_wrong_gate_or_proposal_binding) ... ok
+test_wrong_old_or_candidate_chain (__main__.V3.test_wrong_old_or_candidate_chain) ... ok
+test_crash_after_completion_patch (__main__.V4.test_crash_after_completion_patch) ... ok
+test_d03_fixed_hook_before_first_confirmation (__main__.V4.test_d03_fixed_hook_before_first_confirmation) ... ok
+test_explicit_and_ambiguous_journal_patch (__main__.V4.test_explicit_and_ambiguous_journal_patch) ... ok
+test_original_lifecycle_crash_boundaries (__main__.V4.test_original_lifecycle_crash_boundaries) ... ok
+test_pending_and_armed_confirmation_loss_no_send (__main__.V4.test_pending_and_armed_confirmation_loss_no_send) ... ok
+test_post_append_partition (__main__.V4.test_post_append_partition) ... ok
+test_stale_confirmation_read (__main__.V4.test_stale_confirmation_read) ... ok
+test_changed_head_before_admission_blocks (__main__.V5.test_changed_head_before_admission_blocks) ... ok
+test_completion_loser_after_legitimate_descendants (__main__.V5.test_completion_loser_after_legitimate_descendants) ... C:\Python314\Lib\tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+ok
+test_d07_delayed_authority_send_old_blocks_before_admission (__main__.V5.test_d07_delayed_authority_send_old_blocks_before_admission) ... ok
+test_d07_fixed_delayed_first_path_and_future_read_only (__main__.V5.test_d07_fixed_delayed_first_path_and_future_read_only) ... PROOF6_RECOVERY {"authority":"b1174006ea4cf2b975de0f71f134f029689d7fec","evidence_class":"CANDIDATE_OBSERVED","journal_head":"444358bdc2c2330a1ad933063029efadfadd5bfc","original_binding":{"build_sha256":"ee8a63e00534619dfdd4335def3410331bb4ba319b84fcb5c598fb6f85ef10c4","caller":{"admin":false,"environment_qualification":"required separately in case evidence; not attested by account permission","id":265169095,"login":"peaklinesoftware","maintain":false,"permission":"write"},"manifest_sha256":"9376e58ecdc0ae70bdf02a43982bfc5fbef0112c665ead6f2c2ea9af7c37442c","operation":"","plan_sha256":"8ac4e07cd2b36e1266e0dcc155a763e151d36a888a23fb0f23d0ea545fb05c82","proposal_sha256":"d2381e0676da0852ad0fb67c1e464e670ab4f5758cbeecbc832eefcd7a531f85","run_attempt":1,"run_id":50,"runtime_sha":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},"pending":"b04de48bb460d7fcdcee8bdda0741df421c60fc0","phase":"CANONICAL_DISPOSITION_CONFIRMED","recovery_binding":{"caller":{"admin":false,"environment_qualification":"required separately in case evidence; not attested by account permission","id":265169095,"login":"peaklinesoftware","maintain":false,"permission":"write"},"proof_operation":"","proof_plan_sha256":"8ac4e07cd2b36e1266e0dcc155a763e151d36a888a23fb0f23d0ea545fb05c82","run_attempt":1,"run_id":71,"runtime_sha":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},"safety_sha256":"9f724d74e482fa7f5dfc6d03f065befb672a72b96d9a0923675f7486f202752d","terminal":"44ae953bde5cb09413226b833a73f6850ca1eb71","terminal_parent":"89720424541ba6440686369f458cdb2c8a7777ad"}
+PROOF6_RECOVERY {"authority":"b1174006ea4cf2b975de0f71f134f029689d7fec","evidence_class":"CANDIDATE_OBSERVED","journal_head":"444358bdc2c2330a1ad933063029efadfadd5bfc","original_binding":{"build_sha256":"ee8a63e00534619dfdd4335def3410331bb4ba319b84fcb5c598fb6f85ef10c4","caller":{"admin":false,"environment_qualification":"required separately in case evidence; not attested by account permission","id":265169095,"login":"peaklinesoftware","maintain":false,"permission":"write"},"manifest_sha256":"9376e58ecdc0ae70bdf02a43982bfc5fbef0112c665ead6f2c2ea9af7c37442c","operation":"D07_DROP_PATCH_RESPONSE","plan_sha256":"8ac4e07cd2b36e1266e0dcc155a763e151d36a888a23fb0f23d0ea545fb05c82","proposal_sha256":"914034a3c2a495cb9a1b972b872a2f6f009201c0898f9d80822d969446c22b50","run_attempt":1,"run_id":51,"runtime_sha":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},"pending":"6b80d8e639001f952b05bd973088f7f02c1d4b5b","phase":"CANONICAL_DISPOSITION_CONFIRMED","recovery_binding":{"caller":{"admin":false,"environment_qualification":"required separately in case evidence; not attested by account permission","id":265169095,"login":"peaklinesoftware","maintain":false,"permission":"write"},"proof_operation":"","proof_plan_sha256":"8ac4e07cd2b36e1266e0dcc155a763e151d36a888a23fb0f23d0ea545fb05c82","run_attempt":1,"run_id":71,"runtime_sha":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"},"safety_sha256":"cf86bfde5746c453791e8f1c07c3a3f01f7e1bdbc46ef0080abe94182fac5d55","terminal":"444358bdc2c2330a1ad933063029efadfadd5bfc","terminal_parent":"e5c85b668077f2a2453a725824bfe1929410cf72"}
+PROOF6_RECOVERY {"journal_head":"444358bdc2c2330a1ad933063029efadfadd5bfc","phase":"ADMITTED"}
+ok
+test_delayed_completion_confirmation_after_later_authority_advance (__main__.V5.test_delayed_completion_confirmation_after_later_authority_advance) ... ok
+test_each_sibling_winner_and_orphan (__main__.V5.test_each_sibling_winner_and_orphan) ... ok
+test_every_nested_d03_safety_leaf_compares_unequal (__main__.V5.test_every_nested_d03_safety_leaf_compares_unequal) ... ok
+test_existing_terminal_read_only (__main__.V5.test_existing_terminal_read_only) ... ok
+test_h0_and_h1_same_parent (__main__.V5.test_h0_and_h1_same_parent) ... ok
+test_invalid_winner_at_admitted_boundary (__main__.V5.test_invalid_winner_at_admitted_boundary) ... ok
+test_normal_transition_cannot_run_sibling_hook (__main__.V5.test_normal_transition_cannot_run_sibling_hook) ... ok
+test_replay_d03_after_readonly_recovery_cannot_resend (__main__.V5.test_replay_d03_after_readonly_recovery_cannot_resend) ... ok
+test_safety_equivalence_all_fields (__main__.V5.test_safety_equivalence_all_fields) ... ok
+test_accepted_bytes_and_build_inventory (__main__.V6.test_accepted_bytes_and_build_inventory) ... ok
+test_app_probes_fixed_targets_and_unexpected_success (__main__.V6.test_app_probes_fixed_targets_and_unexpected_success) ... ok
+test_credential_and_classifier_regressions_bound_to_real_paths (__main__.V6.test_credential_and_classifier_regressions_bound_to_real_paths) ... ok
+test_d03_body_limit_then_readonly_recovery (__main__.V6.test_d03_body_limit_then_readonly_recovery) ... ok
+test_d03_readonly_receipt_optional_request_id (__main__.V6.test_d03_readonly_receipt_optional_request_id) ... ok
+test_d04_fixed_window_after_setup_delay (__main__.V6.test_d04_fixed_window_after_setup_delay) ... ok
+test_fixed_proposal_sequence_accepted_gate (__main__.V6.test_fixed_proposal_sequence_accepted_gate) ... ok
+test_no_recovery_authority_or_permit_calls (__main__.V6.test_no_recovery_authority_or_permit_calls) ... ok
+test_plan_72_and_budget (__main__.V6.test_plan_72_and_budget) ... ok
+
+----------------------------------------------------------------------
+Ran 53 tests in 20.550s
+
+OK
