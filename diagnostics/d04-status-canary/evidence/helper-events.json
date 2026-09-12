@@ -1,0 +1,234 @@
+[
+  {
+    "helper_pid": 1943,
+    "kind": "HELPER_CUSTODY_READY",
+    "log_timestamp": "2026-09-12T20:00:19.6336908Z",
+    "no_app_credential": true,
+    "no_credential_delivery": true,
+    "no_credential_file": true,
+    "no_hostile_root_secrecy_claim": true,
+    "producer_argv": [
+      "/usr/bin/python3",
+      "-I",
+      "-B",
+      "/home/runner/work/_temp/proof6-d04-status-canary/producer.py"
+    ],
+    "producer_descriptors": {
+      "0": "pipe:[14735]",
+      "1": "pipe:[14736]",
+      "2": "/dev/null"
+    },
+    "producer_environment_keys": [
+      "CANARY_ATTEMPT",
+      "CANARY_RUN_ID",
+      "CANARY_SHA",
+      "LANG",
+      "PATH"
+    ],
+    "producer_pid": 1945,
+    "source_sha256": {
+      "helper.py": "8fb7d5d67468912f3fe913f845862bd73a122f42111f8dbdba730f63dbfd0183",
+      "producer.py": "2a56ff6eaf54b969753b7159140a79ccca7f5102e367455cf2687e1f3a71a71c"
+    },
+    "utc": "2026-09-12T20:00:19.631591+00:00"
+  },
+  {
+    "event": {
+      "attempt": 1,
+      "custody": {
+        "argv": [
+          "/home/runner/work/_temp/proof6-d04-status-canary/producer.py"
+        ],
+        "credential_discovery_implemented": false,
+        "descriptors": {
+          "0": "pipe:[14735]",
+          "1": "pipe:[14736]",
+          "2": "/dev/null"
+        },
+        "environment_keys": [
+          "CANARY_ATTEMPT",
+          "CANARY_RUN_ID",
+          "CANARY_SHA",
+          "LANG",
+          "PATH"
+        ],
+        "files": {
+          "helper.py": "8fb7d5d67468912f3fe913f845862bd73a122f42111f8dbdba730f63dbfd0183",
+          "producer.py": "2a56ff6eaf54b969753b7159140a79ccca7f5102e367455cf2687e1f3a71a71c"
+        },
+        "no_credential_delivery": true
+      },
+      "monotonic": 213.073391368,
+      "phase": "READY",
+      "pid": 1945,
+      "run_id": 34715785446,
+      "schema": "PROOF6_STATUS_CANARY_V1",
+      "sha": "2b7d0fa62e41bc500f6bf2dc5c540910501cabc3",
+      "utc": "2026-09-12T20:00:19.631911+00:00"
+    },
+    "kind": "LOCAL_EVENT",
+    "log_timestamp": "2026-09-12T20:00:19.6343411Z",
+    "utc": "2026-09-12T20:00:19.632542+00:00"
+  },
+  {
+    "kind": "STATUS_POST",
+    "log_timestamp": "2026-09-12T20:00:20.3890442Z",
+    "phase": "READY",
+    "receipt": {
+      "completed_at": "2026-09-12T20:00:20.386085+00:00",
+      "headers": {
+        "Date": "Sat, 12 Sep 2026 20:00:20 GMT",
+        "X-Accepted-GitHub-Permissions": "statuses=write",
+        "X-GitHub-Request-Id": "D980:1B89F2:ABFA08:22C4220:6AA5AF53"
+      },
+      "http_status": 201,
+      "payload": {
+        "context": "proof6/d04-signal-canary/34715785446/1/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3",
+        "description": "READY r=34715785446 a=1 sha=2b7d0fa62e41bc500f6bf2dc5c540910501cabc3 p=1945",
+        "state": "pending",
+        "target_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/actions/runs/34715785446"
+      },
+      "response": {
+        "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
+        "context": "proof6/d04-signal-canary/34715785446/1/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3",
+        "created_at": "2026-09-12T20:00:19Z",
+        "creator": {
+          "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
+          "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
+          "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
+          "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
+          "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
+          "gravatar_id": "",
+          "html_url": "https://github.com/apps/github-actions",
+          "id": 41898282,
+          "login": "github-actions[bot]",
+          "node_id": "MDM6Qm90NDE4OTgyODI=",
+          "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
+          "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
+          "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
+          "site_admin": false,
+          "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
+          "type": "Bot",
+          "url": "https://api.github.com/users/github-actions%5Bbot%5D",
+          "user_view_type": "public"
+        },
+        "description": "READY r=34715785446 a=1 sha=2b7d0fa62e41bc500f6bf2dc5c540910501cabc3 p=1945",
+        "id": 54053722962,
+        "node_id": "SC_kwDOUUWEcc8AAAAMldpbUg",
+        "state": "pending",
+        "target_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/actions/runs/34715785446",
+        "updated_at": "2026-09-12T20:00:19Z",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/statuses/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3"
+      },
+      "started_at": "2026-09-12T20:00:19.632793+00:00"
+    },
+    "utc": "2026-09-12T20:00:20.386109+00:00"
+  },
+  {
+    "event": {
+      "attempt": 1,
+      "custody": {
+        "argv": [
+          "/home/runner/work/_temp/proof6-d04-status-canary/producer.py"
+        ],
+        "credential_discovery_implemented": false,
+        "descriptors": {
+          "0": "pipe:[14735]",
+          "1": "pipe:[14736]",
+          "2": "/dev/null"
+        },
+        "environment_keys": [
+          "CANARY_ATTEMPT",
+          "CANARY_RUN_ID",
+          "CANARY_SHA",
+          "LANG",
+          "PATH"
+        ],
+        "files": {
+          "helper.py": "8fb7d5d67468912f3fe913f845862bd73a122f42111f8dbdba730f63dbfd0183",
+          "producer.py": "2a56ff6eaf54b969753b7159140a79ccca7f5102e367455cf2687e1f3a71a71c"
+        },
+        "no_credential_delivery": true
+      },
+      "monotonic": 233.073509667,
+      "phase": "END",
+      "pid": 1945,
+      "run_id": 34715785446,
+      "schema": "PROOF6_STATUS_CANARY_V1",
+      "sha": "2b7d0fa62e41bc500f6bf2dc5c540910501cabc3",
+      "utc": "2026-09-12T20:00:39.632032+00:00"
+    },
+    "kind": "LOCAL_EVENT",
+    "log_timestamp": "2026-09-12T20:00:39.6334672Z",
+    "utc": "2026-09-12T20:00:39.632858+00:00"
+  },
+  {
+    "kind": "STATUS_POST",
+    "log_timestamp": "2026-09-12T20:00:40.3470727Z",
+    "phase": "END",
+    "receipt": {
+      "completed_at": "2026-09-12T20:00:40.346109+00:00",
+      "headers": {
+        "Date": "Sat, 12 Sep 2026 20:00:40 GMT",
+        "X-Accepted-GitHub-Permissions": "statuses=write",
+        "X-GitHub-Request-Id": "D980:1B89F2:AC5873:22D765D:6AA5AF67"
+      },
+      "http_status": 201,
+      "payload": {
+        "context": "proof6/d04-signal-canary/34715785446/1/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3",
+        "description": "END r=34715785446 a=1 sha=2b7d0fa62e41bc500f6bf2dc5c540910501cabc3 p=1945",
+        "state": "success",
+        "target_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/actions/runs/34715785446"
+      },
+      "response": {
+        "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
+        "context": "proof6/d04-signal-canary/34715785446/1/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3",
+        "created_at": "2026-09-12T20:00:39Z",
+        "creator": {
+          "avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4",
+          "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}",
+          "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers",
+          "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}",
+          "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}",
+          "gravatar_id": "",
+          "html_url": "https://github.com/apps/github-actions",
+          "id": 41898282,
+          "login": "github-actions[bot]",
+          "node_id": "MDM6Qm90NDE4OTgyODI=",
+          "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs",
+          "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events",
+          "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos",
+          "site_admin": false,
+          "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions",
+          "type": "Bot",
+          "url": "https://api.github.com/users/github-actions%5Bbot%5D",
+          "user_view_type": "public"
+        },
+        "description": "END r=34715785446 a=1 sha=2b7d0fa62e41bc500f6bf2dc5c540910501cabc3 p=1945",
+        "id": 54053731212,
+        "node_id": "SC_kwDOUUWEcc8AAAAMldp7jA",
+        "state": "success",
+        "target_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/actions/runs/34715785446",
+        "updated_at": "2026-09-12T20:00:39Z",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/statuses/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3"
+      },
+      "started_at": "2026-09-12T20:00:39.632986+00:00"
+    },
+    "utc": "2026-09-12T20:00:40.346133+00:00"
+  },
+  {
+    "kind": "PRODUCER_REAPED",
+    "log_timestamp": "2026-09-12T20:00:40.3478038Z",
+    "producer_pid": 1945,
+    "returncode": 0,
+    "utc": "2026-09-12T20:00:40.346242+00:00"
+  },
+  {
+    "acceptance_credit": false,
+    "kind": "COMPLETED",
+    "log_timestamp": "2026-09-12T20:00:50.3466856Z",
+    "utc": "2026-09-12T20:00:50.346363+00:00"
+  }
+]

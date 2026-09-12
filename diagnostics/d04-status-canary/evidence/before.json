@@ -1,0 +1,2444 @@
+{
+  "branches": [
+    {
+      "commit": {
+        "sha": "75156422b1ae83258ae477ec26bbe43aea982294",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/75156422b1ae83258ae477ec26bbe43aea982294"
+      },
+      "name": "b11-unprotected-path-test",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/b11-unprotected-path-test/protection"
+    },
+    {
+      "commit": {
+        "sha": "6205c576cc12ddb0dd235a4acf3ba76d775a62ad",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/6205c576cc12ddb0dd235a4acf3ba76d775a62ad"
+      },
+      "name": "codex/proof6-d04-hosted-capability-diagnostic-20260912-01",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/codex/proof6-d04-hosted-capability-diagnostic-20260912-01/protection"
+    },
+    {
+      "commit": {
+        "sha": "d8431d4bc3d9861c96b2ae54c0aa39b3411370be",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/d8431d4bc3d9861c96b2ae54c0aa39b3411370be"
+      },
+      "name": "codex/proof6-r3d-implementation-candidate-20260910-01",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/codex/proof6-r3d-implementation-candidate-20260910-01/protection"
+    },
+    {
+      "commit": {
+        "sha": "7a5827bb5831b85e8c50cf681c997bef279c564f",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/7a5827bb5831b85e8c50cf681c997bef279c564f"
+      },
+      "name": "codex/proof6-r3d-implementation-candidate-v2-20260910-01",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/codex/proof6-r3d-implementation-candidate-v2-20260910-01/protection"
+    },
+    {
+      "commit": {
+        "sha": "35c3ea5eff822dc6e4dc1e8f5e0b6f76f0d632e5",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/35c3ea5eff822dc6e4dc1e8f5e0b6f76f0d632e5"
+      },
+      "name": "codex/proof6-r3d-implementation-candidate-v3-20260910-01",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/codex/proof6-r3d-implementation-candidate-v3-20260910-01/protection"
+    },
+    {
+      "commit": {
+        "sha": "ae20b8e49d353ccb10ddbf491e90b51c14b13acc",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/ae20b8e49d353ccb10ddbf491e90b51c14b13acc"
+      },
+      "name": "codex/proof6-r3e-implementation-candidate-20260911-01",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/codex/proof6-r3e-implementation-candidate-20260911-01/protection"
+    },
+    {
+      "commit": {
+        "sha": "d1a8b2fcbd5ffc3aec8f02823bb604dce542f06f",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/d1a8b2fcbd5ffc3aec8f02823bb604dce542f06f"
+      },
+      "name": "codex/proof6-r3e-implementation-candidate-v2-20260911-01",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/codex/proof6-r3e-implementation-candidate-v2-20260911-01/protection"
+    },
+    {
+      "commit": {
+        "sha": "704a32834981ce1ebcfc0f963abe25297b89f304",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/704a32834981ce1ebcfc0f963abe25297b89f304"
+      },
+      "name": "codex/proof6-r3f-implementation-candidate-20260911-01",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/codex/proof6-r3f-implementation-candidate-20260911-01/protection"
+    },
+    {
+      "commit": {
+        "sha": "73b686f16b052695a4c41706b4b777206a6b0ba1",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/73b686f16b052695a4c41706b4b777206a6b0ba1"
+      },
+      "name": "codex/proof6-r3g-implementation-candidate-20260912-01",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/codex/proof6-r3g-implementation-candidate-20260912-01/protection"
+    },
+    {
+      "commit": {
+        "sha": "6c463ec1d8ca90a88b4bfa9fc816c91243cd0379",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/6c463ec1d8ca90a88b4bfa9fc816c91243cd0379"
+      },
+      "name": "peaklinesoftware-patch-1",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/peaklinesoftware-patch-1/protection"
+    },
+    {
+      "commit": {
+        "sha": "fdf602669253e0a5d3c09f515d4dd41004db043e",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/fdf602669253e0a5d3c09f515d4dd41004db043e"
+      },
+      "name": "proof6-authority",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-authority/protection"
+    },
+    {
+      "commit": {
+        "sha": "a690642a7acd92644f6b784ad7e11e5b3ab58d82",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/a690642a7acd92644f6b784ad7e11e5b3ab58d82"
+      },
+      "name": "proof6-b05-r3b-pr",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-b05-r3b-pr/protection"
+    },
+    {
+      "commit": {
+        "sha": "46a225ffeb294f94d8351781b5954591a8588555",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/46a225ffeb294f94d8351781b5954591a8588555"
+      },
+      "name": "proof6-b06-r3b-chatgpt-capability-20260910",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-b06-r3b-chatgpt-capability-20260910/protection"
+    },
+    {
+      "commit": {
+        "sha": "1a41cc85b0a244e00352d374dd84f518735e27ec",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/1a41cc85b0a244e00352d374dd84f518735e27ec"
+      },
+      "name": "proof6-b10-r3b-fake-authority",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-b10-r3b-fake-authority/protection"
+    },
+    {
+      "commit": {
+        "sha": "e83fc4b855e6d8797567ed38abeb3c2d47d3eca6",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/e83fc4b855e6d8797567ed38abeb3c2d47d3eca6"
+      },
+      "name": "proof6-b11-r3b-unprotected-path",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-b11-r3b-unprotected-path/protection"
+    },
+    {
+      "commit": {
+        "sha": "7e3a9afcbea5be896e8dd307fd6ce1bcb61ff7be",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/7e3a9afcbea5be896e8dd307fd6ce1bcb61ff7be"
+      },
+      "name": "proof6-b12-r3b-no-ci",
+      "protected": false,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-b12-r3b-no-ci/protection"
+    },
+    {
+      "commit": {
+        "sha": "d831cb125a0c91b4d2b36ba0d063cba6508b37e3",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/d831cb125a0c91b4d2b36ba0d063cba6508b37e3"
+      },
+      "name": "proof6-operation-journal-r3d",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-operation-journal-r3d/protection"
+    },
+    {
+      "commit": {
+        "sha": "c3bc11b20f8bb2c55c086ebd88d930405ac7b1b8",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/c3bc11b20f8bb2c55c086ebd88d930405ac7b1b8"
+      },
+      "name": "proof6-operation-journal-r3e",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-operation-journal-r3e/protection"
+    },
+    {
+      "commit": {
+        "sha": "0fed7cb43f465ac4f81ddafc9b399a760483c984",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/0fed7cb43f465ac4f81ddafc9b399a760483c984"
+      },
+      "name": "proof6-operation-journal-r3f",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-operation-journal-r3f/protection"
+    },
+    {
+      "commit": {
+        "sha": "4389d03742ad90595cb963741bb183bdf290aaa8",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/4389d03742ad90595cb963741bb183bdf290aaa8"
+      },
+      "name": "proof6-operation-journal-r3g",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-operation-journal-r3g/protection"
+    },
+    {
+      "commit": {
+        "sha": "98f7227eb04ad2589a60498d5a27fd5cbe23c40f",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/98f7227eb04ad2589a60498d5a27fd5cbe23c40f"
+      },
+      "name": "proof6-writer-runtime",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime/protection"
+    },
+    {
+      "commit": {
+        "sha": "5e4009e75d98f56edc7aa87c91b5669ee54f8ca2",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/5e4009e75d98f56edc7aa87c91b5669ee54f8ca2"
+      },
+      "name": "proof6-writer-runtime-r2d1",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r2d1/protection"
+    },
+    {
+      "commit": {
+        "sha": "4b53933229e42e8a225620ed2316396ee60feff9",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/4b53933229e42e8a225620ed2316396ee60feff9"
+      },
+      "name": "proof6-writer-runtime-r2d2",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r2d2/protection"
+    },
+    {
+      "commit": {
+        "sha": "959c3e82d10d5b9020da8ae3cf5a0847ef804a64",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/959c3e82d10d5b9020da8ae3cf5a0847ef804a64"
+      },
+      "name": "proof6-writer-runtime-r2d3",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r2d3/protection"
+    },
+    {
+      "commit": {
+        "sha": "312bad80062bec573b87f1183576a389f5a9a4ad",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/312bad80062bec573b87f1183576a389f5a9a4ad"
+      },
+      "name": "proof6-writer-runtime-r2d4",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r2d4/protection"
+    },
+    {
+      "commit": {
+        "sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/46d2400269120c26015bc2863ca14ac2c6b02d16"
+      },
+      "name": "proof6-writer-runtime-r3b",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r3b/protection"
+    },
+    {
+      "commit": {
+        "sha": "a58413651ffbaa77ef26dd35bdda78a649d4d22e",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/a58413651ffbaa77ef26dd35bdda78a649d4d22e"
+      },
+      "name": "proof6-writer-runtime-r3c",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r3c/protection"
+    },
+    {
+      "commit": {
+        "sha": "35c3ea5eff822dc6e4dc1e8f5e0b6f76f0d632e5",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/35c3ea5eff822dc6e4dc1e8f5e0b6f76f0d632e5"
+      },
+      "name": "proof6-writer-runtime-r3d",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r3d/protection"
+    },
+    {
+      "commit": {
+        "sha": "d1a8b2fcbd5ffc3aec8f02823bb604dce542f06f",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/d1a8b2fcbd5ffc3aec8f02823bb604dce542f06f"
+      },
+      "name": "proof6-writer-runtime-r3e",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r3e/protection"
+    },
+    {
+      "commit": {
+        "sha": "704a32834981ce1ebcfc0f963abe25297b89f304",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/704a32834981ce1ebcfc0f963abe25297b89f304"
+      },
+      "name": "proof6-writer-runtime-r3f",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r3f/protection"
+    },
+    {
+      "commit": {
+        "sha": "73b686f16b052695a4c41706b4b777206a6b0ba1",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/73b686f16b052695a4c41706b4b777206a6b0ba1"
+      },
+      "name": "proof6-writer-runtime-r3g",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r3g/protection"
+    },
+    {
+      "commit": {
+        "sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/3d797ecef8eb7b8dcb6add990604bc391e9b5b28"
+      },
+      "name": "proof6-writer-runtime-r3",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-r3/protection"
+    },
+    {
+      "commit": {
+        "sha": "77e74cb9218f59871ded03a1915c0a5c34d212a7",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/77e74cb9218f59871ded03a1915c0a5c34d212a7"
+      },
+      "name": "proof6-writer-runtime-simplified",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-simplified/protection"
+    },
+    {
+      "commit": {
+        "sha": "9d4a368ab03b3db7609d83e78837353fe5513d36",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/commits/9d4a368ab03b3db7609d83e78837353fe5513d36"
+      },
+      "name": "proof6-writer-runtime-simplified-r2",
+      "protected": true,
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "checks": [],
+          "contexts": [],
+          "enforcement_level": "off"
+        }
+      },
+      "protection_url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/branches/proof6-writer-runtime-simplified-r2/protection"
+    }
+  ],
+  "classic": {
+    "nodes": [],
+    "pageInfo": {
+      "hasNextPage": false
+    },
+    "totalCount": 0
+  },
+  "environments": {
+    "environments": [
+      {
+        "branch_policies": {
+          "branch_policies": [
+            {
+              "id": 59579447,
+              "name": "proof6-writer-runtime-r3g",
+              "node_id": "MDE2OkdhdGVCcmFuY2hQb2xpY3k1OTU3OTQ0Nw==",
+              "type": "branch"
+            }
+          ],
+          "total_count": 1
+        },
+        "can_admins_bypass": false,
+        "created_at": "2026-09-10T05:04:54Z",
+        "custom_rules": {
+          "custom_deployment_protection_rules": [],
+          "total_count": 0
+        },
+        "deployment_branch_policy": {
+          "custom_branch_policies": true,
+          "protected_branches": false
+        },
+        "html_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/deployments/activity_log?environments_filter=proof6-writer",
+        "id": 21620162130,
+        "name": "proof6-writer",
+        "node_id": "EN_kwDOUUWEcc8AAAAFCKl-Ug",
+        "protection_rules": [
+          {
+            "id": 65120226,
+            "node_id": "GA_kwDOUUWEcc4D4afi",
+            "type": "branch_policy"
+          }
+        ],
+        "updated_at": "2026-09-10T05:04:54Z",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/environments/proof6-writer"
+      }
+    ],
+    "total_count": 1
+  },
+  "hooks": [],
+  "manifest": {
+    "sha256": "0d40dd07278bf56b91b4ac76668fb7d0273a0e88080d5ccebe43e510a21a0bb1"
+  },
+  "observed_at": "2026-09-12T19:52:19.017492+00:00",
+  "protected_refs": {
+    "proof6-authority": "fdf602669253e0a5d3c09f515d4dd41004db043e",
+    "proof6-operation-journal-r3d": "d831cb125a0c91b4d2b36ba0d063cba6508b37e3",
+    "proof6-operation-journal-r3e": "c3bc11b20f8bb2c55c086ebd88d930405ac7b1b8",
+    "proof6-operation-journal-r3f": "0fed7cb43f465ac4f81ddafc9b399a760483c984",
+    "proof6-operation-journal-r3g": "4389d03742ad90595cb963741bb183bdf290aaa8",
+    "proof6-writer-runtime": "98f7227eb04ad2589a60498d5a27fd5cbe23c40f",
+    "proof6-writer-runtime-r2d1": "5e4009e75d98f56edc7aa87c91b5669ee54f8ca2",
+    "proof6-writer-runtime-r2d2": "4b53933229e42e8a225620ed2316396ee60feff9",
+    "proof6-writer-runtime-r2d3": "959c3e82d10d5b9020da8ae3cf5a0847ef804a64",
+    "proof6-writer-runtime-r2d4": "312bad80062bec573b87f1183576a389f5a9a4ad",
+    "proof6-writer-runtime-r3": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+    "proof6-writer-runtime-r3b": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+    "proof6-writer-runtime-r3c": "a58413651ffbaa77ef26dd35bdda78a649d4d22e",
+    "proof6-writer-runtime-r3d": "35c3ea5eff822dc6e4dc1e8f5e0b6f76f0d632e5",
+    "proof6-writer-runtime-r3e": "d1a8b2fcbd5ffc3aec8f02823bb604dce542f06f",
+    "proof6-writer-runtime-r3f": "704a32834981ce1ebcfc0f963abe25297b89f304",
+    "proof6-writer-runtime-r3g": "73b686f16b052695a4c41706b4b777206a6b0ba1",
+    "proof6-writer-runtime-simplified": "77e74cb9218f59871ded03a1915c0a5c34d212a7",
+    "proof6-writer-runtime-simplified-r2": "9d4a368ab03b3db7609d83e78837353fe5513d36"
+  },
+  "protected_workflows": [
+    {
+      "blob": "abc4a68ddaec77ad410a128f33f7d35be41d58df",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime",
+      "sha": "98f7227eb04ad2589a60498d5a27fd5cbe23c40f",
+      "sha256": "4b2915320b89bb4739c9da0bce4979ac674053494af9ae5fc3680b6234a0f8cd"
+    },
+    {
+      "blob": "7bbe140da670129bdde7d4345c0d615b89ed91fd",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r2d1",
+      "sha": "5e4009e75d98f56edc7aa87c91b5669ee54f8ca2",
+      "sha256": "42f4aab8d39cc6bf6341bb493e4deec7313c8ba48369adab5149e6c340afe72c"
+    },
+    {
+      "blob": "6afbffa7285b4767f5ad7a634b76d987d6a551de",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r2d2",
+      "sha": "4b53933229e42e8a225620ed2316396ee60feff9",
+      "sha256": "cd125c2d63c0d57f23feb373a76049b5bfec9af8e74a712279825c3a334dd25e"
+    },
+    {
+      "blob": "35a7340a64c18477a8f47afd840a6732aaa2fa8d",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r2d3",
+      "sha": "959c3e82d10d5b9020da8ae3cf5a0847ef804a64",
+      "sha256": "ebafac8d7e780dec9125e58fe3b78ab4877915fb9ec7eea3a358d77564563b03"
+    },
+    {
+      "blob": "ae4816c41c5fd7c1df99e914d5f185dd2370c939",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r2d4",
+      "sha": "312bad80062bec573b87f1183576a389f5a9a4ad",
+      "sha256": "61c41fe21470fff5da59080c6d7754ad9d9a73a92d1d2cd90af3db18ee3373e6"
+    },
+    {
+      "blob": "9029877bc8324a78991e5a0eec4921b83de1570a",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r3b",
+      "sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "sha256": "29b28c646d09fcc776020a086095ae55af0914b7e31d6754685db2991e985cb2"
+    },
+    {
+      "blob": "60b27cdbabae0ef30948c0e51269a705189c481a",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proof_operation": {
+              "default": "",
+              "description": "Fixed proof-only operation; normal proposals must leave empty",
+              "required": "false",
+              "type": "string"
+            },
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r3c",
+      "sha": "a58413651ffbaa77ef26dd35bdda78a649d4d22e",
+      "sha256": "b891f01dfb55706ffc189252108f27593691116fbb20735790ca6152d181480b"
+    },
+    {
+      "blob": "eec0afcfe64dc8d85fbc28dc38beab1256200c17",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proof_operation": {
+              "default": "",
+              "description": "Fixed proof-only operation; normal proposals must leave empty",
+              "required": "false",
+              "type": "string"
+            },
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r3d",
+      "sha": "35c3ea5eff822dc6e4dc1e8f5e0b6f76f0d632e5",
+      "sha256": "4332b2d28474d2f3f302e8241ace9af299218dc6765fdca867bf5d0174c5521b"
+    },
+    {
+      "blob": "0d88a4ae6db850261d42f3991788390778b1b3aa",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proof_operation": {
+              "default": "",
+              "description": "Fixed proof-only operation; normal proposals must leave empty",
+              "required": "false",
+              "type": "string"
+            },
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r3e",
+      "sha": "d1a8b2fcbd5ffc3aec8f02823bb604dce542f06f",
+      "sha256": "6f94a6b91cc95b470a0f3e8ae68e4ffde7b35461ce5d9a56b75ba89109120163"
+    },
+    {
+      "blob": "9d0093d9141791a25af75080f344cf5e14aa7e86",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proof_operation": {
+              "default": "",
+              "description": "Fixed proof-only operation; normal proposals must leave empty",
+              "required": "false",
+              "type": "string"
+            },
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; empty means recovery only after freeze, setup authentication before freeze",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r3f",
+      "sha": "704a32834981ce1ebcfc0f963abe25297b89f304",
+      "sha256": "c2156f02336d362643c34e6cc1a16aa7bdf06e058912cbcd52f3f99f910cb602"
+    },
+    {
+      "blob": "6827441c1e7bf58ac8ce872efb47ddc04c4407f6",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proof_operation": {
+              "default": "",
+              "description": "Fixed proof-only operation; normal proposals must leave empty",
+              "required": "false",
+              "type": "string"
+            },
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; empty means recovery only after freeze, setup authentication before freeze",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r3g",
+      "sha": "73b686f16b052695a4c41706b4b777206a6b0ba1",
+      "sha256": "7f0da6d1e9c27d39eca44f066a833918dce8df915b9557a1b751512f50543f94"
+    },
+    {
+      "blob": "bedfe5f05572ea64a1fcc35a56603c8e90303033",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-r3",
+      "sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "sha256": "0519a79760ed8fc2789fdaf027c956810725b1bffd5a53e481e8fe101c9851ed"
+    },
+    {
+      "blob": "ba5bfa63493579ad2dce2b7ec82c981e7abcc385",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-simplified",
+      "sha": "77e74cb9218f59871ded03a1915c0a5c34d212a7",
+      "sha256": "4202a2787a40e9ec2f5ebefcb452f547ba43a29de013360819c7b6fbac09ebcc"
+    },
+    {
+      "blob": "a20d8d348c7820866541712f8e46806605a21e9f",
+      "on": {
+        "workflow_dispatch": {
+          "inputs": {
+            "proposal": {
+              "default": "",
+              "description": "Transition proposal JSON; leave empty for setup authentication only",
+              "required": "false",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "path": ".github/workflows/proof6-writer.yml",
+      "ref": "proof6-writer-runtime-simplified-r2",
+      "sha": "9d4a368ab03b3db7609d83e78837353fe5513d36",
+      "sha256": "79a07916638082e236d90b4108f8c41c922f23eb90746b4d562eb51e2948c462"
+    }
+  ],
+  "repo": {
+    "default_branch": "proof6-writer-runtime-r3b",
+    "full_name": "flipjam/mc-proof6-synthetic-20260909",
+    "id": 1363510385
+  },
+  "rulesets": [
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22725076"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22725076"
+        }
+      },
+      "bypass_actors": [
+        {
+          "actor_id": 4893415,
+          "actor_type": "Integration",
+          "bypass_mode": "always"
+        }
+      ],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-authority"
+          ]
+        }
+      },
+      "created_at": "2026-09-09T21:36:54.187-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22725076,
+      "name": "proof6-app-only-update",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFawdQ",
+      "rules": [
+        {
+          "type": "update"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-09T21:36:54.247-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22879763"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22879763"
+        }
+      },
+      "bypass_actors": [
+        {
+          "actor_id": 4893415,
+          "actor_type": "Integration",
+          "bypass_mode": "always"
+        }
+      ],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-operation-journal-r3d"
+          ]
+        }
+      },
+      "created_at": "2026-09-10T23:19:42.208-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22879763,
+      "name": "proof6-journal-r3d-app-update",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFdHhM",
+      "rules": [
+        {
+          "type": "update"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-10T23:19:42.296-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22879760"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22879760"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-operation-journal-r3d"
+          ]
+        }
+      },
+      "created_at": "2026-09-10T23:19:41.177-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22879760,
+      "name": "proof6-journal-r3d-integrity",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFdHhA",
+      "rules": [
+        {
+          "type": "creation"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-10T23:19:41.227-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22964787"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22964787"
+        }
+      },
+      "bypass_actors": [
+        {
+          "actor_id": 4893415,
+          "actor_type": "Integration",
+          "bypass_mode": "always"
+        }
+      ],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-operation-journal-r3e"
+          ]
+        }
+      },
+      "created_at": "2026-09-11T13:21:25.429-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22964787,
+      "name": "proof6-journal-r3e-app-update",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFeajM",
+      "rules": [
+        {
+          "type": "update"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-11T13:21:25.502-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22964785"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22964785"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-operation-journal-r3e"
+          ]
+        }
+      },
+      "created_at": "2026-09-11T13:21:24.448-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22964785,
+      "name": "proof6-journal-r3e-integrity",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFeajE",
+      "rules": [
+        {
+          "type": "creation"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-11T13:21:24.477-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/23010578"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/23010578"
+        }
+      },
+      "bypass_actors": [
+        {
+          "actor_id": 4893415,
+          "actor_type": "Integration",
+          "bypass_mode": "always"
+        }
+      ],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-operation-journal-r3f"
+          ]
+        }
+      },
+      "created_at": "2026-09-11T22:07:32.927-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 23010578,
+      "name": "proof6-journal-r3f-app-update",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFfHRI",
+      "rules": [
+        {
+          "type": "update"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-11T22:07:32.996-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/23010575"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/23010575"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-operation-journal-r3f"
+          ]
+        }
+      },
+      "created_at": "2026-09-11T22:07:31.788-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 23010575,
+      "name": "proof6-journal-r3f-integrity",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFfHQ8",
+      "rules": [
+        {
+          "type": "creation"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-11T22:07:31.819-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/23076646"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/23076646"
+        }
+      },
+      "bypass_actors": [
+        {
+          "actor_id": 4893415,
+          "actor_type": "Integration",
+          "bypass_mode": "always"
+        }
+      ],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-operation-journal-r3g"
+          ]
+        }
+      },
+      "created_at": "2026-09-12T11:13:59.398-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 23076646,
+      "name": "proof6-journal-r3g-app-update",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFgHyY",
+      "rules": [
+        {
+          "type": "update"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-12T11:13:59.460-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/23076643"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/23076643"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-operation-journal-r3g"
+          ]
+        }
+      },
+      "created_at": "2026-09-12T11:13:58.411-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 23076643,
+      "name": "proof6-journal-r3g-integrity",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFgHyM",
+      "rules": [
+        {
+          "type": "creation"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-12T11:13:58.447-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22725068"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22725068"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-authority"
+          ]
+        }
+      },
+      "created_at": "2026-09-09T21:36:49.481-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22725068,
+      "name": "proof6-ref-integrity",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFawcw",
+      "rules": [
+        {
+          "type": "creation"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-09T21:36:49.514-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22727382"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22727382"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime"
+          ]
+        }
+      },
+      "created_at": "2026-09-09T22:04:55.343-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22727382,
+      "name": "proof6-runtime-integrity-r2",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFaytY",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-09T22:10:34.687-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22730168"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22730168"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r2d1"
+          ]
+        }
+      },
+      "created_at": "2026-09-09T22:37:11.686-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22730168,
+      "name": "proof6-runtime-r2d1",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFa1bg",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-09T22:37:11.706-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22730525"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22730525"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r2d2"
+          ]
+        }
+      },
+      "created_at": "2026-09-09T22:40:52.896-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22730525,
+      "name": "proof6-runtime-r2d2",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFa1x0",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-09T22:40:52.924-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22732848"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22732848"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r2d3"
+          ]
+        }
+      },
+      "created_at": "2026-09-09T23:08:28.110-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22732848,
+      "name": "proof6-runtime-r2d3",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFa4DA",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-09T23:08:28.152-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22733138"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22733138"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r2d4"
+          ]
+        }
+      },
+      "created_at": "2026-09-09T23:11:33.391-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22733138,
+      "name": "proof6-runtime-r2d4",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFa4VI",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-09T23:11:33.418-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22792054"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22792054"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r3"
+          ]
+        }
+      },
+      "created_at": "2026-09-10T08:57:52.891-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22792054,
+      "name": "proof6-runtime-r3",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFbx3Y",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-10T08:57:52.931-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22817913"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22817913"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r3b"
+          ]
+        }
+      },
+      "created_at": "2026-09-10T12:32:10.435-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22817913,
+      "name": "proof6-runtime-r3b",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFcLHk",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-10T12:32:10.478-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22848532"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22848532"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r3c"
+          ]
+        }
+      },
+      "created_at": "2026-09-10T17:38:19.930-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22848532,
+      "name": "proof6-runtime-r3c",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFcpBQ",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-10T17:38:19.948-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22879691"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22879691"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r3d"
+          ]
+        }
+      },
+      "created_at": "2026-09-10T23:18:56.904-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22879691,
+      "name": "proof6-runtime-r3d",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFdHcs",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-10T23:18:56.942-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22964752"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22964752"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r3e"
+          ]
+        }
+      },
+      "created_at": "2026-09-11T13:21:09.754-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22964752,
+      "name": "proof6-runtime-r3e",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFeahA",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-11T13:21:09.791-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/23010557"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/23010557"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r3f"
+          ]
+        }
+      },
+      "created_at": "2026-09-11T22:07:22.472-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 23010557,
+      "name": "proof6-runtime-r3f",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFfHP0",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-11T22:07:22.487-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/23076632"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/23076632"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-r3g"
+          ]
+        }
+      },
+      "created_at": "2026-09-12T11:13:54.524-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 23076632,
+      "name": "proof6-runtime-r3g",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFgHxg",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-12T11:13:54.549-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22736206"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22736206"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-simplified"
+          ]
+        }
+      },
+      "created_at": "2026-09-09T23:45:52.112-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22736206,
+      "name": "proof6-runtime-simplified",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFa7U4",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-09T23:45:52.148-07:00"
+    },
+    {
+      "_links": {
+        "html": {
+          "href": "https://github.com/flipjam/mc-proof6-synthetic-20260909/rules/22739011"
+        },
+        "self": {
+          "href": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/rulesets/22739011"
+        }
+      },
+      "bypass_actors": [],
+      "conditions": {
+        "ref_name": {
+          "exclude": [],
+          "include": [
+            "refs/heads/proof6-writer-runtime-simplified-r2"
+          ]
+        }
+      },
+      "created_at": "2026-09-10T00:15:13.472-07:00",
+      "current_user_can_bypass": "never",
+      "enforcement": "active",
+      "id": 22739011,
+      "name": "proof6-runtime-simplified-r2",
+      "node_id": "RRS_lACqUmVwb3NpdG9yec5RRYRxzgFa-EM",
+      "rules": [
+        {
+          "type": "update"
+        },
+        {
+          "type": "deletion"
+        },
+        {
+          "type": "non_fast_forward"
+        }
+      ],
+      "source": "flipjam/mc-proof6-synthetic-20260909",
+      "source_type": "Repository",
+      "target": "branch",
+      "updated_at": "2026-09-10T00:15:13.499-07:00"
+    }
+  ],
+  "runs": [
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3g",
+      "head_sha": "73b686f16b052695a4c41706b4b777206a6b0ba1",
+      "id": 34712070826,
+      "run_attempt": 1,
+      "run_number": 47,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3g",
+      "head_sha": "73b686f16b052695a4c41706b4b777206a6b0ba1",
+      "id": 34710580905,
+      "run_attempt": 1,
+      "run_number": 46,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "codex/proof6-d04-hosted-capability-diagnostic-20260912-01",
+      "head_sha": "bcd59d11eae403a37395aa7fb7ad9bd54ab433c1",
+      "id": 34680020137,
+      "run_attempt": 1,
+      "run_number": 45,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3f",
+      "head_sha": "704a32834981ce1ebcfc0f963abe25297b89f304",
+      "id": 34677693960,
+      "run_attempt": 1,
+      "run_number": 44,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3f",
+      "head_sha": "704a32834981ce1ebcfc0f963abe25297b89f304",
+      "id": 34674847751,
+      "run_attempt": 1,
+      "run_number": 43,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3e",
+      "head_sha": "d1a8b2fcbd5ffc3aec8f02823bb604dce542f06f",
+      "id": 34653255644,
+      "run_attempt": 1,
+      "run_number": 42,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3e",
+      "head_sha": "d1a8b2fcbd5ffc3aec8f02823bb604dce542f06f",
+      "id": 34643869762,
+      "run_attempt": 1,
+      "run_number": 41,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3d",
+      "head_sha": "35c3ea5eff822dc6e4dc1e8f5e0b6f76f0d632e5",
+      "id": 34624583736,
+      "run_attempt": 1,
+      "run_number": 40,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3d",
+      "head_sha": "35c3ea5eff822dc6e4dc1e8f5e0b6f76f0d632e5",
+      "id": 34623669701,
+      "run_attempt": 1,
+      "run_number": 39,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3d",
+      "head_sha": "35c3ea5eff822dc6e4dc1e8f5e0b6f76f0d632e5",
+      "id": 34569528637,
+      "run_attempt": 1,
+      "run_number": 37,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3c",
+      "head_sha": "a58413651ffbaa77ef26dd35bdda78a649d4d22e",
+      "id": 34547470950,
+      "run_attempt": 1,
+      "run_number": 36,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34540837224,
+      "run_attempt": 1,
+      "run_number": 35,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34539605835,
+      "run_attempt": 1,
+      "run_number": 34,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34537553972,
+      "run_attempt": 1,
+      "run_number": 33,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34537517301,
+      "run_attempt": 1,
+      "run_number": 32,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34537465862,
+      "run_attempt": 1,
+      "run_number": 31,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34537382363,
+      "run_attempt": 1,
+      "run_number": 30,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34537340089,
+      "run_attempt": 1,
+      "run_number": 29,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34537228160,
+      "run_attempt": 1,
+      "run_number": 28,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34536981291,
+      "run_attempt": 1,
+      "run_number": 27,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34536509735,
+      "run_attempt": 1,
+      "run_number": 26,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34529675727,
+      "run_attempt": 1,
+      "run_number": 25,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34529675591,
+      "run_attempt": 1,
+      "run_number": 24,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34524160481,
+      "run_attempt": 1,
+      "run_number": 23,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3b",
+      "head_sha": "46d2400269120c26015bc2863ca14ac2c6b02d16",
+      "id": 34521153957,
+      "run_attempt": 1,
+      "run_number": 22,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34519736768,
+      "run_attempt": 1,
+      "run_number": 21,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34518520997,
+      "run_attempt": 1,
+      "run_number": 20,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34518520934,
+      "run_attempt": 1,
+      "run_number": 19,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34514558322,
+      "run_attempt": 1,
+      "run_number": 18,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34514476027,
+      "run_attempt": 1,
+      "run_number": 17,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34514369196,
+      "run_attempt": 1,
+      "run_number": 16,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34512788539,
+      "run_attempt": 1,
+      "run_number": 15,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34512714270,
+      "run_attempt": 1,
+      "run_number": 14,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34512621729,
+      "run_attempt": 1,
+      "run_number": 13,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34512522550,
+      "run_attempt": 1,
+      "run_number": 12,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34511428871,
+      "run_attempt": 1,
+      "run_number": 11,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34509000101,
+      "run_attempt": 1,
+      "run_number": 10,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r3",
+      "head_sha": "3d797ecef8eb7b8dcb6add990604bc391e9b5b28",
+      "id": 34499388756,
+      "run_attempt": 1,
+      "run_number": 9,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-simplified-r2",
+      "head_sha": "9d4a368ab03b3db7609d83e78837353fe5513d36",
+      "id": 34452077614,
+      "run_attempt": 1,
+      "run_number": 8,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-simplified-r2",
+      "head_sha": "9d4a368ab03b3db7609d83e78837353fe5513d36",
+      "id": 34449351327,
+      "run_attempt": 1,
+      "run_number": 7,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-simplified",
+      "head_sha": "77e74cb9218f59871ded03a1915c0a5c34d212a7",
+      "id": 34446821513,
+      "run_attempt": 2,
+      "run_number": 6,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r2d4",
+      "head_sha": "312bad80062bec573b87f1183576a389f5a9a4ad",
+      "id": 34444400249,
+      "run_attempt": 1,
+      "run_number": 5,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r2d2",
+      "head_sha": "4b53933229e42e8a225620ed2316396ee60feff9",
+      "id": 34443030522,
+      "run_attempt": 1,
+      "run_number": 4,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r2d2",
+      "head_sha": "4b53933229e42e8a225620ed2316396ee60feff9",
+      "id": 34442092779,
+      "run_attempt": 1,
+      "run_number": 3,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime-r2d1",
+      "head_sha": "5e4009e75d98f56edc7aa87c91b5669ee54f8ca2",
+      "id": 34441958991,
+      "run_attempt": 1,
+      "run_number": 2,
+      "status": "completed"
+    },
+    {
+      "conclusion": "failure",
+      "event": "workflow_dispatch",
+      "head_branch": "proof6-writer-runtime",
+      "head_sha": "98f7227eb04ad2589a60498d5a27fd5cbe23c40f",
+      "id": 34441200546,
+      "run_attempt": 1,
+      "run_number": 1,
+      "status": "completed"
+    }
+  ],
+  "source": {
+    "build_entries": 38,
+    "inventory": {
+      ".github/workflows/proof6-writer.yml": "7f0da6d1e9c27d39eca44f066a833918dce8df915b9557a1b751512f50543f94",
+      "proofs/proof1/replay.py": "ac9c761cf57d74ef68f35213de333c2d071c1f030ad592cae444c3bee576474e",
+      "proofs/proof2/gate.py": "e432172177d7d58d1b9424c4547f31e7223295eeb80d0a3235bd2e7092ca60bf",
+      "proofs/proof6/actions_runtime.py": "3c7289fe23262126cdd52396dde69b4f8edca1fb2aec2a5acfceffb434a3f1d6",
+      "proofs/proof6/admission.py": "5c94385aada6d7dbfe25b3e014363ded818ec795607d929314c2000a84224469",
+      "proofs/proof6/app_probes.py": "b75bdb99391e459af1aea32f4ff7f0e92dfaebab9b70d19476fe6c12fe4dc91e",
+      "proofs/proof6/d03_job_token.py": "1a44ed67a78a8fd3cb0272e8d05a8f7539d7f9b8e738467f98eb4ba7e55a1ddd",
+      "proofs/proof6/d03_rejection.py": "79af705e8b0f405d4ceda4bd12b4550dea9d0cb2cb2330252baf6e40c1132db1",
+      "proofs/proof6/d04_capability.py": "8e08c20a78ba75fe2d15d5e3b0f31252f04187604a97d3e36527ea0d36b08a6f",
+      "proofs/proof6/d04_prerequisite.py": "7c2152461a4c1eb5f1ca199b58f6f8a9bb4e8e8aee29be56ddbcea42b08d53fb",
+      "proofs/proof6/diagnostic-bindings.json": "19f86f39bd70aa8f996465726654a659b824196e5ec155c0965d50f2eb5f2f4a",
+      "proofs/proof6/diagnostics.py": "54f8aefa6c8c1914e01d39410b28945c3d5b38bc5694d34e3f3b61064b9aa934",
+      "proofs/proof6/journal.py": "6b8b2773c39a5e2a988bb871c487c2973814673e2feb517afdb20d336c9fdc90",
+      "proofs/proof6/outage.py": "d1f3fadc0e435546f2889bd9387a3cdbe8a982661c0f4b56cf77a98e2274861e",
+      "proofs/proof6/proof_control.py": "10e07b7795fad1464c277a409ecc6740e74930f830c050b149f39d6983dc7845",
+      "proofs/proof6/proof_plan.json": "f208f6bf2a095be2ee81076b12308c265301845dd9431081a59a1912afcbb50c",
+      "proofs/proof6/reconcile.py": "22d9cc955f9e5780f334d8ab9437630107edca695c62fc238feb5e8fd3668b7e",
+      "proofs/proof6/ruleset_view.py": "9ae91ea816971b4d2b4ec442ae8a703096f6531b16d5177b9e212cd5503fcaf4",
+      "proofs/proof6/sibling_canary.py": "33fb1c915f134f57055ea22702dbe91a481fd1b6a313f1221ddd3346bdf94e86",
+      "proofs/proof6/tests/baseline-history.json": "debd76ef25c8e358fa63e523280a58bb817f20aa9896b50941c68afe8fb4588d",
+      "proofs/proof6/tests/d04_fixtures.py": "62c5550ee4946238a33216282fba925ce54795dadf9bc24e27ad590cf80cda9c",
+      "proofs/proof6/tests/legacy_r3e.py": "a5af15a4f6bc70726893dab007cfcf70c4e932e9f635c40650f06d3917248e4b",
+      "proofs/proof6/tests/legacy_reviewer_r3e.py": "6dba22dcefcf2ec08ac3443f25efc915e7bdf012c5b9d54ab4043efcf96baa87",
+      "proofs/proof6/tests/native_prerequisite_fixture.py": "a3b576dd021d66ed44a6acbc8a1a7e3b8c847890f0aaf879d3705be54bc2647c",
+      "proofs/proof6/tests/r3g-evidence/authority-matrix.md": "c3e68b3926ccf2c08bcf8d216efd918a9b401961e6d9c13f35eeb9b8ef243d55",
+      "proofs/proof6/tests/r3g-evidence/diagnostic-record.json": "89be3b8ca12a10625cd407a28de5aced4f9c9e1847948fc8d80b7ca69c7f47ec",
+      "proofs/proof6/tests/r3g_regression.py": "571ad155f28636966422ae9b292bcf1b5b28fddfeb73d5613e98be0d581af151",
+      "proofs/proof6/tests/regression.py": "a34ccf5d3fee7af2db7792bd7338500759c38d6af2ff2d4a5beaa8c1e73bee02",
+      "proofs/proof6/tests/reproduce_r3g_review.py": "b533ace679e8020075f83027a7d7df2ad0af16fb9c667b412a91a3a2ef8c621b",
+      "proofs/proof6/tests/reviewer_regression.py": "ee5e63c671ae01a464ff1816d150d7a5d2c58bf874c67e8366159e8bebba7f22",
+      "proofs/proof6/tests/support.py": "1a5e5c2172a1e81e6ccedcfe4a1baa0116fd8cdde9d1527886084aa608722e5b",
+      "proofs/proof6/tests/test_caller_types.py": "1948f28703a25f414281063d314d09fa17139b95e2e6e55abb947436c5dcab36",
+      "proofs/proof6/tests/test_r3f.py": "23a240c1b4593fa23ed0d4b02e8e0915fb5432eca86d600f3b18ab657d9f7bb2",
+      "proofs/proof6/tests/test_r3g.py": "87f4977817e9d93c8d819b561547c75fab091b0b2ff1bd873982968056aa5858",
+      "proofs/proof6/tests/test_r3g_correction.py": "43e34539d1af0d494bc24da0013388bdafda55c080f15afbb573b1ca9b3c41f5",
+      "proofs/proof6/tests/verify_candidate.py": "cfa99b4509c333da0af55257d95dfaa9b0f7808034171bc784dfde5c57dc092c",
+      "proofs/proof6/tests/verify_r3g.py": "16b01749ec8b40ac6f76c62f05416ed2634b596984523e5ca8f81b5690e5ec93",
+      "proofs/proof6/writer.py": "1ac7c34c318e18d8c665a15b6ec26e0b1e07d60c76f0b96aaa37db6deee00bd5"
+    },
+    "sha": "73b686f16b052695a4c41706b4b777206a6b0ba1"
+  },
+  "workflows": {
+    "total_count": 1,
+    "workflows": [
+      {
+        "badge_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/workflows/Proof6%20protected%20writer/badge.svg",
+        "created_at": "2026-09-09T22:10:35.000-07:00",
+        "html_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/blob/proof6-writer-runtime-r3b/.github/workflows/proof6-writer.yml",
+        "id": 354612007,
+        "name": "Proof6 protected writer",
+        "node_id": "W_kwDOUUWEcc4VIvMn",
+        "path": ".github/workflows/proof6-writer.yml",
+        "state": "active",
+        "updated_at": "2026-09-09T22:10:35.000-07:00",
+        "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/actions/workflows/354612007"
+      }
+    ]
+  }
+}

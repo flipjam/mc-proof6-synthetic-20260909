@@ -1,0 +1,250 @@
+﻿2026-09-12T20:00:19.3396590Z Current runner version: '2.337.0'
+2026-09-12T20:00:19.3418668Z ##[group]Runner Image Provisioner
+2026-09-12T20:00:19.3419445Z Hosted Compute Agent
+2026-09-12T20:00:19.3419968Z Version: 20260828.587
+2026-09-12T20:00:19.3420519Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-12T20:00:19.3421253Z Build Date: 2026-08-28T16:44:25Z
+2026-09-12T20:00:19.3421806Z Worker ID: {3104095c-18bc-4161-b61e-2085f9be3fe5}
+2026-09-12T20:00:19.3422432Z Azure Region: mexicocentral
+2026-09-12T20:00:19.3422925Z ##[endgroup]
+2026-09-12T20:00:19.3424076Z ##[group]Operating System
+2026-09-12T20:00:19.3424683Z Ubuntu
+2026-09-12T20:00:19.3425110Z 24.04.5
+2026-09-12T20:00:19.3425922Z LTS
+2026-09-12T20:00:19.3426402Z ##[endgroup]
+2026-09-12T20:00:19.3426849Z ##[group]Runner Image
+2026-09-12T20:00:19.3427443Z Image: ubuntu-24.04
+2026-09-12T20:00:19.3427907Z Version: 20260907.300.1
+2026-09-12T20:00:19.3428991Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-12T20:00:19.3430224Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-12T20:00:19.3431087Z ##[endgroup]
+2026-09-12T20:00:19.3431971Z ##[group]GITHUB_TOKEN Permissions
+2026-09-12T20:00:19.3433592Z Metadata: read
+2026-09-12T20:00:19.3434080Z Statuses: write
+2026-09-12T20:00:19.3434688Z ##[endgroup]
+2026-09-12T20:00:19.3437034Z Secret source: Actions
+2026-09-12T20:00:19.3437891Z Cache mode: write
+2026-09-12T20:00:19.3438488Z Prepare workflow directory
+2026-09-12T20:00:19.3738008Z Prepare all required actions
+2026-09-12T20:00:19.3829663Z Complete job name: canary
+2026-09-12T20:00:19.4487782Z ##[group]Run set -euo pipefail
+2026-09-12T20:00:19.4489883Z [36;1mset -euo pipefail[0m
+2026-09-12T20:00:19.4490927Z [36;1mumask 077[0m
+2026-09-12T20:00:19.4491728Z [36;1mmkdir "$RUNNER_TEMP/proof6-d04-status-canary"[0m
+2026-09-12T20:00:19.4493077Z [36;1mcat > "$RUNNER_TEMP/proof6-d04-status-canary/producer.py" <<'PRODUCER'[0m
+2026-09-12T20:00:19.4494658Z [36;1m"""Credential-free fixed producer. NON-ACCEPTANCE; no isolation or authority work."""[0m
+2026-09-12T20:00:19.4496129Z [36;1mimport datetime[0m
+2026-09-12T20:00:19.4496990Z [36;1mimport hashlib[0m
+2026-09-12T20:00:19.4497708Z [36;1mimport json[0m
+2026-09-12T20:00:19.4498475Z [36;1mimport os[0m
+2026-09-12T20:00:19.4499170Z [36;1mfrom pathlib import Path[0m
+2026-09-12T20:00:19.4499920Z [36;1mimport re[0m
+2026-09-12T20:00:19.4500713Z [36;1mimport sys[0m
+2026-09-12T20:00:19.4501428Z [36;1mimport time[0m
+2026-09-12T20:00:19.4502154Z [36;1m[0m
+2026-09-12T20:00:19.4502786Z [36;1mWINDOW_SECONDS = 20[0m
+2026-09-12T20:00:19.4504004Z [36;1mENV_KEYS = {'PATH', 'LANG', 'CANARY_RUN_ID', 'CANARY_ATTEMPT', 'CANARY_SHA'}[0m
+2026-09-12T20:00:19.4505117Z [36;1m[0m
+2026-09-12T20:00:19.4506001Z [36;1mdef main():[0m
+2026-09-12T20:00:19.4506764Z [36;1m    assert set(os.environ) == ENV_KEYS[0m
+2026-09-12T20:00:19.4507919Z [36;1m    assert os.environ['PATH'] == '/usr/bin:/bin' and os.environ['LANG'] == 'C.UTF-8'[0m
+2026-09-12T20:00:19.4509350Z [36;1m    assert re.fullmatch(r'[1-9][0-9]*', os.environ['CANARY_RUN_ID'])[0m
+2026-09-12T20:00:19.4510518Z [36;1m    assert os.environ['CANARY_ATTEMPT'] == '1'[0m
+2026-09-12T20:00:19.4511728Z [36;1m    assert re.fullmatch(r'[0-9a-f]{40}', os.environ['CANARY_SHA'])[0m
+2026-09-12T20:00:19.4512815Z [36;1m    root = Path(__file__).resolve().parent[0m
+2026-09-12T20:00:19.4513905Z [36;1m    assert sys.argv == [str(root / 'producer.py')] and Path.cwd() == root[0m
+2026-09-12T20:00:19.4515433Z [36;1m    assert set(p.name for p in root.iterdir()) == {'producer.py', 'helper.py'}[0m
+2026-09-12T20:00:19.4516563Z [36;1m    fds = {}[0m
+2026-09-12T20:00:19.4517391Z [36;1m    for p in Path('/proc/self/fd').iterdir():[0m
+2026-09-12T20:00:19.4518260Z [36;1m        try:[0m
+2026-09-12T20:00:19.4519074Z [36;1m            fds[p.name] = os.readlink(p)[0m
+2026-09-12T20:00:19.4520001Z [36;1m        except FileNotFoundError:[0m
+2026-09-12T20:00:19.4520828Z [36;1m            pass[0m
+2026-09-12T20:00:19.4521966Z [36;1m    assert set(fds) == {'0', '1', '2'}[0m
+2026-09-12T20:00:19.4523085Z [36;1m    assert all(re.fullmatch(r'pipe:\[[0-9]+\]', fds[x]) for x in ('0', '1'))[0m
+2026-09-12T20:00:19.4524291Z [36;1m    assert fds['2'] == '/dev/null'[0m
+2026-09-12T20:00:19.4525572Z [36;1m    custody = {'environment_keys': sorted(os.environ), 'argv': sys.argv,[0m
+2026-09-12T20:00:19.4526984Z [36;1m               'descriptors': fds, 'files': {p.name: hashlib.sha256(p.read_bytes()).hexdigest()[0m
+2026-09-12T20:00:19.4528282Z [36;1m                                           for p in root.iterdir()},[0m
+2026-09-12T20:00:19.4529531Z [36;1m               'no_credential_delivery': True, 'credential_discovery_implemented': False}[0m
+2026-09-12T20:00:19.4530860Z [36;1m    assert sys.stdin.buffer.readline(4) == b'GO\n'[0m
+2026-09-12T20:00:19.4532371Z [36;1m    binding = {'schema': 'PROOF6_STATUS_CANARY_V1', 'run_id': int(os.environ['CANARY_RUN_ID']),[0m
+2026-09-12T20:00:19.4533912Z [36;1m               'attempt': 1, 'sha': os.environ['CANARY_SHA'], 'pid': os.getpid(), 'custody': custody}[0m
+2026-09-12T20:00:19.4535374Z [36;1m    start = time.monotonic()[0m
+2026-09-12T20:00:19.4536191Z [36;1m    for phase in ('READY', 'END'):[0m
+2026-09-12T20:00:19.4537128Z [36;1m        if phase == 'END':[0m
+2026-09-12T20:00:19.4538118Z [36;1m            while time.monotonic() - start < WINDOW_SECONDS:[0m
+2026-09-12T20:00:19.4539429Z [36;1m                time.sleep(max(0, min(0.25, WINDOW_SECONDS - (time.monotonic() - start))))[0m
+2026-09-12T20:00:19.4540840Z [36;1m        now = time.monotonic()[0m
+2026-09-12T20:00:19.4541668Z [36;1m        if phase == 'READY':[0m
+2026-09-12T20:00:19.4542542Z [36;1m            start = now[0m
+2026-09-12T20:00:19.4543832Z [36;1m        event = dict(binding, phase=phase, utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),[0m
+2026-09-12T20:00:19.4545388Z [36;1m                     monotonic=now)[0m
+2026-09-12T20:00:19.4546523Z [36;1m        print(json.dumps(event, sort_keys=True, separators=(',', ':')), flush=True)[0m
+2026-09-12T20:00:19.4547698Z [36;1m[0m
+2026-09-12T20:00:19.4548398Z [36;1mif __name__ == '__main__':[0m
+2026-09-12T20:00:19.4549163Z [36;1m    main()[0m
+2026-09-12T20:00:19.4549894Z [36;1mPRODUCER[0m
+2026-09-12T20:00:19.4550843Z [36;1mcat > "$RUNNER_TEMP/proof6-d04-status-canary/helper.py" <<'HELPER'[0m
+2026-09-12T20:00:19.4552266Z [36;1m"""Fixed diagnostic-only commit-status helper. No proof runtime imports."""[0m
+2026-09-12T20:00:19.4553442Z [36;1mimport datetime[0m
+2026-09-12T20:00:19.4554148Z [36;1mimport hashlib[0m
+2026-09-12T20:00:19.4554927Z [36;1mimport json[0m
+2026-09-12T20:00:19.4555743Z [36;1mimport os[0m
+2026-09-12T20:00:19.4556467Z [36;1mfrom pathlib import Path[0m
+2026-09-12T20:00:19.4557223Z [36;1mimport re[0m
+2026-09-12T20:00:19.4557925Z [36;1mimport select[0m
+2026-09-12T20:00:19.4558732Z [36;1mimport signal[0m
+2026-09-12T20:00:19.4559488Z [36;1mimport subprocess[0m
+2026-09-12T20:00:19.4560289Z [36;1mimport sys[0m
+2026-09-12T20:00:19.4560987Z [36;1mimport time[0m
+2026-09-12T20:00:19.4561648Z [36;1mimport urllib.request[0m
+2026-09-12T20:00:19.4562444Z [36;1m[0m
+2026-09-12T20:00:19.4563160Z [36;1mREPO = 'flipjam/mc-proof6-synthetic-20260909'[0m
+2026-09-12T20:00:19.4564452Z [36;1mBRANCH = 'refs/heads/codex/proof6-r3h-live-status-canary-20260912-01'[0m
+2026-09-12T20:00:19.4566042Z [36;1mKEYS = {'schema', 'run_id', 'attempt', 'sha', 'pid', 'custody', 'phase', 'utc', 'monotonic'}[0m
+2026-09-12T20:00:19.4567230Z [36;1m[0m
+2026-09-12T20:00:19.4567840Z [36;1mdef utc():[0m
+2026-09-12T20:00:19.4568830Z [36;1m    return datetime.datetime.now(datetime.timezone.utc).isoformat()[0m
+2026-09-12T20:00:19.4569956Z [36;1m[0m
+2026-09-12T20:00:19.4570590Z [36;1mdef emit(kind, **fields):[0m
+2026-09-12T20:00:19.4572012Z [36;1m    print('PROOF6_STATUS_CANARY ' + json.dumps(dict(kind=kind, utc=utc(), **fields), sort_keys=True), flush=True)[0m
+2026-09-12T20:00:19.4573335Z [36;1m[0m
+2026-09-12T20:00:19.4574458Z [36;1mclass NoRedirect(urllib.request.HTTPRedirectHandler):[0m
+2026-09-12T20:00:19.4575752Z [36;1m    def redirect_request(self, *args, **kwargs):[0m
+2026-09-12T20:00:19.4576763Z [36;1m        raise RuntimeError('REDIRECT_FORBIDDEN')[0m
+2026-09-12T20:00:19.4577698Z [36;1m[0m
+2026-09-12T20:00:19.4578415Z [36;1mdef post(token, sha, run_id, attempt, event):[0m
+2026-09-12T20:00:19.4579605Z [36;1m    context = f'proof6/d04-signal-canary/{run_id}/{attempt}/{sha}'[0m
+2026-09-12T20:00:19.4581021Z [36;1m    payload = {'state': 'pending' if event['phase'] == 'READY' else 'success', 'context': context,[0m
+2026-09-12T20:00:19.4582598Z [36;1m               'description': f"{event['phase']} r={run_id} a={attempt} sha={sha} p={event['pid']}",[0m
+2026-09-12T20:00:19.4584024Z [36;1m               'target_url': f'https://github.com/{REPO}/actions/runs/{run_id}'}[0m
+2026-09-12T20:00:19.4585526Z [36;1m    assert len(context) <= 100 and len(payload['description']) <= 140[0m
+2026-09-12T20:00:19.4587081Z [36;1m    request = urllib.request.Request(f'https://api.github.com/repos/{REPO}/statuses/{sha}',[0m
+2026-09-12T20:00:19.4588639Z [36;1m        data=json.dumps(payload, sort_keys=True).encode(), method='POST', headers={[0m
+2026-09-12T20:00:19.4590197Z [36;1m            'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json',[0m
+2026-09-12T20:00:19.4591638Z [36;1m            'Content-Type': 'application/json', 'X-GitHub-Api-Version': '2022-11-28',[0m
+2026-09-12T20:00:19.4592850Z [36;1m            'User-Agent': 'proof6-fixed-status-canary'})[0m
+2026-09-12T20:00:19.4594058Z [36;1m    started = utc()[0m
+2026-09-12T20:00:19.4595388Z [36;1m    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())[0m
+2026-09-12T20:00:19.4596832Z [36;1m    with opener.open(request, timeout=5) as response:[0m
+2026-09-12T20:00:19.4597808Z [36;1m        assert response.status == 201[0m
+2026-09-12T20:00:19.4598717Z [36;1m        raw = response.read(65537)[0m
+2026-09-12T20:00:19.4599585Z [36;1m        assert len(raw) <= 65536[0m
+2026-09-12T20:00:19.4600439Z [36;1m        item = json.loads(raw)[0m
+2026-09-12T20:00:19.4601450Z [36;1m        assert all(item[k] == payload[k] for k in payload)[0m
+2026-09-12T20:00:19.4602604Z [36;1m        assert item['creator']['login'] == 'github-actions[bot]'[0m
+2026-09-12T20:00:19.4604003Z [36;1m        receipt = {'started_at': started, 'completed_at': utc(), 'http_status': response.status,[0m
+2026-09-12T20:00:19.4605773Z [36;1m                   'headers': {k: response.headers.get(k) for k in ('Date', 'X-GitHub-Request-Id',[0m
+2026-09-12T20:00:19.4607392Z [36;1m                              'X-Accepted-GitHub-Permissions')}, 'payload': payload, 'response': item}[0m
+2026-09-12T20:00:19.4608788Z [36;1m    emit('STATUS_POST', phase=event['phase'], receipt=receipt)[0m
+2026-09-12T20:00:19.4609723Z [36;1m[0m
+2026-09-12T20:00:19.4610409Z [36;1mdef timeout(*_):[0m
+2026-09-12T20:00:19.4611184Z [36;1m    raise TimeoutError('CANARY_DEADLINE')[0m
+2026-09-12T20:00:19.4612145Z [36;1m[0m
+2026-09-12T20:00:19.4612833Z [36;1mdef main():[0m
+2026-09-12T20:00:19.4613564Z [36;1m    signal.signal(signal.SIGALRM, timeout)[0m
+2026-09-12T20:00:19.4614436Z [36;1m    signal.alarm(60)[0m
+2026-09-12T20:00:19.4615475Z [36;1m    assert os.environ['GITHUB_REPOSITORY'] == REPO[0m
+2026-09-12T20:00:19.4616635Z [36;1m    assert os.environ['GITHUB_REPOSITORY_ID'] == '1363510385'[0m
+2026-09-12T20:00:19.4618387Z [36;1m    assert os.environ['GITHUB_REF'] == BRANCH and os.environ['GITHUB_EVENT_NAME'] == 'workflow_dispatch'[0m
+2026-09-12T20:00:19.4620171Z [36;1m    assert os.environ['GITHUB_WORKFLOW_REF'] == REPO + '/.github/workflows/proof6-writer.yml@' + BRANCH[0m
+2026-09-12T20:00:19.4621635Z [36;1m    assert os.environ['GITHUB_RUN_ATTEMPT'] == '1'[0m
+2026-09-12T20:00:19.4622924Z [36;1m    assert not any(k.startswith('PROOF6_APP') or k == 'PROOF6_FROZEN_MANIFEST' for k in os.environ)[0m
+2026-09-12T20:00:19.4624613Z [36;1m    run_id = int(os.environ['GITHUB_RUN_ID']); attempt = 1; sha = os.environ['GITHUB_SHA'][0m
+2026-09-12T20:00:19.4626300Z [36;1m    assert run_id > 0 and re.fullmatch(r'[0-9a-f]{40}', sha)[0m
+2026-09-12T20:00:19.4627406Z [36;1m    token = os.environ.pop('CANARY_STATUS_TOKEN')[0m
+2026-09-12T20:00:19.4628454Z [36;1m    assert token and token not in '\0'.join(sys.argv)[0m
+2026-09-12T20:00:19.4629586Z [36;1m    root = Path(__file__).resolve().parent[0m
+2026-09-12T20:00:19.4630727Z [36;1m    assert set(p.name for p in root.iterdir()) == {'producer.py', 'helper.py'}[0m
+2026-09-12T20:00:19.4632006Z [36;1m    sources = {p.name: p.read_bytes() for p in root.iterdir()}[0m
+2026-09-12T20:00:19.4633299Z [36;1m    assert all(token.encode() not in raw for raw in sources.values())[0m
+2026-09-12T20:00:19.4634629Z [36;1m    child_env = {'PATH': '/usr/bin:/bin', 'LANG': 'C.UTF-8', 'CANARY_RUN_ID': str(run_id),[0m
+2026-09-12T20:00:19.4706634Z [36;1m                 'CANARY_ATTEMPT': '1', 'CANARY_SHA': sha}[0m
+2026-09-12T20:00:19.4707800Z [36;1m    command = ['/usr/bin/python3', '-I', '-B', str(root / 'producer.py')][0m
+2026-09-12T20:00:19.4709060Z [36;1m    child = subprocess.Popen(command, cwd=root, env=child_env, stdin=subprocess.PIPE,[0m
+2026-09-12T20:00:19.4710534Z [36;1m                             stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, close_fds=True, bufsize=0)[0m
+2026-09-12T20:00:19.4711623Z [36;1m    try:[0m
+2026-09-12T20:00:19.4712486Z [36;1m        # Inspect only this implementation-created child's nonsecret delivery path.[0m
+2026-09-12T20:00:19.4713853Z [36;1m        deadline = time.monotonic() + 3[0m
+2026-09-12T20:00:19.4714577Z [36;1m        while True:[0m
+2026-09-12T20:00:19.4715617Z [36;1m            argv = Path(f'/proc/{child.pid}/cmdline').read_bytes().split(b'\0')[:-1][0m
+2026-09-12T20:00:19.4716661Z [36;1m            if argv == [x.encode() for x in command]:[0m
+2026-09-12T20:00:19.4717423Z [36;1m                break[0m
+2026-09-12T20:00:19.4718241Z [36;1m            assert child.poll() is None and time.monotonic() < deadline[0m
+2026-09-12T20:00:19.4719151Z [36;1m            time.sleep(0.01)[0m
+2026-09-12T20:00:19.4720010Z [36;1m        delivered = Path(f'/proc/{child.pid}/environ').read_bytes()[0m
+2026-09-12T20:00:19.4720953Z [36;1m        assert token.encode() not in delivered[0m
+2026-09-12T20:00:19.4721932Z [36;1m        actual_env = dict(x.split(b'=', 1) for x in delivered.split(b'\0') if x)[0m
+2026-09-12T20:00:19.4723167Z [36;1m        assert actual_env == {k.encode(): v.encode() for k, v in child_env.items()}[0m
+2026-09-12T20:00:19.4724442Z [36;1m        expected_fds = {'0': f'pipe:[{os.fstat(child.stdin.fileno()).st_ino}]',[0m
+2026-09-12T20:00:19.4725917Z [36;1m                        '1': f'pipe:[{os.fstat(child.stdout.fileno()).st_ino}]', '2': '/dev/null'}[0m
+2026-09-12T20:00:19.4726915Z [36;1m        while True:[0m
+2026-09-12T20:00:19.4727528Z [36;1m            actual_fds = {}[0m
+2026-09-12T20:00:19.4728308Z [36;1m            for p in Path(f'/proc/{child.pid}/fd').iterdir():[0m
+2026-09-12T20:00:19.4729128Z [36;1m                try:[0m
+2026-09-12T20:00:19.4729813Z [36;1m                    actual_fds[p.name] = os.readlink(p)[0m
+2026-09-12T20:00:19.4730645Z [36;1m                except FileNotFoundError:[0m
+2026-09-12T20:00:19.4731375Z [36;1m                    pass[0m
+2026-09-12T20:00:19.4732053Z [36;1m            if actual_fds == expected_fds:[0m
+2026-09-12T20:00:19.4732778Z [36;1m                break[0m
+2026-09-12T20:00:19.4733613Z [36;1m            assert child.poll() is None and time.monotonic() < deadline[0m
+2026-09-12T20:00:19.4734532Z [36;1m            time.sleep(0.01)[0m
+2026-09-12T20:00:19.4735670Z [36;1m        emit('HELPER_CUSTODY_READY', helper_pid=os.getpid(), producer_pid=child.pid,[0m
+2026-09-12T20:00:19.4736970Z [36;1m             producer_environment_keys=sorted(child_env), producer_argv=command,[0m
+2026-09-12T20:00:19.4738522Z [36;1m             producer_descriptors=actual_fds, source_sha256={k:hashlib.sha256(v).hexdigest() for k,v in sources.items()},[0m
+2026-09-12T20:00:19.4740417Z [36;1m             no_credential_file=True, no_app_credential=True, no_credential_delivery=True,[0m
+2026-09-12T20:00:19.4741517Z [36;1m             no_hostile_root_secrecy_claim=True)[0m
+2026-09-12T20:00:19.4742390Z [36;1m        child.stdin.write(b'GO\n'); child.stdin.close()[0m
+2026-09-12T20:00:19.4743212Z [36;1m        previous = None[0m
+2026-09-12T20:00:19.4743883Z [36;1m        for phase in ('READY', 'END'):[0m
+2026-09-12T20:00:19.4744732Z [36;1m            assert select.select([child.stdout], [], [], 25)[0][0m
+2026-09-12T20:00:19.4745863Z [36;1m            raw = child.stdout.readline(16385)[0m
+2026-09-12T20:00:19.4746882Z [36;1m            assert raw.endswith(b'\n') and len(raw) <= 16384 and token.encode() not in raw[0m
+2026-09-12T20:00:19.4747904Z [36;1m            event = json.loads(raw)[0m
+2026-09-12T20:00:19.4748630Z [36;1m            assert set(event) == KEYS[0m
+2026-09-12T20:00:19.4749664Z [36;1m            assert event['schema'] == 'PROOF6_STATUS_CANARY_V1' and event['phase'] == phase[0m
+2026-09-12T20:00:19.4751033Z [36;1m            assert event['run_id'] == run_id and event['attempt'] == attempt and event['sha'] == sha[0m
+2026-09-12T20:00:19.4752453Z [36;1m            assert event['pid'] == child.pid and event['custody']['no_credential_delivery'] is True[0m
+2026-09-12T20:00:19.4753658Z [36;1m            assert set(event['custody']['environment_keys']) == set(child_env)[0m
+2026-09-12T20:00:19.4754640Z [36;1m            assert event['custody']['descriptors'] == expected_fds[0m
+2026-09-12T20:00:19.4756239Z [36;1m            assert event['custody']['files'] == {k:hashlib.sha256(v).hexdigest() for k,v in sources.items()}[0m
+2026-09-12T20:00:19.4757315Z [36;1m            if previous is not None:[0m
+2026-09-12T20:00:19.4758211Z [36;1m                assert event['monotonic'] - previous['monotonic'] >= 20[0m
+2026-09-12T20:00:19.4759125Z [36;1m            emit('LOCAL_EVENT', event=event)[0m
+2026-09-12T20:00:19.4759899Z [36;1m            post(token, sha, run_id, attempt, event)[0m
+2026-09-12T20:00:19.4760625Z [36;1m            previous = event[0m
+2026-09-12T20:00:19.4761468Z [36;1m        assert child.wait(timeout=3) == 0 and child.stdout.read(1) == b''[0m
+2026-09-12T20:00:19.4762711Z [36;1m        emit('PRODUCER_REAPED', producer_pid=child.pid, returncode=child.returncode)[0m
+2026-09-12T20:00:19.4764050Z [36;1m        # Fixed observation margin for external END detection before job completion.[0m
+2026-09-12T20:00:19.4765052Z [36;1m        time.sleep(10)[0m
+2026-09-12T20:00:19.4765936Z [36;1m        emit('COMPLETED', acceptance_credit=False)[0m
+2026-09-12T20:00:19.4766714Z [36;1m    finally:[0m
+2026-09-12T20:00:19.4767292Z [36;1m        if child.poll() is None:[0m
+2026-09-12T20:00:19.4768063Z [36;1m            child.kill()[0m
+2026-09-12T20:00:19.4768693Z [36;1m            child.wait(timeout=3)[0m
+2026-09-12T20:00:19.4769411Z [36;1m        signal.alarm(0)[0m
+2026-09-12T20:00:19.4770042Z [36;1m[0m
+2026-09-12T20:00:19.4770541Z [36;1mif __name__ == '__main__':[0m
+2026-09-12T20:00:19.4771162Z [36;1m    try:[0m
+2026-09-12T20:00:19.4771663Z [36;1m        main()[0m
+2026-09-12T20:00:19.4772249Z [36;1m    except Exception as exc:[0m
+2026-09-12T20:00:19.4773249Z [36;1m        emit('FAILED', exception_type=type(exc).__name__, acceptance_credit=False)[0m
+2026-09-12T20:00:19.4774224Z [36;1m        raise SystemExit(1)[0m
+2026-09-12T20:00:19.4774866Z [36;1mHELPER[0m
+2026-09-12T20:00:19.5308304Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-12T20:00:19.5309121Z ##[endgroup]
+2026-09-12T20:00:19.5623339Z ##[group]Run exec /usr/bin/python3 -I -B "$RUNNER_TEMP/proof6-d04-status-canary/helper.py"
+2026-09-12T20:00:19.5624216Z [36;1mexec /usr/bin/python3 -I -B "$RUNNER_TEMP/proof6-d04-status-canary/helper.py"[0m
+2026-09-12T20:00:19.5657291Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-12T20:00:19.5657816Z env:
+2026-09-12T20:00:19.5661076Z   CANARY_STATUS_TOKEN: ***
+2026-09-12T20:00:19.5661461Z ##[endgroup]
+2026-09-12T20:00:19.6336908Z PROOF6_STATUS_CANARY {"helper_pid": 1943, "kind": "HELPER_CUSTODY_READY", "no_app_credential": true, "no_credential_delivery": true, "no_credential_file": true, "no_hostile_root_secrecy_claim": true, "producer_argv": ["/usr/bin/python3", "-I", "-B", "/home/runner/work/_temp/proof6-d04-status-canary/producer.py"], "producer_descriptors": {"0": "pipe:[14735]", "1": "pipe:[14736]", "2": "/dev/null"}, "producer_environment_keys": ["CANARY_ATTEMPT", "CANARY_RUN_ID", "CANARY_SHA", "LANG", "PATH"], "producer_pid": 1945, "source_sha256": {"helper.py": "8fb7d5d67468912f3fe913f845862bd73a122f42111f8dbdba730f63dbfd0183", "producer.py": "2a56ff6eaf54b969753b7159140a79ccca7f5102e367455cf2687e1f3a71a71c"}, "utc": "2026-09-12T20:00:19.631591+00:00"}
+2026-09-12T20:00:19.6343411Z PROOF6_STATUS_CANARY {"event": {"attempt": 1, "custody": {"argv": ["/home/runner/work/_temp/proof6-d04-status-canary/producer.py"], "credential_discovery_implemented": false, "descriptors": {"0": "pipe:[14735]", "1": "pipe:[14736]", "2": "/dev/null"}, "environment_keys": ["CANARY_ATTEMPT", "CANARY_RUN_ID", "CANARY_SHA", "LANG", "PATH"], "files": {"helper.py": "8fb7d5d67468912f3fe913f845862bd73a122f42111f8dbdba730f63dbfd0183", "producer.py": "2a56ff6eaf54b969753b7159140a79ccca7f5102e367455cf2687e1f3a71a71c"}, "no_credential_delivery": true}, "monotonic": 213.073391368, "phase": "READY", "pid": 1945, "run_id": 34715785446, "schema": "PROOF6_STATUS_CANARY_V1", "sha": "2b7d0fa62e41bc500f6bf2dc5c540910501cabc3", "utc": "2026-09-12T20:00:19.631911+00:00"}, "kind": "LOCAL_EVENT", "utc": "2026-09-12T20:00:19.632542+00:00"}
+2026-09-12T20:00:20.3890442Z PROOF6_STATUS_CANARY {"kind": "STATUS_POST", "phase": "READY", "receipt": {"completed_at": "2026-09-12T20:00:20.386085+00:00", "headers": {"Date": "Sat, 12 Sep 2026 20:00:20 GMT", "X-Accepted-GitHub-Permissions": "statuses=write", "X-GitHub-Request-Id": "D980:1B89F2:ABFA08:22C4220:6AA5AF53"}, "http_status": 201, "payload": {"context": "proof6/d04-signal-canary/34715785446/1/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3", "description": "READY r=34715785446 a=1 sha=2b7d0fa62e41bc500f6bf2dc5c540910501cabc3 p=1945", "state": "pending", "target_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/actions/runs/34715785446"}, "response": {"avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4", "context": "proof6/d04-signal-canary/34715785446/1/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3", "created_at": "2026-09-12T20:00:19Z", "creator": {"avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4", "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}", "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers", "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}", "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}", "gravatar_id": "", "html_url": "https://github.com/apps/github-actions", "id": 41898282, "login": "github-actions[bot]", "node_id": "MDM6Qm90NDE4OTgyODI=", "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs", "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events", "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos", "site_admin": false, "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions", "type": "Bot", "url": "https://api.github.com/users/github-actions%5Bbot%5D", "user_view_type": "public"}, "description": "READY r=34715785446 a=1 sha=2b7d0fa62e41bc500f6bf2dc5c540910501cabc3 p=1945", "id": 54053722962, "node_id": "SC_kwDOUUWEcc8AAAAMldpbUg", "state": "pending", "target_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/actions/runs/34715785446", "updated_at": "2026-09-12T20:00:19Z", "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/statuses/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3"}, "started_at": "2026-09-12T20:00:19.632793+00:00"}, "utc": "2026-09-12T20:00:20.386109+00:00"}
+2026-09-12T20:00:39.6334672Z PROOF6_STATUS_CANARY {"event": {"attempt": 1, "custody": {"argv": ["/home/runner/work/_temp/proof6-d04-status-canary/producer.py"], "credential_discovery_implemented": false, "descriptors": {"0": "pipe:[14735]", "1": "pipe:[14736]", "2": "/dev/null"}, "environment_keys": ["CANARY_ATTEMPT", "CANARY_RUN_ID", "CANARY_SHA", "LANG", "PATH"], "files": {"helper.py": "8fb7d5d67468912f3fe913f845862bd73a122f42111f8dbdba730f63dbfd0183", "producer.py": "2a56ff6eaf54b969753b7159140a79ccca7f5102e367455cf2687e1f3a71a71c"}, "no_credential_delivery": true}, "monotonic": 233.073509667, "phase": "END", "pid": 1945, "run_id": 34715785446, "schema": "PROOF6_STATUS_CANARY_V1", "sha": "2b7d0fa62e41bc500f6bf2dc5c540910501cabc3", "utc": "2026-09-12T20:00:39.632032+00:00"}, "kind": "LOCAL_EVENT", "utc": "2026-09-12T20:00:39.632858+00:00"}
+2026-09-12T20:00:40.3470727Z PROOF6_STATUS_CANARY {"kind": "STATUS_POST", "phase": "END", "receipt": {"completed_at": "2026-09-12T20:00:40.346109+00:00", "headers": {"Date": "Sat, 12 Sep 2026 20:00:40 GMT", "X-Accepted-GitHub-Permissions": "statuses=write", "X-GitHub-Request-Id": "D980:1B89F2:AC5873:22D765D:6AA5AF67"}, "http_status": 201, "payload": {"context": "proof6/d04-signal-canary/34715785446/1/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3", "description": "END r=34715785446 a=1 sha=2b7d0fa62e41bc500f6bf2dc5c540910501cabc3 p=1945", "state": "success", "target_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/actions/runs/34715785446"}, "response": {"avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4", "context": "proof6/d04-signal-canary/34715785446/1/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3", "created_at": "2026-09-12T20:00:39Z", "creator": {"avatar_url": "https://avatars.githubusercontent.com/in/15368?v=4", "events_url": "https://api.github.com/users/github-actions%5Bbot%5D/events{/privacy}", "followers_url": "https://api.github.com/users/github-actions%5Bbot%5D/followers", "following_url": "https://api.github.com/users/github-actions%5Bbot%5D/following{/other_user}", "gists_url": "https://api.github.com/users/github-actions%5Bbot%5D/gists{/gist_id}", "gravatar_id": "", "html_url": "https://github.com/apps/github-actions", "id": 41898282, "login": "github-actions[bot]", "node_id": "MDM6Qm90NDE4OTgyODI=", "organizations_url": "https://api.github.com/users/github-actions%5Bbot%5D/orgs", "received_events_url": "https://api.github.com/users/github-actions%5Bbot%5D/received_events", "repos_url": "https://api.github.com/users/github-actions%5Bbot%5D/repos", "site_admin": false, "starred_url": "https://api.github.com/users/github-actions%5Bbot%5D/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/github-actions%5Bbot%5D/subscriptions", "type": "Bot", "url": "https://api.github.com/users/github-actions%5Bbot%5D", "user_view_type": "public"}, "description": "END r=34715785446 a=1 sha=2b7d0fa62e41bc500f6bf2dc5c540910501cabc3 p=1945", "id": 54053731212, "node_id": "SC_kwDOUUWEcc8AAAAMldp7jA", "state": "success", "target_url": "https://github.com/flipjam/mc-proof6-synthetic-20260909/actions/runs/34715785446", "updated_at": "2026-09-12T20:00:39Z", "url": "https://api.github.com/repos/flipjam/mc-proof6-synthetic-20260909/statuses/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3"}, "started_at": "2026-09-12T20:00:39.632986+00:00"}, "utc": "2026-09-12T20:00:40.346133+00:00"}
+2026-09-12T20:00:40.3478038Z PROOF6_STATUS_CANARY {"kind": "PRODUCER_REAPED", "producer_pid": 1945, "returncode": 0, "utc": "2026-09-12T20:00:40.346242+00:00"}
+2026-09-12T20:00:50.3466856Z PROOF6_STATUS_CANARY {"acceptance_credit": false, "kind": "COMPLETED", "utc": "2026-09-12T20:00:50.346363+00:00"}
+2026-09-12T20:00:50.3628476Z Cleaning up orphan processes

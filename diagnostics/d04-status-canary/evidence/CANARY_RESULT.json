@@ -1,0 +1,36 @@
+{
+  "acceptance_credit": false,
+  "attempt": 1,
+  "authority_main": "d754156067cf1aa2318e7b04d7fcf47902eb9846",
+  "context": "proof6/d04-signal-canary/34715785446/1/2b7d0fa62e41bc500f6bf2dc5c540910501cabc3",
+  "disposition": "LIVE_STATUS_CANARY_PASS",
+  "effective_permissions": {
+    "Metadata": "read",
+    "Statuses": "write"
+  },
+  "end_local": "2026-09-12T20:00:39.632032+00:00",
+  "end_observed": "2026-09-12T20:00:42.493235+00:00",
+  "end_post": "2026-09-12T20:00:40.346109+00:00",
+  "future_acceptance_nonclaims": [
+    "Propagation latency not guaranteed for future run",
+    "Custody proof is this fixed credential-free producer, not unimplemented R3h writer",
+    "No D04 isolation or ordinary authority PATCH exercised"
+  ],
+  "job_completed": "2026-09-12T20:00:52Z",
+  "job_id": 103612664751,
+  "only_new_workflow_run": 48,
+  "only_signal_target": "2b7d0fa62e41bc500f6bf2dc5c540910501cabc3",
+  "phase_b_authorized_by_handoff": true,
+  "producer_active_margin_seconds": 17.664246,
+  "protected_refs_checked": 19,
+  "protected_state_equal": true,
+  "protected_state_sha256": "682aee79574b818e694fa2856b9a6955a026617d73433be31fbf46ad78c1d1e0",
+  "ready_job_in_progress_observed": "2026-09-12T20:00:21.967786+00:00",
+  "ready_local": "2026-09-12T20:00:19.631911+00:00",
+  "ready_observed": "2026-09-12T20:00:20.978913+00:00",
+  "ready_post": "2026-09-12T20:00:20.386085+00:00",
+  "run_id": 34715785446,
+  "run_number": 48,
+  "source_sha": "2b7d0fa62e41bc500f6bf2dc5c540910501cabc3",
+  "source_tree": "277ffc5eae4c4f6330519a85c80a292bf6f67388"
+}
