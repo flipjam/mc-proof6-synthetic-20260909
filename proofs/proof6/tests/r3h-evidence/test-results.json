@@ -1,0 +1,112 @@
+{
+  "acceptance_credit": false,
+  "build_sha256": "32a9ff93888cb0b5d2c466d0ab1d85d45f84189e2212004e8737d3919778ce59",
+  "groups": [
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/r3h_regression.py"
+      ],
+      "exit_code": 0,
+      "group": "retained",
+      "log": "final-tests/retained.log",
+      "seconds": 69.628,
+      "sha256": "ca807357ae67af144fe3813f12ecdc55706e51bf4594d1cd080a35f5fd02e634",
+      "tests": 198
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/r3h_prior.py"
+      ],
+      "exit_code": 0,
+      "group": "prior-focused",
+      "log": "final-tests/prior-focused.log",
+      "seconds": 3.114,
+      "sha256": "dd5658c3c0b2aecd95e75a318bc0905b42fd3afa997d4b683e4fc95f9a1d05f0",
+      "tests": 68
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/r3h_correction.py"
+      ],
+      "exit_code": 0,
+      "group": "correction",
+      "log": "final-tests/correction.log",
+      "seconds": 0.984,
+      "sha256": "9f7bf991ada0d7103399accbcd1e347b50bd13c9f5de42be0055705532716fa7",
+      "tests": 20
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/test_r3h.py"
+      ],
+      "exit_code": 0,
+      "group": "focused",
+      "log": "final-tests/focused.log",
+      "seconds": 1.915,
+      "sha256": "60f08ffcd5103cc708d3dc1b58c2a475433df50c08b607c45c0fdc620db2e10a",
+      "tests": 60
+    },
+    {
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-22.04",
+        "--",
+        "python3",
+        "-B",
+        "/mnt/d/Projects/mc-proof6-r3h-candidate/proofs/proof6/tests/native_prerequisite_fixture.py"
+      ],
+      "exit_code": 0,
+      "group": "native-prerequisite",
+      "log": "final-tests/native-prerequisite.log",
+      "seconds": 1.682,
+      "sha256": "9258bb96bd2490976d37720529995620c4e059205adf77be64fda527b7834e35",
+      "tests": 3
+    },
+    {
+      "command": [
+        "wsl",
+        "-d",
+        "Ubuntu-22.04",
+        "-u",
+        "root",
+        "--",
+        "python3",
+        "-B",
+        "/mnt/d/Projects/mc-proof6-r3h-candidate/proofs/proof6/tests/native_r3h_signal_fixture.py"
+      ],
+      "exit_code": 0,
+      "group": "native-signal",
+      "log": "final-tests/native-signal.log",
+      "seconds": 33.945,
+      "sha256": "7b85b0256d8089aba6bfcc7ef9cdcb34316645c286a24290e3f4a5386aa9b634",
+      "tests": 7
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/verify_r3h.py"
+      ],
+      "exit_code": 0,
+      "group": "inventory",
+      "log": "final-tests/inventory.log",
+      "seconds": 6.986,
+      "sha256": "5ee3b007ae8d9c58ba0d73426cbc063ea1c5bc02df70b46446732d6e52a9883a",
+      "tests": 0
+    }
+  ],
+  "plan_sha256": "c51a477fce1ab397a2dbcbfd0800a0e9bdecd6725909eaca74175dcbf31564a9",
+  "provider_canaries_this_handoff": 1,
+  "result": "PASS",
+  "source_base": "73b686f16b052695a4c41706b4b777206a6b0ba1",
+  "tests": 356
+}

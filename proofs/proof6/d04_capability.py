@@ -9,7 +9,7 @@ import socket
 import sys
 import time
 
-SCHEMA = 'PROOF6_R3G_D04_CAPABILITY_V1'
+SCHEMA = 'PROOF6_R3H_D04_CAPABILITY_V1'
 CLONE_NEWNET = 0x40000000
 RUNNER_KEYS = ('RUNNER_ENVIRONMENT', 'RUNNER_OS', 'RUNNER_ARCH', 'ImageOS', 'ImageVersion')
 POLICY = {
@@ -351,7 +351,7 @@ def recheck(record, emit=None):
 
 if __name__ == '__main__':
     if len(sys.argv) != 1:
-        print('{"schema":"PROOF6_R3G_D04_CAPABILITY_V1","stage":"INPUT_REJECTED","qualified":false}')
+        print('{"schema":"PROOF6_R3H_D04_CAPABILITY_V1","stage":"INPUT_REJECTED","qualified":false}')
         sys.exit(1)
     result = isolate()
     print(json.dumps(result, sort_keys=True, separators=(',', ':'), allow_nan=False), flush=True)

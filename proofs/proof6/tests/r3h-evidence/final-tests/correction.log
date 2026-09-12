@@ -1,0 +1,26 @@
+{"all_five_rejected": true, "counterexamples": {"ipv4_header_U001E": true, "ipv4_header_U001F": true, "ipv6_U001F_separators": true, "null_changed_namespace_prerequisite": true, "null_setup_qualification": true}}
+test_identical_namespaces (test_r3g_correction.QualifiedNamespace.test_identical_namespaces) ... ok
+test_malformed_after (test_r3g_correction.QualifiedNamespace.test_malformed_after) ... ok
+test_malformed_before (test_r3g_correction.QualifiedNamespace.test_malformed_before) ... ok
+test_missing_namespace_or_context (test_r3g_correction.QualifiedNamespace.test_missing_namespace_or_context) ... ok
+test_null_after (test_r3g_correction.QualifiedNamespace.test_null_after) ... ok
+test_null_before (test_r3g_correction.QualifiedNamespace.test_null_before) ... ok
+test_partial_context_failure_retained (test_r3g_correction.QualifiedNamespace.test_partial_context_failure_retained) ... ok
+test_partial_unshare_failure_retained (test_r3g_correction.QualifiedNamespace.test_partial_unshare_failure_retained) ... ok
+test_real_prerequisite_integration_blocks_before_consumption (test_r3g_correction.QualifiedNamespace.test_real_prerequisite_integration_blocks_before_consumption) ... ok
+test_valid_changed_namespaces (test_r3g_correction.QualifiedNamespace.test_valid_changed_namespaces) ... ok
+test_bare_cr_and_blank_lines_not_empty_tables (test_r3g_correction.RouteLexical.test_bare_cr_and_blank_lines_not_empty_tables) ... ok
+test_embedded_nul (test_r3g_correction.RouteLexical.test_embedded_nul) ... ok
+test_end_recheck_rejects_unsupported_route_controls (test_r3g_correction.RouteLexical.test_end_recheck_rejects_unsupported_route_controls) ... ok
+test_ipv4_control_field_separators (test_r3g_correction.RouteLexical.test_ipv4_control_field_separators) ... ok
+test_ipv4_exact_reviewer_suffixes (test_r3g_correction.RouteLexical.test_ipv4_exact_reviewer_suffixes) ... ok
+test_ipv4_trailing_controls_and_control_only (test_r3g_correction.RouteLexical.test_ipv4_trailing_controls_and_control_only) ... ok
+test_ipv6_control_field_separators (test_r3g_correction.RouteLexical.test_ipv6_control_field_separators) ... ok
+test_ipv6_trailing_controls (test_r3g_correction.RouteLexical.test_ipv6_trailing_controls) ... ok
+test_non_ascii_whitespace_rejected (test_r3g_correction.RouteLexical.test_non_ascii_whitespace_rejected) ... ok
+test_supported_whitespace_and_empty_observation (test_r3g_correction.RouteLexical.test_supported_whitespace_and_empty_observation) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.480s
+
+OK

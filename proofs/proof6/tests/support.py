@@ -8,11 +8,11 @@ sys.path.insert(0, str(ROOT / 'proofs/proof6'))
 legacy = types.ModuleType('legacy')
 raw = Path(__file__).with_name('legacy_r3e.py').read_text()
 # Identity-only substitution of fixture inputs; no production monkeypatch.
-raw = raw.replace('proof6-operation-journal-r3e', 'proof6-operation-journal-r3g')
-raw = raw.replace('proof6-writer-runtime-r3e', 'proof6-writer-runtime-r3g')
-raw = raw.replace("'r3e'", "'r3g'")
+raw = raw.replace('proof6-operation-journal-r3e', 'proof6-operation-journal-r3h')
+raw = raw.replace('proof6-writer-runtime-r3e', 'proof6-writer-runtime-r3h')
+raw = raw.replace("'r3e'", "'r3h'")
 raw = raw.replace('34b940e0537f57e5fa225768a55214bd3d3c5340',
-                  '2f93acf267b99207c7f8220cb6246787a98806ec')
+                  'd754156067cf1aa2318e7b04d7fcf47902eb9846')
 # Fixed clock fixture only: original assertions are unchanged.
 raw = raw.replace('side_effect=[0,115,116]', 'side_effect=[0,0,30,30]')
 raw = raw.replace("subprocess.check_output(['git', '-C', str(ROOT), 'show', w.BASELINE + ':history.json'])",

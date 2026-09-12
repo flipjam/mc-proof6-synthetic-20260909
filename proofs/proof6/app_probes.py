@@ -5,7 +5,7 @@ import urllib.error
 
 from writer import REPO, _canonical, _digest, _require, _sha
 
-RUNTIME = 'refs/heads/proof6-writer-runtime-r3g'
+RUNTIME = 'refs/heads/proof6-writer-runtime-r3h'
 BASE = '/repos/' + REPO
 
 
@@ -56,24 +56,24 @@ def run_d02_probes(writer):
     writer._enforcement(token)
     writer._runtime_guard(writer._manifest)
     frozen = writer._manifest['runtime']['sha']
-    ref = writer._call(token, 'GET', BASE + '/git/ref/heads/proof6-writer-runtime-r3g')
+    ref = writer._call(token, 'GET', BASE + '/git/ref/heads/proof6-writer-runtime-r3h')
     _require(ref['ref'] == RUNTIME and ref['object']['sha'] == frozen)
     commit = writer._call(token, 'GET', BASE + '/git/commits/' + _sha(frozen))
     _require(commit['sha'] == frozen)
     child = writer._call(token, 'POST', BASE + '/git/commits', {
-        'message': 'Proof6 R3g F10 fixed runtime fast-forward negative probe',
+        'message': 'Proof6 R3h F10 fixed runtime fast-forward negative probe',
         'tree': _sha(commit['tree']['sha']), 'parents': [frozen]})
     candidate = _sha(child['sha'])
     _require(candidate != frozen)
     try:
-        writer._call(token, 'PATCH', BASE + '/git/refs/heads/proof6-writer-runtime-r3g',
+        writer._call(token, 'PATCH', BASE + '/git/refs/heads/proof6-writer-runtime-r3h',
                      {'sha': candidate, 'force': False})
     except urllib.error.HTTPError as error:
         f10 = _negative(error)
     else:
         raise ValueError('F10_UNEXPECTED_SUCCESS_TERMINAL_PROOF_FAILURE')
     writer._runtime_guard(writer._manifest)
-    ref = writer._call(token, 'GET', BASE + '/git/ref/heads/proof6-writer-runtime-r3g')
+    ref = writer._call(token, 'GET', BASE + '/git/ref/heads/proof6-writer-runtime-r3h')
     _require(ref['ref'] == RUNTIME and ref['object']['sha'] == frozen)
     writer._last_evidence.update(app_probe_result='NEGATIVE_RESPONSES_RECORDED',
         app_probes=dict(F02=dict(f02, target=22725076, payload_sha256=_digest(_canonical(rule))),

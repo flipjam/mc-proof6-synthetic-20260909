@@ -1,0 +1,9 @@
+{
+  "acceptance_credit": false,
+  "environment": "local WSL Ubuntu-22.04 root; no provider request",
+  "errno": 13,
+  "namespace_changed": false,
+  "not_a_provider_canary": true,
+  "operation": "one credential-free libc.unshare(CLONE_NEWNET) feasibility check",
+  "return_code": -1
+}

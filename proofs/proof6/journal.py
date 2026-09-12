@@ -6,9 +6,9 @@ import re
 
 from writer import REPO, REPO_ID, APP_ID, BASELINE, _canonical, _digest, _require, _sha
 
-REF = 'refs/heads/proof6-operation-journal-r3g'
+REF = 'refs/heads/proof6-operation-journal-r3h'
 PATH = 'operation.json'
-SCHEMA = 'PROOF6_R3G_JOURNAL_V1'
+SCHEMA = 'PROOF6_R3H_JOURNAL_V1'
 FIELDS = {
     'CONSUMED': ['binding'],
     'PENDING': ['binding', 'old', 'candidate', 'gate_sha256'],
@@ -246,9 +246,9 @@ class Journal:
             if (kind == 'TERMINAL' and row['evidence'] == 'FINAL_REJECTION'
                     and self.pending[row['pending']]['binding']['operation'] == 'D03_REMOTE_REJECTION'):
                 _require(result['ref'] == REF and result['object']['sha'] == child_sha)
-                # Fixed R3g D03 subcondition: successful journal PATCH boundary,
+                # Fixed R3h D03 subcondition: successful journal PATCH boundary,
                 # BEFORE the first canonical confirmation read. Never a retry.
-                raise ValueError('R3G_D03_TERMINAL_CONFIRMATION_LOST')
+                raise ValueError('R3H_D03_TERMINAL_CONFIRMATION_LOST')
         _require(self.remote() == child_sha)
         self.read()
         _require(self.head == child_sha and self.rows[-1] == (child_sha, row))

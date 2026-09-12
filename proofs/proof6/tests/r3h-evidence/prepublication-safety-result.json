@@ -1,0 +1,19 @@
+{
+  "compared_sections": [
+    "repo",
+    "rulesets",
+    "environments",
+    "workflows",
+    "hooks",
+    "manifest",
+    "classic",
+    "protected_refs",
+    "protected_workflows",
+    "source"
+  ],
+  "no_R3h_provider_identity": true,
+  "observed_at": "2026-09-12T21:09:18.500324+00:00",
+  "only_new_run": 34715785446,
+  "result": "PASS",
+  "source_candidate_not_yet_pushed": true
+}

@@ -13,8 +13,9 @@ from ruleset_view import visible
 import proof_control
 import d04_capability
 import d04_prerequisite
+import d04_signal
 
-RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3g'
+RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3h'
 WORKFLOW = '.github/workflows/proof6-writer.yml'
 ENVIRONMENT = 'proof6-writer'
 CONCURRENCY = 'proof6-authority-writer-r3'
@@ -22,14 +23,26 @@ TOKEN_PERMISSIONS = {'contents': 'read', 'actions': 'read'}
 APP_TOKEN_PERMISSIONS = {'contents': 'write', 'metadata': 'read'}
 APP_ACTION = {'repository': 'actions/create-github-app-token',
               'commit': 'bcd2ba49218906704ab6c1aa796996da409d3eb1'}
+# D04 has no ordinary job-token delivery. Its already-authorized App performs
+# the unchanged caller-permission metadata read; other D04 GETs are public.
+# D03 and every ordinary job retain GH_TOKEN.
+_D04_READ_TOKEN = os.environ.get('PROOF6_APP_TOKEN', '') if os.environ.get('GITHUB_JOB') == 'd04_writer' else ''
+
 RULE_FIELDS = ('id', 'name', 'target', 'source_type', 'source', 'enforcement',
                'conditions', 'rules', 'bypass_actors')
 
 
 def get(path):
-    request = urllib.request.Request('https://api.github.com/' + path, headers={
-        'Authorization': 'Bearer ' + os.environ['GH_TOKEN'],
-        'Accept': 'application/vnd.github+json', 'User-Agent': 'proof6-runtime-simplified'})
+    headers = {'Accept': 'application/vnd.github+json', 'User-Agent': 'proof6-runtime-simplified'}
+    if os.environ.get('GITHUB_JOB') == 'd04_writer':
+        # Public immutable/configuration reads require no workflow credential.
+        # The one authenticated metadata read retains the same caller decision.
+        if path == 'repos/' + REPO + '/collaborators/peaklinesoftware/permission':
+            _require(bool(_D04_READ_TOKEN))
+            headers['Authorization'] = 'Bearer ' + _D04_READ_TOKEN
+    else:
+        headers['Authorization'] = 'Bearer ' + os.environ['GH_TOKEN']
+    request = urllib.request.Request('https://api.github.com/' + path, headers=headers)
     # Fixed API endpoints only. Disable proxy and redirects as in the writer.
     from writer import _NoRedirect
     http = urllib.request.build_opener(urllib.request.ProxyHandler({}), _NoRedirect())
@@ -51,7 +64,7 @@ def runtime_context():
     for path, digest in json.loads(build_raw).items():
         _require(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest)
     plan_digest = proof_control.plan()[1]
-    _require(plan_digest == 'f208f6bf2a095be2ee81076b12308c265301845dd9431081a59a1912afcbb50c')
+    _require(plan_digest == 'c51a477fce1ab397a2dbcbfd0800a0e9bdecd6725909eaca74175dcbf31564a9')
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
@@ -63,13 +76,13 @@ def runtime_context():
                  'protected_branches': False, 'custom_branch_policies': True})
     _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
     policy = policies['branch_policies'][0]
-    _require(policy['name'] == 'proof6-writer-runtime-r3g' and policy['type'] == 'branch')
+    _require(policy['name'] == 'proof6-writer-runtime-r3h' and policy['type'] == 'branch')
     return ref, env, policy, hashlib.sha256(build_raw).hexdigest(), plan_digest
 
 
 def guard(manifest):
     # Bootstrap never weakens the final manifest guard on normal/proof requests.
-    _require(manifest is not None and manifest['runtime_variant'] == 'r3g')
+    _require(manifest is not None and manifest['runtime_variant'] == 'r3h')
     ref, env, policy, build_digest, plan_digest = runtime_context()
     base = 'repos/' + REPO
     expected_view = manifest['runtime']['ruleset']
@@ -81,7 +94,7 @@ def guard(manifest):
     if 'current_user_can_bypass' in rule:
         _require(rule['current_user_can_bypass'] == 'never')
     rule = visible(rule)
-    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3g'
+    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3h'
              and policy['type'] == 'branch')
     runtime = {
         'ref': RUNTIME_REF, 'sha': ref['object']['sha'], 'workflow': WORKFLOW,
@@ -93,6 +106,8 @@ def guard(manifest):
         'runner': 'github-hosted', 'runner_label': 'ubuntu-24.04',
         'concurrency': CONCURRENCY, 'cancel_in_progress': False,
         'github_token_permissions': TOKEN_PERMISSIONS,
+        'd04_helper_job_permissions': {'statuses': 'write'},
+        'd04_writer_read_credential': 'public GETs; existing App caller-metadata GET; no job token',
         'app_token_action': APP_ACTION,
         'app_token_permissions': APP_TOKEN_PERMISSIONS,
         'app_id': 4893415,
@@ -115,6 +130,7 @@ def current_binding(manifest):
 
 
 def main(context):
+    global _D04_READ_TOKEN
     manifest_text = os.environ.get('PROOF6_FROZEN_MANIFEST', '')
     context['identity'] = current_binding(None)
     if '--prewriter-blocked' in sys.argv:
@@ -207,12 +223,16 @@ def main(context):
         context['d04']['prerequisite'] = prerequisite
         print('PROOF6_D04_PREREQUISITE ' + json.dumps(prerequisite, sort_keys=True), flush=True)
         _require(prerequisite['qualified'] is True)
+        context['d04']['stage'] = 'SIGNAL_READINESS'
+        head = journal.head
+        helper = d04_signal.Client()
+        context['signal_helper'] = helper
         # Recheck exact journal membership after the child, under the same sole
         # workflow concurrency boundary. No new lifecycle may be skipped.
         context['d04']['stage'] = 'PRECONSUMPTION_RECHECK'
-        head = journal.head
         journal.read()
         _require(journal.head == head and operation not in journal.used)
+        helper.qualify()
         context['d04'].update(stage='CONSUMPTION', consumption_attempted=True)
         claim = journal.consume(journal.operation_binding(_canonical(plan['infrastructure']), operation))
         context['d04'].update(stage='ACTUAL_ISOLATION', consumed_record=claim)
@@ -220,8 +240,15 @@ def main(context):
         # it never invokes commit_transition, arms a send or reconnects afterward.
         writer._installation_token = ''
         token = ''
-        result = isolate_runtime(lambda item: print('PROOF6_OUTAGE ' + json.dumps(
-            dict(item, consumed_record=claim, **context['identity']), sort_keys=True), flush=True))
+        _D04_READ_TOKEN = ''
+        def emit(item):
+            print('PROOF6_OUTAGE ' + json.dumps(
+                dict(item, consumed_record=claim, **context['identity']), sort_keys=True), flush=True)
+            helper.emit(item)
+        result = isolate_runtime(emit)
+        _require(helper.ended is True)
+        helper.close()
+        context['signal_helper'] = None
         result.update(context['identity'])
         print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
         return 0
@@ -238,6 +265,8 @@ def execute():
     try:
         return main(context)
     except BaseException as error:
+        if context.get('signal_helper') is not None:
+            context['signal_helper'].close()
         if context.get('d04'):
             d04 = context['d04']
             result = blocked(context['identity'])

@@ -1,0 +1,44 @@
+[
+  {
+    "name": "retained",
+    "exit": 0,
+    "tests": 198,
+    "seconds": 68.611,
+    "sha256": "936e25a765bed359e3814335dbcf95bd572a55095ed4fc9975abb9bac92dd2e2"
+  },
+  {
+    "name": "focused",
+    "exit": 0,
+    "tests": 68,
+    "seconds": 3.052,
+    "sha256": "4dea0d39f32d9e161d328f045d13ad059792710864cb4b3b4c742a3538cef03e"
+  },
+  {
+    "name": "native",
+    "exit": 0,
+    "tests": 3,
+    "seconds": 1.692,
+    "sha256": "5625aa918025741a4fb573bcddc8d1dccf10b4612a914cd2fbcc5c59c6699e93"
+  },
+  {
+    "name": "correction",
+    "exit": 0,
+    "tests": 20,
+    "seconds": 0.954,
+    "sha256": "7cc0c6af6d3bb154b3f48f773686bc2778a402716fb2e748d7f61b6a652a9ab5"
+  },
+  {
+    "name": "counterexamples",
+    "exit": 0,
+    "tests": 0,
+    "seconds": 0.363,
+    "sha256": "52ab51143862fae9bdca3fbe86c45a2e213897da6d36525a2f04f42d71a7c39b"
+  },
+  {
+    "name": "inventory",
+    "exit": 0,
+    "tests": 0,
+    "seconds": 2.983,
+    "sha256": "cb3403ba8c579fa4782bd1ae9c6c56d05398eb9bb21d15523566a81f43e351e7"
+  }
+]

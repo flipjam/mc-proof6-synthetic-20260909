@@ -9,7 +9,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import d04_capability as capability
 
-SCHEMA = 'PROOF6_R3G_D04_PREREQUISITE_V1'
+SCHEMA = 'PROOF6_R3H_D04_PREREQUISITE_V1'
 CONTEXT_KEYS = ('euid', 'kernel', 'cap_eff', 'cap_sys_admin', 'seccomp', 'lsm', 'netns', 'runner')
 
 
@@ -80,7 +80,7 @@ def setup_qualification(raw):
 
 if __name__ == '__main__':
     if len(sys.argv) != 1:
-        print('{"schema":"PROOF6_R3G_D04_PREREQUISITE_V1","stage":"INPUT_REJECTED","qualified":false}')
+        print('{"schema":"PROOF6_R3H_D04_PREREQUISITE_V1","stage":"INPUT_REJECTED","qualified":false}')
         sys.exit(1)
     receipt = run()
     print(json.dumps(receipt, sort_keys=True, separators=(',', ':'), allow_nan=False), flush=True)

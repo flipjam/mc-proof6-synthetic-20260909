@@ -1,0 +1,13 @@
+{
+  "action_commit": "bcd2ba49218906704ab6c1aa796996da409d3eb1",
+  "custody_boundary": "Helper step precedes App action and does not receive App inputs/output/state paths or descriptors; no helper code reads or enumerates the App action file-command stores. No secrecy claim against arbitrary root introspection.",
+  "grants_requested_by_unchanged_workflow_action": {
+    "contents": "write",
+    "metadata": "read"
+  },
+  "job_token_input_or_default": false,
+  "only_context_default": "github.api_url",
+  "scope": "metadata/default-input inspection; existing accepted App action identity unchanged",
+  "sha256": "2c4c77d1cafa8d792ab4a9d449799221baf95176a47692ad9a0b350b0a2618ed",
+  "source_url": "https://raw.githubusercontent.com/actions/create-github-app-token/bcd2ba49218906704ab6c1aa796996da409d3eb1/action.yml"
+}
