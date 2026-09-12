@@ -1,0 +1,62 @@
+{
+  "after-protected-state.json": {
+    "bytes": 48282,
+    "sha256": "2369bf07a3d4cb25e5999e319aa0aebb8ae84279271e27eb98f54f4e73f6f587"
+  },
+  "after-runs.json": {
+    "bytes": 715713,
+    "sha256": "a548b7c3a3909a0951fa2ebda842a00b7d12a8058bb1b35834069ac88fc5180d"
+  },
+  "before-protected-state.json": {
+    "bytes": 48282,
+    "sha256": "2369bf07a3d4cb25e5999e319aa0aebb8ae84279271e27eb98f54f4e73f6f587"
+  },
+  "check_diagnostic.py": {
+    "bytes": 3920,
+    "sha256": "d2dd4b6f7f88ff3a902adcb86c184c23897d54e9e79d95de3d35e4450930aa6b"
+  },
+  "diagnostic-record.json": {
+    "bytes": 1502,
+    "sha256": "89be3b8ca12a10625cd407a28de5aced4f9c9e1847948fc8d80b7ca69c7f47ec"
+  },
+  "diagnostic-source-identity.json": {
+    "bytes": 565,
+    "sha256": "df3b676c8fce6b1ddc29af854b6c8f21ae563a9afea68beca75ede85300c3676"
+  },
+  "diagnostic.py": {
+    "bytes": 5015,
+    "sha256": "d8afe747f13aba282f1ac5eea5ca960666bb014e6e2252ed77a04d5eddd073b4"
+  },
+  "job.log": {
+    "bytes": 14667,
+    "sha256": "774e397542258edcc305e0a684da87bc6f6a2fcc202ea16f3a0984bc816ede6d"
+  },
+  "jobs.json": {
+    "bytes": 1574,
+    "sha256": "864bca567c37b29c39401f222569ab85b1790de1239db23ae059226dd181f9a1"
+  },
+  "offline-diagnostic-validation.json": {
+    "bytes": 912,
+    "sha256": "8d8e17824083f05ffbedeeaa211ab6537a55283196dacb561e9d3d2667bd957a"
+  },
+  "predispatch-runs.json": {
+    "bytes": 699523,
+    "sha256": "8b4a445082b37d23b6ff162c4e19571c3bad55064c21ee9009cabcdd5955efaa"
+  },
+  "preflight-result.json": {
+    "bytes": 222,
+    "sha256": "961ead1986b04092ec81dade153bf3d0394699a91c69f1f6468f0cf4aff277d5"
+  },
+  "result.json": {
+    "bytes": 1761,
+    "sha256": "94192ccdaa6de1a2d4e1150105c7d0a0c89383f84acb9305606eb49cf59074b0"
+  },
+  "run-logs.zip": {
+    "bytes": 10041,
+    "sha256": "c9fa4cfdba9bdc2a1b2c5772f7a3d5fb3dfef97d2ccd27659b79ea1c300567e1"
+  },
+  "run.json": {
+    "bytes": 13740,
+    "sha256": "22aabaa86518cd067131704949424b8a820bb8e2b74aef7eb92727db4918deac"
+  }
+}

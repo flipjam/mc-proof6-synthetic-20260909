@@ -1,0 +1,176 @@
+﻿2026-09-12T07:10:19.3223068Z Current runner version: '2.337.0'
+2026-09-12T07:10:19.3259125Z ##[group]Runner Image Provisioner
+2026-09-12T07:10:19.3260472Z Hosted Compute Agent
+2026-09-12T07:10:19.3261481Z Version: 20260828.587
+2026-09-12T07:10:19.3262558Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-12T07:10:19.3263824Z Build Date: 2026-08-28T16:44:25Z
+2026-09-12T07:10:19.3264948Z Worker ID: {7adbc2a7-04da-4a88-a009-bc8cb0ed4856}
+2026-09-12T07:10:19.3266400Z Azure Region: eastus
+2026-09-12T07:10:19.3267491Z ##[endgroup]
+2026-09-12T07:10:19.3270316Z ##[group]Operating System
+2026-09-12T07:10:19.3271381Z Ubuntu
+2026-09-12T07:10:19.3272217Z 24.04.5
+2026-09-12T07:10:19.3273070Z LTS
+2026-09-12T07:10:19.3273997Z ##[endgroup]
+2026-09-12T07:10:19.3274903Z ##[group]Runner Image
+2026-09-12T07:10:19.3276211Z Image: ubuntu-24.04
+2026-09-12T07:10:19.3277208Z Version: 20260907.300.1
+2026-09-12T07:10:19.3279363Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-12T07:10:19.3282068Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+2026-09-12T07:10:19.3283802Z ##[endgroup]
+2026-09-12T07:10:19.3285489Z ##[group]GITHUB_TOKEN Permissions
+2026-09-12T07:10:19.3289197Z Metadata: read
+2026-09-12T07:10:19.3290199Z ##[endgroup]
+2026-09-12T07:10:19.3293537Z Secret source: Actions
+2026-09-12T07:10:19.3295182Z Cache mode: write
+2026-09-12T07:10:19.3296989Z Prepare workflow directory
+2026-09-12T07:10:19.3788926Z Prepare all required actions
+2026-09-12T07:10:19.3946388Z Complete job name: capability
+2026-09-12T07:10:19.4835499Z ##[group]Run set -uo pipefail
+2026-09-12T07:10:19.4837291Z [36;1mset -uo pipefail[0m
+2026-09-12T07:10:19.4838155Z [36;1mtest "$RUNNER_ENVIRONMENT" = github-hosted || exit 1[0m
+2026-09-12T07:10:19.4839096Z [36;1mparent_before=$(/usr/bin/readlink /proc/$$/ns/net)[0m
+2026-09-12T07:10:19.4839871Z [36;1mset +e[0m
+2026-09-12T07:10:19.4840687Z [36;1m/usr/bin/sudo -n /usr/bin/env -i PATH=/usr/bin:/bin LANG=C.UTF-8 \[0m
+2026-09-12T07:10:19.4841995Z [36;1m  RUNNER_ENVIRONMENT="$RUNNER_ENVIRONMENT" RUNNER_OS="$RUNNER_OS" RUNNER_ARCH="$RUNNER_ARCH" \[0m
+2026-09-12T07:10:19.4843165Z [36;1m  ImageOS="${ImageOS:-}" ImageVersion="${ImageVersion:-}" \[0m
+2026-09-12T07:10:19.4844239Z [36;1m  GITHUB_RUN_ID="$GITHUB_RUN_ID" GITHUB_RUN_ATTEMPT="$GITHUB_RUN_ATTEMPT" \[0m
+2026-09-12T07:10:19.4845353Z [36;1m  /usr/bin/timeout --signal=KILL 20s /usr/bin/python3 -I -B -u - <<'D04_PY'[0m
+2026-09-12T07:10:19.4846442Z [36;1mimport ctypes[0m
+2026-09-12T07:10:19.4847235Z [36;1mimport errno[0m
+2026-09-12T07:10:19.4847824Z [36;1mimport json[0m
+2026-09-12T07:10:19.4848452Z [36;1mimport os[0m
+2026-09-12T07:10:19.4849043Z [36;1mfrom pathlib import Path[0m
+2026-09-12T07:10:19.4849700Z [36;1mimport socket[0m
+2026-09-12T07:10:19.4850377Z [36;1mimport time[0m
+2026-09-12T07:10:19.4850944Z [36;1m[0m
+2026-09-12T07:10:19.4851516Z [36;1mSTART = time.monotonic()[0m
+2026-09-12T07:10:19.4852206Z [36;1mRECORD = {[0m
+2026-09-12T07:10:19.4852883Z [36;1m    'schema': 'PROOF6_D04_HOSTED_CAPABILITY_V1',[0m
+2026-09-12T07:10:19.4853880Z [36;1m    'purpose': 'POST_R3F_TERMINAL_NON_ACCEPTANCE_NON_CONSUMING',[0m
+2026-09-12T07:10:19.4854806Z [36;1m    'stage': 'START', 'stages': ['START'], 'result': 'FAIL',[0m
+2026-09-12T07:10:19.4855979Z [36;1m    'pid': os.getpid(), 'euid': os.geteuid(), 'elapsed_start_seconds': 0,[0m
+2026-09-12T07:10:19.4856891Z [36;1m}[0m
+2026-09-12T07:10:19.4857416Z [36;1m[0m
+2026-09-12T07:10:19.4858019Z [36;1m[0m
+2026-09-12T07:10:19.4858596Z [36;1mdef stage(value):[0m
+2026-09-12T07:10:19.4859273Z [36;1m    RECORD['stage'] = value[0m
+2026-09-12T07:10:19.4859994Z [36;1m    RECORD['stages'].append(value)[0m
+2026-09-12T07:10:19.4860671Z [36;1m[0m
+2026-09-12T07:10:19.4861258Z [36;1m[0m
+2026-09-12T07:10:19.4861806Z [36;1mdef bounded(value, limit=256):[0m
+2026-09-12T07:10:19.4862466Z [36;1m    if len(value) > limit:[0m
+2026-09-12T07:10:19.4863180Z [36;1m        raise ValueError()[0m
+2026-09-12T07:10:19.4864063Z [36;1m    return value[0m
+2026-09-12T07:10:19.4864758Z [36;1m[0m
+2026-09-12T07:10:19.4865269Z [36;1m[0m
+2026-09-12T07:10:19.4865957Z [36;1mdef read(path, limit=65536):[0m
+2026-09-12T07:10:19.4866912Z [36;1m    with open(path, encoding='ascii') as stream:[0m
+2026-09-12T07:10:19.4867741Z [36;1m        return bounded(stream.read(limit + 1), limit)[0m
+2026-09-12T07:10:19.4868516Z [36;1m[0m
+2026-09-12T07:10:19.4869033Z [36;1m[0m
+2026-09-12T07:10:19.4869550Z [36;1mdef error(exc):[0m
+2026-09-12T07:10:19.4870314Z [36;1m    known = {OSError: 'OSError', ValueError: 'ValueError',[0m
+2026-09-12T07:10:19.4871382Z [36;1m             AttributeError: 'AttributeError', FileNotFoundError: 'FileNotFoundError',[0m
+2026-09-12T07:10:19.4872564Z [36;1m             PermissionError: 'PermissionError', socket.gaierror: 'gaierror',[0m
+2026-09-12T07:10:19.4873966Z [36;1m             TimeoutError: 'TimeoutError', ConnectionRefusedError: 'ConnectionRefusedError',[0m
+2026-09-12T07:10:19.4875008Z [36;1m             UnicodeDecodeError: 'UnicodeDecodeError'}[0m
+2026-09-12T07:10:19.4876008Z [36;1m    number = getattr(exc, 'errno', None)[0m
+2026-09-12T07:10:19.4876872Z [36;1m    return {'type': known.get(type(exc), 'UNKNOWN_EXCEPTION'),[0m
+2026-09-12T07:10:19.4877882Z [36;1m            'errno': number if type(number) is int else None}[0m
+2026-09-12T07:10:19.4878646Z [36;1m[0m
+2026-09-12T07:10:19.4879141Z [36;1m[0m
+2026-09-12T07:10:19.4879696Z [36;1mdef main():[0m
+2026-09-12T07:10:19.4880269Z [36;1m    stage('CONTEXT')[0m
+2026-09-12T07:10:19.4881141Z [36;1m    RECORD['kernel'] = bounded(os.uname().release)[0m
+2026-09-12T07:10:19.4882163Z [36;1m    RECORD['runner'] = {key: bounded(os.environ.get(key, ''), 128) for key in[0m
+2026-09-12T07:10:19.4883142Z [36;1m                        ('RUNNER_ENVIRONMENT', 'RUNNER_OS', 'RUNNER_ARCH',[0m
+2026-09-12T07:10:19.4884210Z [36;1m                         'ImageOS', 'ImageVersion', 'GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT')}[0m
+2026-09-12T07:10:19.4885305Z [36;1m    RECORD['netns_before'] = bounded(os.readlink('/proc/self/ns/net'))[0m
+2026-09-12T07:10:19.4886597Z [36;1m    status = dict(line.split(':', 1) for line in read('/proc/self/status').splitlines() if ':' in line)[0m
+2026-09-12T07:10:19.4887674Z [36;1m    cap = status['CapEff'].strip()[0m
+2026-09-12T07:10:19.4888391Z [36;1m    RECORD['cap_eff'] = bounded(cap, 16)[0m
+2026-09-12T07:10:19.4889244Z [36;1m    RECORD['cap_sys_admin'] = bool(int(cap, 16) & (1 << 21))[0m
+2026-09-12T07:10:19.4890212Z [36;1m    RECORD['seccomp'] = int(status['Seccomp'].strip())[0m
+2026-09-12T07:10:19.4890950Z [36;1m    try:[0m
+2026-09-12T07:10:19.4891749Z [36;1m        RECORD['lsm_identity'] = read('/proc/self/attr/current', 256).strip()[0m
+2026-09-12T07:10:19.4892622Z [36;1m    except OSError as exc:[0m
+2026-09-12T07:10:19.4893433Z [36;1m        RECORD['lsm_identity_unreadable'] = error(exc)[0m
+2026-09-12T07:10:19.4894233Z [36;1m    stage('LIBC_LOAD')[0m
+2026-09-12T07:10:19.4894933Z [36;1m    libc = ctypes.CDLL(None, use_errno=True)[0m
+2026-09-12T07:10:19.4895955Z [36;1m    libc.unshare.argtypes = [ctypes.c_int][0m
+2026-09-12T07:10:19.4896758Z [36;1m    libc.unshare.restype = ctypes.c_int[0m
+2026-09-12T07:10:19.4897500Z [36;1m    stage('LIBC_OK')[0m
+2026-09-12T07:10:19.4898175Z [36;1m    ctypes.set_errno(0)[0m
+2026-09-12T07:10:19.4898832Z [36;1m    result = libc.unshare(0x40000000)[0m
+2026-09-12T07:10:19.4899582Z [36;1m    number = ctypes.get_errno()[0m
+2026-09-12T07:10:19.4900387Z [36;1m    RECORD['unshare'] = {'return_code': result, 'errno': number,[0m
+2026-09-12T07:10:19.4901551Z [36;1m                         'errno_name': errno.errorcode.get(number, 'NONE' if number == 0 else 'UNKNOWN')}[0m
+2026-09-12T07:10:19.4902544Z [36;1m    if result != 0:[0m
+2026-09-12T07:10:19.4903169Z [36;1m        stage('UNSHARE_FAILED')[0m
+2026-09-12T07:10:19.4903867Z [36;1m        return[0m
+2026-09-12T07:10:19.4904451Z [36;1m    stage('UNSHARE_OK')[0m
+2026-09-12T07:10:19.4905238Z [36;1m    RECORD['netns_after'] = bounded(os.readlink('/proc/self/ns/net'))[0m
+2026-09-12T07:10:19.4906749Z [36;1m    RECORD['netns_changed'] = RECORD['netns_after'] != RECORD['netns_before'][0m
+2026-09-12T07:10:19.4907684Z [36;1m    stage('INTERFACES')[0m
+2026-09-12T07:10:19.4908505Z [36;1m    devices = sorted(name for _, name in socket.if_nameindex())[0m
+2026-09-12T07:10:19.4909321Z [36;1m    if len(devices) > 32:[0m
+2026-09-12T07:10:19.4909953Z [36;1m        raise ValueError()[0m
+2026-09-12T07:10:19.4910856Z [36;1m    RECORD['interfaces'] = [bounded(name, 16) for name in devices][0m
+2026-09-12T07:10:19.4911874Z [36;1m    stage('INTERFACES_OK' if devices == ['lo'] else 'INTERFACES_FAILED')[0m
+2026-09-12T07:10:19.4912755Z [36;1m    stage('ROUTES')[0m
+2026-09-12T07:10:19.4913495Z [36;1m    lines = read('/proc/net/route').splitlines()[0m
+2026-09-12T07:10:19.4914279Z [36;1m    RECORD['ipv4_route_line_count'] = len(lines)[0m
+2026-09-12T07:10:19.4915218Z [36;1m    RECORD['ipv4_route_entry_count'] = max(0, len(lines) - 1)[0m
+2026-09-12T07:10:19.4916337Z [36;1m    RECORD['ipv4_header_valid'] = bool(lines) and lines[0].split() == [[0m
+2026-09-12T07:10:19.4975285Z [36;1m        'Iface', 'Destination', 'Gateway', 'Flags', 'RefCnt', 'Use',[0m
+2026-09-12T07:10:19.4977098Z [36;1m        'Metric', 'Mask', 'MTU', 'Window', 'IRTT'][0m
+2026-09-12T07:10:19.4978393Z [36;1m    ipv6 = read('/proc/net/ipv6_route').splitlines()[0m
+2026-09-12T07:10:19.4979732Z [36;1m    RECORD['ipv6'] = {'entry_count': len(ipv6),[0m
+2026-09-12T07:10:19.4981199Z [36;1m                      'interfaces': sorted(set(bounded(line.split()[-1], 16) for line in ipv6))[:32]}[0m
+2026-09-12T07:10:19.4982236Z [36;1m    stage('ROUTES_OK' if len(lines) == 1 else 'ROUTES_FAILED')[0m
+2026-09-12T07:10:19.4982949Z [36;1m    stage('CONNECTIVITY')[0m
+2026-09-12T07:10:19.4983465Z [36;1m    try:[0m
+2026-09-12T07:10:19.4984123Z [36;1m        socket.create_connection(('api.github.com', 443), timeout=1).close()[0m
+2026-09-12T07:10:19.4984903Z [36;1m    except OSError as exc:[0m
+2026-09-12T07:10:19.4985648Z [36;1m        RECORD['connectivity'] = {'connected': False, 'exception': error(exc)}[0m
+2026-09-12T07:10:19.4986806Z [36;1m        stage('CONNECTIVITY_ISOLATED')[0m
+2026-09-12T07:10:19.4987449Z [36;1m    else:[0m
+2026-09-12T07:10:19.4987987Z [36;1m        RECORD['connectivity'] = {'connected': True}[0m
+2026-09-12T07:10:19.4988654Z [36;1m        stage('CONNECTIVITY_STILL_LIVE')[0m
+2026-09-12T07:10:19.4989446Z [36;1m    # Exact R3f predicate, plus the handoff's observational qualification.[0m
+2026-09-12T07:10:19.4990442Z [36;1m    RECORD['exact_r3f_predicate_pass'] = (devices == ['lo'] and len(lines) == 1[0m
+2026-09-12T07:10:19.4991338Z [36;1m                                         and not RECORD['connectivity']['connected'])[0m
+2026-09-12T07:10:19.4992267Z [36;1m    RECORD['diagnostic_qualification_pass'] = (RECORD['exact_r3f_predicate_pass'][0m
+2026-09-12T07:10:19.4993231Z [36;1m        and RECORD['netns_changed'] and RECORD['ipv4_header_valid'])[0m
+2026-09-12T07:10:19.4994015Z [36;1m    if RECORD['diagnostic_qualification_pass']:[0m
+2026-09-12T07:10:19.4994657Z [36;1m        RECORD['result'] = 'PASS'[0m
+2026-09-12T07:10:19.4995228Z [36;1m        stage('PASS')[0m
+2026-09-12T07:10:19.4995715Z [36;1m    else:[0m
+2026-09-12T07:10:19.4996300Z [36;1m        stage('FAIL')[0m
+2026-09-12T07:10:19.4996791Z [36;1m[0m
+2026-09-12T07:10:19.4997187Z [36;1m[0m
+2026-09-12T07:10:19.4997584Z [36;1mtry:[0m
+2026-09-12T07:10:19.4998007Z [36;1m    main()[0m
+2026-09-12T07:10:19.4998482Z [36;1mexcept Exception as exc:[0m
+2026-09-12T07:10:19.4999080Z [36;1m    RECORD['observation_error'] = error(exc)[0m
+2026-09-12T07:10:19.4999749Z [36;1m    RECORD['failure_stage'] = RECORD['stage'][0m
+2026-09-12T07:10:19.5000372Z [36;1m    stage('OBSERVATION_FAILED')[0m
+2026-09-12T07:10:19.5000914Z [36;1mfinally:[0m
+2026-09-12T07:10:19.5001528Z [36;1m    RECORD['elapsed_seconds'] = round(time.monotonic() - START, 6)[0m
+2026-09-12T07:10:19.5002726Z [36;1m    print(json.dumps(RECORD, sort_keys=True, separators=(',', ':'), ensure_ascii=True), flush=True)[0m
+2026-09-12T07:10:19.5003737Z [36;1mraise SystemExit(0 if RECORD['result'] == 'PASS' else 1)[0m
+2026-09-12T07:10:19.5004406Z [36;1mD04_PY[0m
+2026-09-12T07:10:19.5004853Z [36;1msupervisor_exit=$?[0m
+2026-09-12T07:10:19.5005449Z [36;1mparent_after=$(/usr/bin/readlink /proc/$$/ns/net)[0m
+2026-09-12T07:10:19.5006365Z [36;1mprintf 'D04_NATIVE_SUPERVISOR_EXIT=%s\n' "$supervisor_exit"[0m
+2026-09-12T07:10:19.5007320Z [36;1mprintf 'D04_PARENT_NETNS_BEFORE=%s AFTER=%s\n' "$parent_before" "$parent_after"[0m
+2026-09-12T07:10:19.5008226Z [36;1mtest "$parent_before" = "$parent_after" || exit 1[0m
+2026-09-12T07:10:19.5008876Z [36;1mexit "$supervisor_exit"[0m
+2026-09-12T07:10:19.5935298Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-09-12T07:10:19.5936837Z ##[endgroup]
+2026-09-12T07:10:19.6702787Z {"cap_eff":"000001ffffffffff","cap_sys_admin":true,"connectivity":{"connected":false,"exception":{"errno":-3,"type":"gaierror"}},"diagnostic_qualification_pass":false,"elapsed_seconds":0.002621,"elapsed_start_seconds":0,"euid":0,"exact_r3f_predicate_pass":false,"interfaces":["lo"],"ipv4_header_valid":false,"ipv4_route_entry_count":0,"ipv4_route_line_count":0,"ipv6":{"entry_count":2,"interfaces":["lo"]},"kernel":"6.17.0-1022-azure","lsm_identity":"unconfined","netns_after":"net:[4026532219]","netns_before":"net:[4026531833]","netns_changed":true,"pid":2200,"purpose":"POST_R3F_TERMINAL_NON_ACCEPTANCE_NON_CONSUMING","result":"FAIL","runner":{"GITHUB_RUN_ATTEMPT":"1","GITHUB_RUN_ID":"34680020137","ImageOS":"ubuntu24","ImageVersion":"20260907.300.1","RUNNER_ARCH":"X64","RUNNER_ENVIRONMENT":"github-hosted","RUNNER_OS":"Linux"},"schema":"PROOF6_D04_HOSTED_CAPABILITY_V1","seccomp":0,"stage":"FAIL","stages":["START","CONTEXT","LIBC_LOAD","LIBC_OK","UNSHARE_OK","INTERFACES","INTERFACES_OK","ROUTES","ROUTES_FAILED","CONNECTIVITY","CONNECTIVITY_ISOLATED","FAIL"],"unshare":{"errno":0,"errno_name":"NONE","return_code":0}}
+2026-09-12T07:10:19.6745081Z D04_NATIVE_SUPERVISOR_EXIT=1
+2026-09-12T07:10:19.6746183Z D04_PARENT_NETNS_BEFORE=net:[4026531833] AFTER=net:[4026531833]
+2026-09-12T07:10:19.6773558Z ##[error]Process completed with exit code 1.
+2026-09-12T07:10:19.6936816Z Cleaning up orphan processes

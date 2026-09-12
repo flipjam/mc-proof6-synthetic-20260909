@@ -1,0 +1,8 @@
+{
+  "source_base": "704a32834981ce1ebcfc0f963abe25297b89f304",
+  "workflow_sha256": "f1192ba1cf541666e80804e614769572a9b6b8a8207b1fc979a4cb83efaeff2a",
+  "inline_source_sha256": "d8afe747f13aba282f1ac5eea5ca960666bb014e6e2252ed77a04d5eddd073b4",
+  "workflow_blob": "9bc6c7d2e4409c74b1f9d7aeb2b6841d165df9bb",
+  "source_predicate_difference": "R3f requires exactly one IPv4 route line, not header validation; namespace change is an additional diagnostic observation. No R3f source changed.",
+  "dispatch_commit": "bcd59d11eae403a37395aa7fb7ad9bd54ab433c1"
+}

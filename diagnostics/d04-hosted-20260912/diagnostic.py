@@ -1,0 +1,124 @@
+import ctypes
+import errno
+import json
+import os
+from pathlib import Path
+import socket
+import time
+
+START = time.monotonic()
+RECORD = {
+    'schema': 'PROOF6_D04_HOSTED_CAPABILITY_V1',
+    'purpose': 'POST_R3F_TERMINAL_NON_ACCEPTANCE_NON_CONSUMING',
+    'stage': 'START', 'stages': ['START'], 'result': 'FAIL',
+    'pid': os.getpid(), 'euid': os.geteuid(), 'elapsed_start_seconds': 0,
+}
+
+
+def stage(value):
+    RECORD['stage'] = value
+    RECORD['stages'].append(value)
+
+
+def bounded(value, limit=256):
+    if len(value) > limit:
+        raise ValueError()
+    return value
+
+
+def read(path, limit=65536):
+    with open(path, encoding='ascii') as stream:
+        return bounded(stream.read(limit + 1), limit)
+
+
+def error(exc):
+    known = {OSError: 'OSError', ValueError: 'ValueError',
+             AttributeError: 'AttributeError', FileNotFoundError: 'FileNotFoundError',
+             PermissionError: 'PermissionError', socket.gaierror: 'gaierror',
+             TimeoutError: 'TimeoutError', ConnectionRefusedError: 'ConnectionRefusedError',
+             UnicodeDecodeError: 'UnicodeDecodeError'}
+    number = getattr(exc, 'errno', None)
+    return {'type': known.get(type(exc), 'UNKNOWN_EXCEPTION'),
+            'errno': number if type(number) is int else None}
+
+
+def main():
+    stage('CONTEXT')
+    RECORD['kernel'] = bounded(os.uname().release)
+    RECORD['runner'] = {key: bounded(os.environ.get(key, ''), 128) for key in
+                        ('RUNNER_ENVIRONMENT', 'RUNNER_OS', 'RUNNER_ARCH',
+                         'ImageOS', 'ImageVersion', 'GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT')}
+    RECORD['netns_before'] = bounded(os.readlink('/proc/self/ns/net'))
+    status = dict(line.split(':', 1) for line in read('/proc/self/status').splitlines() if ':' in line)
+    cap = status['CapEff'].strip()
+    RECORD['cap_eff'] = bounded(cap, 16)
+    RECORD['cap_sys_admin'] = bool(int(cap, 16) & (1 << 21))
+    RECORD['seccomp'] = int(status['Seccomp'].strip())
+    try:
+        RECORD['lsm_identity'] = read('/proc/self/attr/current', 256).strip()
+    except OSError as exc:
+        RECORD['lsm_identity_unreadable'] = error(exc)
+    stage('LIBC_LOAD')
+    libc = ctypes.CDLL(None, use_errno=True)
+    libc.unshare.argtypes = [ctypes.c_int]
+    libc.unshare.restype = ctypes.c_int
+    stage('LIBC_OK')
+    ctypes.set_errno(0)
+    result = libc.unshare(0x40000000)
+    number = ctypes.get_errno()
+    RECORD['unshare'] = {'return_code': result, 'errno': number,
+                         'errno_name': errno.errorcode.get(number, 'NONE' if number == 0 else 'UNKNOWN')}
+    if result != 0:
+        stage('UNSHARE_FAILED')
+        return
+    stage('UNSHARE_OK')
+    RECORD['netns_after'] = bounded(os.readlink('/proc/self/ns/net'))
+    RECORD['netns_changed'] = RECORD['netns_after'] != RECORD['netns_before']
+    stage('INTERFACES')
+    devices = sorted(name for _, name in socket.if_nameindex())
+    if len(devices) > 32:
+        raise ValueError()
+    RECORD['interfaces'] = [bounded(name, 16) for name in devices]
+    stage('INTERFACES_OK' if devices == ['lo'] else 'INTERFACES_FAILED')
+    stage('ROUTES')
+    lines = read('/proc/net/route').splitlines()
+    RECORD['ipv4_route_line_count'] = len(lines)
+    RECORD['ipv4_route_entry_count'] = max(0, len(lines) - 1)
+    RECORD['ipv4_header_valid'] = bool(lines) and lines[0].split() == [
+        'Iface', 'Destination', 'Gateway', 'Flags', 'RefCnt', 'Use',
+        'Metric', 'Mask', 'MTU', 'Window', 'IRTT']
+    ipv6 = read('/proc/net/ipv6_route').splitlines()
+    RECORD['ipv6'] = {'entry_count': len(ipv6),
+                      'interfaces': sorted(set(bounded(line.split()[-1], 16) for line in ipv6))[:32]}
+    stage('ROUTES_OK' if len(lines) == 1 else 'ROUTES_FAILED')
+    stage('CONNECTIVITY')
+    try:
+        socket.create_connection(('api.github.com', 443), timeout=1).close()
+    except OSError as exc:
+        RECORD['connectivity'] = {'connected': False, 'exception': error(exc)}
+        stage('CONNECTIVITY_ISOLATED')
+    else:
+        RECORD['connectivity'] = {'connected': True}
+        stage('CONNECTIVITY_STILL_LIVE')
+    # Exact R3f predicate, plus the handoff's observational qualification.
+    RECORD['exact_r3f_predicate_pass'] = (devices == ['lo'] and len(lines) == 1
+                                         and not RECORD['connectivity']['connected'])
+    RECORD['diagnostic_qualification_pass'] = (RECORD['exact_r3f_predicate_pass']
+        and RECORD['netns_changed'] and RECORD['ipv4_header_valid'])
+    if RECORD['diagnostic_qualification_pass']:
+        RECORD['result'] = 'PASS'
+        stage('PASS')
+    else:
+        stage('FAIL')
+
+
+try:
+    main()
+except Exception as exc:
+    RECORD['observation_error'] = error(exc)
+    RECORD['failure_stage'] = RECORD['stage']
+    stage('OBSERVATION_FAILED')
+finally:
+    RECORD['elapsed_seconds'] = round(time.monotonic() - START, 6)
+    print(json.dumps(RECORD, sort_keys=True, separators=(',', ':'), ensure_ascii=True), flush=True)
+raise SystemExit(0 if RECORD['result'] == 'PASS' else 1)

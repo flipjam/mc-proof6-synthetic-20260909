@@ -1,0 +1,67 @@
+{
+  "cap_eff": "000001ffffffffff",
+  "cap_sys_admin": true,
+  "connectivity": {
+    "connected": false,
+    "exception": {
+      "errno": -3,
+      "type": "gaierror"
+    }
+  },
+  "diagnostic_qualification_pass": false,
+  "elapsed_seconds": 0.002621,
+  "elapsed_start_seconds": 0,
+  "euid": 0,
+  "exact_r3f_predicate_pass": false,
+  "interfaces": [
+    "lo"
+  ],
+  "ipv4_header_valid": false,
+  "ipv4_route_entry_count": 0,
+  "ipv4_route_line_count": 0,
+  "ipv6": {
+    "entry_count": 2,
+    "interfaces": [
+      "lo"
+    ]
+  },
+  "kernel": "6.17.0-1022-azure",
+  "lsm_identity": "unconfined",
+  "netns_after": "net:[4026532219]",
+  "netns_before": "net:[4026531833]",
+  "netns_changed": true,
+  "pid": 2200,
+  "purpose": "POST_R3F_TERMINAL_NON_ACCEPTANCE_NON_CONSUMING",
+  "result": "FAIL",
+  "runner": {
+    "GITHUB_RUN_ATTEMPT": "1",
+    "GITHUB_RUN_ID": "34680020137",
+    "ImageOS": "ubuntu24",
+    "ImageVersion": "20260907.300.1",
+    "RUNNER_ARCH": "X64",
+    "RUNNER_ENVIRONMENT": "github-hosted",
+    "RUNNER_OS": "Linux"
+  },
+  "schema": "PROOF6_D04_HOSTED_CAPABILITY_V1",
+  "seccomp": 0,
+  "stage": "FAIL",
+  "stages": [
+    "START",
+    "CONTEXT",
+    "LIBC_LOAD",
+    "LIBC_OK",
+    "UNSHARE_OK",
+    "INTERFACES",
+    "INTERFACES_OK",
+    "ROUTES",
+    "ROUTES_FAILED",
+    "CONNECTIVITY",
+    "CONNECTIVITY_ISOLATED",
+    "FAIL"
+  ],
+  "unshare": {
+    "errno": 0,
+    "errno_name": "NONE",
+    "return_code": 0
+  }
+}

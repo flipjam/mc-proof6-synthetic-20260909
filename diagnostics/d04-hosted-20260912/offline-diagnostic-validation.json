@@ -1,0 +1,52 @@
+[
+  {
+    "scenario": "success",
+    "test": "PASS",
+    "stage": "PASS"
+  },
+  {
+    "scenario": "libc_fail",
+    "test": "PASS",
+    "stage": "OBSERVATION_FAILED"
+  },
+  {
+    "scenario": "symbol_fail",
+    "test": "PASS",
+    "stage": "OBSERVATION_FAILED"
+  },
+  {
+    "scenario": "unshare_fail",
+    "test": "PASS",
+    "stage": "UNSHARE_FAILED"
+  },
+  {
+    "scenario": "interfaces_fail",
+    "test": "PASS",
+    "stage": "FAIL"
+  },
+  {
+    "scenario": "routes_fail",
+    "test": "PASS",
+    "stage": "FAIL"
+  },
+  {
+    "scenario": "header_fail",
+    "test": "PASS",
+    "stage": "FAIL"
+  },
+  {
+    "scenario": "connect_live",
+    "test": "PASS",
+    "stage": "FAIL"
+  },
+  {
+    "scenario": "unknown_exception",
+    "test": "PASS",
+    "stage": "OBSERVATION_FAILED"
+  },
+  {
+    "scenario": "same_netns",
+    "test": "PASS",
+    "stage": "FAIL"
+  }
+]

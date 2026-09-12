@@ -1,0 +1,8 @@
+{
+  "result": "PASS",
+  "protected_state_unchanged": true,
+  "existing_run_count": 43,
+  "maximum_run_number": 44,
+  "remote_workflow_exact": true,
+  "dispatch_commit": "bcd59d11eae403a37395aa7fb7ad9bd54ab433c1"
+}
