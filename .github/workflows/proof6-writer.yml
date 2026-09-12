@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       proposal:
-        description: Transition proposal JSON; leave empty for setup authentication only
+        description: Transition proposal JSON; empty means recovery only after freeze, setup authentication before freeze
         required: false
         default: ''
         type: string
@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3e' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3e'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3f' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3f'
     runs-on: ubuntu-24.04
     environment: proof6-writer
     timeout-minutes: 10
@@ -33,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           test "$RUNNER_ENVIRONMENT" = github-hosted
-          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3e
+          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3f
           git init --quiet .
           git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
           git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -68,7 +68,7 @@ jobs:
             exit 1
           fi
           echo DIA03_ACTION_OUTPUTS_OK
-      - name: Verify setup or commit one gated transition
+      - name: Verify setup, recover only, or commit one gated transition
         id: execute
         shell: bash
         env:

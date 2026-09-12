@@ -147,8 +147,8 @@ class _Writer:
             urllib.request.ProxyHandler({}), _NoRedirect())
 
     def _check_manifest(self, m):
-        _require(m['contract_commit'] == '34b940e0537f57e5fa225768a55214bd3d3c5340'
-                 and m['runtime_variant'] == 'r3e'
+        _require(m['contract_commit'] == '2f93acf267b99207c7f8220cb6246787a98806ec'
+                 and m['runtime_variant'] == 'r3f'
                  and m['revision'] == 3 and m['frozen'] is True
                  and m['repository_id'] == REPO_ID and m['repository'] == REPO
                  and m['ref'] == REF and m['baseline_commit'] == BASELINE
@@ -274,6 +274,78 @@ class _Writer:
                 'runtime': runtime,
                 'mutation_attempted': False}
 
+    def _current_authority(self):
+        ref = self._call(self._installation_token, 'GET',
+                         '/repos/' + REPO + '/git/ref/heads/proof6-authority')
+        _require(ref['ref'] == REF and ref['object']['type'] == 'commit')
+        return _sha(ref['object']['sha'])
+
+    def _history(self, sha):
+        base = '/repos/' + REPO
+        token = self._installation_token
+        commit = self._call(token, 'GET', base + '/git/commits/' + _sha(sha))
+        _require(commit['sha'] == sha)
+        tree_sha = _sha(commit['tree']['sha'])
+        tree = self._call(token, 'GET', base + '/git/trees/' + tree_sha)
+        _require(tree['sha'] == tree_sha and tree['truncated'] is False and len(tree['tree']) == 1)
+        entry = tree['tree'][0]
+        _require(entry['path'] == 'history.json' and entry['type'] == 'blob' and entry['mode'] == '100644')
+        blob_sha = _sha(entry['sha'])
+        blob = self._call(token, 'GET', base + '/git/blobs/' + blob_sha)
+        _require(blob['sha'] == blob_sha and blob['encoding'] == 'base64')
+        raw = base64.b64decode(blob['content'], validate=False)
+        _require(len(raw) <= 2_000_000 and hashlib.sha1(
+            b'blob ' + str(len(raw)).encode() + b'\0' + raw).hexdigest() == blob_sha)
+        p1 = self._gate.proof1
+        history = json.loads(raw.decode('utf-8'), object_pairs_hook=p1.unique_object,
+                             parse_float=p1.invalid_number, parse_constant=p1.invalid_number)
+        state = p1.reconstruct(history)
+        if sha == BASELINE:
+            from proof_control import plan
+            _require(state['state_sha256'] == plan()[0]['baseline']['state_sha256'])
+        return commit, history, state
+
+    def _validate_transition(self, pending):
+        """Audit protected history with the accepted pure gate; never resume it."""
+        _, history, current = self._history(pending['old'])
+        child, candidate, _ = self._history(pending['candidate'])
+        _require(child['parents'] == [{'sha': pending['old']}] or
+                 (len(child['parents']) == 1 and child['parents'][0]['sha'] == pending['old']))
+        _require(len(candidate['events']) == len(history['events']) + 1)
+        event = candidate['events'][-1]
+        prefix = 'proof2:proposal:'
+        _require(event['id'].startswith(prefix))
+        state = current['state']
+        proposal = dict(proposal_id=event['id'][len(prefix):], project=state['project'],
+                        subject=state['subject'], expected_state_sha256=current['state_sha256'],
+                        loop_id=state['loop']['id'], expected_baton=state['loop']['baton'], action='ADVANCE_ROADMAP')
+        _require(_digest(_canonical(proposal)) == pending['binding']['proposal_sha256'])
+        decision = self._gate.decide(history, proposal)
+        _require(decision['decision'] == 'ALLOW' and _digest(_canonical(decision)) == pending['gate_sha256']
+                 and candidate == {'version': 1, 'events': history['events'] + [decision['candidate_event']]})
+
+    def recover_only(self):
+        """Qualified frozen empty request. No authority transport or send permit."""
+        self._last_evidence = dict(result='BLOCKED', update_attempted=False,
+            remote_outcome='not_attempted', journal_completion_attempted=False,
+            admission='BLOCKED', historical_invocation_reclassified=False)
+        self._runtime_guard(self._manifest)
+        token = self._installation_access()
+        self._enforcement(token)
+        from journal import Journal
+        journal = Journal(self)
+        current = self._current_authority
+        expected, pending = journal.reconcile(current)
+        if pending is not None and journal.pending[pending]['binding']['operation'] == 'D07_DROP_PATCH_RESPONSE':
+            from sibling_canary import recover_d07
+            expected = recover_d07(self)
+        else:
+            expected = journal.recover(current, lambda item: print(
+                'PROOF6_RECOVERY ' + _canonical(item).decode(), flush=True))
+        return dict(result='RECOVERY_CONFIRMED', authority_sha=expected,
+                    update_attempted=False, remote_outcome='not_attempted',
+                    admission='CONFIRMED', historical_invocation_reclassified=False)
+
     def commit_transition(self, proposal_bytes, proof_operation=''):
         evidence = {'result': 'ERROR', 'manifest_sha256': self._manifest_digest,
                     'writer_sha256': self._writer_digest,
@@ -309,6 +381,10 @@ class _Writer:
                                   parse_float=p1.invalid_number,
                                   parse_constant=p1.invalid_number)
             _require(self._gate.valid_proposal(proposal))
+            # Bind normative proposal data, so complete recovery can reconstruct
+            # its identity from the exact accepted candidate/history.
+            proposal_bytes = _canonical(proposal)
+            evidence['proposal_sha256'] = _digest(proposal_bytes)
             token = self._installation_access()
             self._enforcement(token)
             base = '/repos/' + REPO
@@ -318,26 +394,14 @@ class _Writer:
                 return _sha(ref['object']['sha'])
             from journal import Journal
             self._journal = Journal(self)
-            self._journal.recover(current, lambda item: print('PROOF6_ADMISSION ' + _canonical(item).decode(), flush=True))
+            reconciled = self._journal.recover(current, lambda item: print('PROOF6_ADMISSION ' + _canonical(item).decode(), flush=True))
             journal_binding = self._journal.operation_binding(proposal_bytes, proof_operation)
             if proof_operation:
                 evidence['consumed_record'] = self._journal.consume(journal_binding)
             old = current()
+            _require(old == reconciled)
             evidence['old_sha'] = old
-            comparison = self._call(token, 'GET', base + '/compare/' + BASELINE + '...' + old)
-            _require(comparison['status'] in ('identical', 'ahead'))
-            commit = self._call(token, 'GET', base + '/git/commits/' + old)
-            tree = self._call(token, 'GET', base + '/git/trees/' + _sha(commit['tree']['sha']))
-            _require(tree['truncated'] is False and len(tree['tree']) == 1)
-            entry = tree['tree'][0]
-            _require(entry['path'] == 'history.json' and entry['type'] == 'blob'
-                     and entry['mode'] == '100644')
-            blob = self._call(token, 'GET', base + '/git/blobs/' + _sha(entry['sha']))
-            _require(blob['encoding'] == 'base64')
-            history = json.loads(base64.b64decode(blob['content']).decode('utf-8'),
-                                 object_pairs_hook=p1.unique_object,
-                                 parse_float=p1.invalid_number,
-                                 parse_constant=p1.invalid_number)
+            _, history, _ = self._history(old)
             decision = self._gate.decide(history, proposal)
             evidence['gate'] = decision
             if decision['decision'] != 'ALLOW':
@@ -362,6 +426,8 @@ class _Writer:
             if proof_operation == 'D02_PRE_SEND_STOP':
                 _require(current() == old)
                 evidence['terminal_record'] = self._journal.finish(pending, old, 'UNARMED')
+                from app_probes import run_d02_probes
+                run_d02_probes(self)
                 evidence.update(result='ERROR', phase='D02_AFTER_ALLOW_BEFORE_TRANSPORT')
                 return evidence
             self._enforcement(token)

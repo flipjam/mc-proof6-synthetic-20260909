@@ -13,8 +13,8 @@ def plan():
     raw = PLAN_PATH.read_bytes()
     value = json.loads(raw)
     from d03_rejection import POLICY
-    _require(value['schema'] == 'PROOF6_R3E_PLAN_V1'
-             and value['contract_commit'] == '34b940e0537f57e5fa225768a55214bd3d3c5340'
+    _require(value['schema'] == 'PROOF6_R3F_PLAN_V1'
+             and value['contract_commit'] == '2f93acf267b99207c7f8220cb6246787a98806ec'
              and set(value['faults']) == set(FAULTS)
              and value['caller'] == {'login': 'peaklinesoftware', 'id': 265169095}
              and value['max_consumptions_per_operation'] == 1
@@ -22,8 +22,20 @@ def plan():
              and value['baseline'] == {'authority': 'fdf602669253e0a5d3c09f515d4dd41004db043e',
                  'state_sha256': 'd8e1a472f8060ece75d385a8bffa5f810c77065d01329409963ffb0a46406c5c', 'roadmap': 6}
              and value['infrastructure'] == {'operation': OUTAGE, 'case': 'D04',
-                 'duration_seconds': 120, 'target': 'api.github.com',
+                 'duration_seconds': 30, 'total_cap_seconds': 120, 'target': 'api.github.com',
                  'concurrency': 'proof6-authority-writer-r3'})
+    expected_ids = {f'{group}{n:02}' for group, count in zip('ABCDEFGH', (9,12,11,9,6,14,3,8))
+                    for n in range(1, count + 1)}
+    rows = value['cases']
+    _require(len(rows) == 72 and {r['id'] for r in rows} == expected_ids
+             and all(r['disposition'] == 'FRESH' and r['method'] for r in rows)
+             and sum(r['reason'] == 'FRESH_R3F' for r in rows) == 56
+             and sum(r['reason'] == 'NO_VALID_PRIOR_EVIDENCE_SO_FRESH' for r in rows) == 16
+             and value['accounting'] == {'FRESH_R3F':56, 'NO_VALID_PRIOR_EVIDENCE_SO_FRESH':16,
+                                         'inherited':0, 'NOT_APPLICABLE':0, 'total':72}
+             and value['workflow_budget'] == {'setup_bootstrap':1, 'ordinary':3, 'fault':4, 'recovery':2, 'total':10}
+             and value['recovery']['completion_requests_in_R7'] == 2
+             and value['recovery']['caller_selectors'] == [])
     return value, hashlib.sha256(raw).hexdigest()
 
 def request(inputs):

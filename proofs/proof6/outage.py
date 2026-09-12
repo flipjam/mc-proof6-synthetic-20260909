@@ -6,6 +6,7 @@ import socket
 import time
 
 MAX_SECONDS = 120
+WINDOW_SECONDS = 30
 CLONE_NEWNET = 0x40000000
 
 
@@ -36,8 +37,9 @@ def isolate_runtime(emit):
     emit({'phase': 'READY', 'pid': pid, 'observation': isolated()})
     # Reserve time for final verification/exit within the hard 120-second limit.
     # No setns/reconnection fallback; the next hosted job restores service.
-    while time.monotonic() - start < 115:
-        time.sleep(max(0, min(1, 115 - (time.monotonic() - start))))
+    ready = time.monotonic()
+    while time.monotonic() - ready < WINDOW_SECONDS:
+        time.sleep(max(0, min(1, WINDOW_SECONDS - (time.monotonic() - ready))))
     emit({'phase': 'END', 'pid': pid, 'observation': isolated(),
           'elapsed_seconds': time.monotonic() - start})
     return {'result': 'OUTAGE_COMPLETED', 'update_attempted': False,

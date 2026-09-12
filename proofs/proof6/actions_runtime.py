@@ -12,7 +12,7 @@ import diagnostics as dia
 from ruleset_view import visible
 import proof_control
 
-RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3e'
+RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3f'
 WORKFLOW = '.github/workflows/proof6-writer.yml'
 ENVIRONMENT = 'proof6-writer'
 CONCURRENCY = 'proof6-authority-writer-r3'
@@ -49,7 +49,7 @@ def runtime_context():
     for path, digest in json.loads(build_raw).items():
         _require(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest)
     plan_digest = proof_control.plan()[1]
-    _require(plan_digest == 'fd5af499de268003b8a8a6c9261b7708cb76b718e54222d105011c483711ff1c')
+    _require(plan_digest == '8ac4e07cd2b36e1266e0dcc155a763e151d36a888a23fb0f23d0ea545fb05c82')
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
@@ -61,13 +61,13 @@ def runtime_context():
                  'protected_branches': False, 'custom_branch_policies': True})
     _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
     policy = policies['branch_policies'][0]
-    _require(policy['name'] == 'proof6-writer-runtime-r3e' and policy['type'] == 'branch')
+    _require(policy['name'] == 'proof6-writer-runtime-r3f' and policy['type'] == 'branch')
     return ref, env, policy, hashlib.sha256(build_raw).hexdigest(), plan_digest
 
 
 def guard(manifest):
     # Bootstrap never weakens the final manifest guard on normal/proof requests.
-    _require(manifest is not None and manifest['runtime_variant'] == 'r3e')
+    _require(manifest is not None and manifest['runtime_variant'] == 'r3f')
     ref, env, policy, build_digest, plan_digest = runtime_context()
     base = 'repos/' + REPO
     expected_view = manifest['runtime']['ruleset']
@@ -79,7 +79,7 @@ def guard(manifest):
     if 'current_user_can_bypass' in rule:
         _require(rule['current_user_can_bypass'] == 'never')
     rule = visible(rule)
-    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3e'
+    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3f'
              and policy['type'] == 'branch')
     runtime = {
         'ref': RUNTIME_REF, 'sha': ref['object']['sha'], 'workflow': WORKFLOW,
@@ -101,6 +101,9 @@ def guard(manifest):
         'proof_plan_sha256': plan_digest}
     if manifest is not None:
         _require(manifest['runtime'] == runtime)
+    # Requalify the same immutable hosted caller at every frozen guard, including
+    # each separately admitted completion in the fixed R7 sibling demonstration.
+    proof_control.qualify(os.environ, get)
     return runtime
 
 
@@ -139,17 +142,15 @@ def main(context):
                       triggering_actor=os.environ['GITHUB_TRIGGERING_ACTOR'])
         print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
         return 0
-    # A present manifest, even JSON null, never reopens bootstrap. Empty requests
-    # after freeze reject; the old writer-based setup route is not reachable.
-    _require(bool(proposal or operation))
+    # A present manifest, even JSON null, never reopens bootstrap. A qualified
+    # frozen empty request enters recovery only, before commit_transition.
     manifest = json.loads(manifest_text) if manifest_text else None
     context['identity'] = current_binding(manifest)
     dia.start('DIA01')
     guard(manifest)
     dia.ok('DIA01_RUNTIME_GUARD_OK')
-    if proposal or operation:
-        _require(manifest is not None)
-        context['identity']['caller'] = proof_control.qualify(os.environ, get)
+    _require(manifest is not None)
+    context['identity']['caller'] = proof_control.qualify(os.environ, get)
     if manifest is not None:
         _require(os.environ['GITHUB_RUN_ATTEMPT'] == '1')
         _require(manifest['proof_plan_sha256'] == plan_digest)
@@ -172,6 +173,11 @@ def main(context):
                      action_app_slug=action_app_slug, runtime_guard=guard,
                      receipt_binding=context['identity'])
     context['writer'] = writer
+    if not proposal and not operation:
+        result = writer.recover_only()
+        result.update(context['identity'])
+        print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
+        return 0
     if operation == proof_control.OUTAGE:
         from journal import Journal
         from outage import isolate_runtime
@@ -213,7 +219,7 @@ def execute():
         if result['update_attempted']:
             # A failure after handoff never becomes a no-update receipt.
             result.update(result='INDETERMINATE', remote_outcome='unknown')
-        else:
+        elif not result.get('journal_completion_attempted'):
             result['result'] = 'BLOCKED'
         print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
         dia.blocked(error)

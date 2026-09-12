@@ -4,11 +4,11 @@ import hashlib
 import json
 import re
 
-from writer import REPO, REPO_ID, APP_ID, _canonical, _digest, _require, _sha
+from writer import REPO, REPO_ID, APP_ID, BASELINE, _canonical, _digest, _require, _sha
 
-REF = 'refs/heads/proof6-operation-journal-r3e'
+REF = 'refs/heads/proof6-operation-journal-r3f'
 PATH = 'operation.json'
-SCHEMA = 'PROOF6_R3E_JOURNAL_V1'
+SCHEMA = 'PROOF6_R3F_JOURNAL_V1'
 FIELDS = {
     'CONSUMED': ['binding'],
     'PENDING': ['binding', 'old', 'candidate', 'gate_sha256'],
@@ -28,7 +28,10 @@ def parse(raw):
             _require(k not in result)
             result[k] = v
         return result
-    value = json.loads(raw, object_pairs_hook=unique)
+    def invalid_number(value):
+        raise ValueError('JOURNAL_NONINTEGER_NUMBER')
+    value = json.loads(raw, object_pairs_hook=unique, parse_constant=invalid_number,
+                       parse_float=invalid_number)
     _require(raw == _canonical(value))
     return value
 
@@ -37,7 +40,21 @@ def hex64(value):
     _require(type(value) is str and re.fullmatch('[0-9a-f]{64}', value))
 
 
+def terminal_semantics(parent, row, pending, armed):
+    """All record fields and exact protected lineage; no Git metadata excluded
+    from the record. Commit author/time/message are outside this safety value.
+    Schema/lifecycle/evidence validity is separately mandatory before comparison.
+    """
+    _sha(parent)
+    _require(type(row) is dict and row.get('type') == 'TERMINAL'
+             and set(row) == {'schema', 'type', *FIELDS['TERMINAL']}
+             and row['schema'] == SCHEMA)
+    return _canonical(dict(parent=parent, terminal=row, operation=pending,
+                           send_armed=armed))
+
+
 class Journal:
+    _completion_label = 'ordinary'
     def __init__(self, writer):
         self.writer = writer
         self.m = writer._manifest
@@ -85,7 +102,7 @@ class Journal:
                 _require(actual['bypass_actors'] == allowed)
 
     def remote(self):
-        ref = self.call('GET', '/git/ref/heads/proof6-operation-journal-r3e')
+        ref = self.call('GET', '/git/ref/' + REF.removeprefix('refs/'))
         _require(ref['ref'] == REF and ref['object']['type'] == 'commit')
         return _sha(ref['object']['sha'])
 
@@ -143,6 +160,8 @@ class Journal:
     def validate(self, rows):
         used, claims, pending, armed, resolved = set(), {}, {}, set(), set()
         ids = set()
+        previous = self.config['genesis_commit']
+        arms, terminals = {}, {}
         for sha, r in rows:
             kind = r.get('type')
             _require(kind in FIELDS and set(r) == {'schema', 'type', *FIELDS[kind]} and r['schema'] == SCHEMA)
@@ -164,13 +183,15 @@ class Journal:
                 ids.add(opid); pending[sha] = r
             elif kind == 'SEND_ARMED':
                 target = r['pending']
-                _require(target in pending and target not in armed and target not in resolved
+                _require(target == previous and target in pending and target not in armed and target not in resolved
                          and pending[target]['binding']['operation'] != 'D02_PRE_SEND_STOP')
                 armed.add(target)
+                arms[target] = sha
             else:
                 target = r['pending']
                 _require(target in pending and target not in resolved)
                 p = pending[target]; _sha(r['observed'])
+                _require(previous == arms.get(target, target))
                 evidence = r['evidence']
                 is_d03_rejection = p['binding']['operation'] == 'D03_REMOTE_REJECTION' and evidence == 'FINAL_REJECTION'
                 if is_d03_rejection:
@@ -195,7 +216,10 @@ class Journal:
                              and ((is_d03_rejection and r['request_id'] is None) or
                                   (type(r['request_id']) is str and re.fullmatch('[A-Za-z0-9:-]{1,128}', r['request_id']))))
                 resolved.add(target)
+                terminals[target] = (sha, previous, r)
+            previous = sha
         self.used, self.pending, self.armed, self.resolved = used, pending, armed, resolved
+        self.arms, self.terminals = arms, terminals
 
     def append(self, kind, **fields):
         row = dict(schema=SCHEMA, type=kind, **fields)
@@ -211,11 +235,18 @@ class Journal:
         child_sha = _sha(child['sha'])
         _require(child_sha != parent and self.remote() == parent)
         try:
-            self.call('PATCH', '/git/refs/heads/proof6-operation-journal-r3e', {'sha': child_sha, 'force': False})
+            result = self.call('PATCH', '/git/refs/' + REF.removeprefix('refs/'), {'sha': child_sha, 'force': False})
         except Exception:
             # One request only. The exact child must be the current remote head;
             # old/sibling/descendant/unreadable stays blocked, never a retry.
             pass
+        else:
+            if (kind == 'TERMINAL' and row['evidence'] == 'FINAL_REJECTION'
+                    and self.pending[row['pending']]['binding']['operation'] == 'D03_REMOTE_REJECTION'):
+                _require(result['ref'] == REF and result['object']['sha'] == child_sha)
+                # Fixed R3f D03 subcondition: successful journal PATCH boundary,
+                # BEFORE the first canonical confirmation read. Never a retry.
+                raise ValueError('R3F_D03_TERMINAL_CONFIRMATION_LOST')
         _require(self.remote() == child_sha)
         self.read()
         _require(self.head == child_sha and self.rows[-1] == (child_sha, row))
@@ -259,19 +290,95 @@ class Journal:
         return self.append('TERMINAL', pending=pending, disposition=disposition,
                            observed=observed, evidence=evidence, status=status, request_id=request_id, d03=d03)
 
-    def recover(self, current, observe=lambda item: None):
+    def reconcile(self, current):
+        """Complete ordered dispositions, exact gate-produced authority chain.
+        No gate output is retained for mutation and no send permit is created.
+        """
         self.read()
-        for sha, p in list(self.pending.items()):
-            if sha in self.resolved:
-                continue
-            observe({'phase': 'HELD_FOR_RECONCILIATION', 'pending': sha})
-            remote = current()
-            if remote == p['candidate'] and sha in self.armed:
-                self.finish(sha, remote, 'CANDIDATE_OBSERVED')
-            elif remote == p['old'] and sha not in self.armed:
-                # Confirmed single-parent resolution competes with any late arm
-                # child at the same head; both siblings cannot commit non-force.
-                self.finish(sha, remote, 'UNARMED')
+        expected = BASELINE
+        self.writer._history(BASELINE)
+        unresolved = None
+        for pending, row in self.pending.items():
+            _require(unresolved is None and row['old'] == expected)
+            self.writer._validate_transition(row)
+            if pending in self.terminals:
+                terminal = self.terminals[pending][2]
+                if terminal['disposition'] == 'COMMITTED':
+                    expected = row['candidate']
             else:
-                raise ValueError('JOURNAL_UNRESOLVED_OR_INCONSISTENT')
+                unresolved = pending
+        remote = current()
+        if unresolved is None:
+            _require(remote == expected)
+        else:
+            row = self.pending[unresolved]
+            # Only affirmative candidate observation permits missing-terminal
+            # completion. Old alone never resolves an armed or unarmed record.
+            _require(unresolved in self.arms and self.head == self.arms[unresolved]
+                     and remote == row['candidate'])
+            expected = remote
+        _require(self.remote() == self.head and current() == expected)
+        return expected, unresolved
+
+    def _completion_boundary(self):
+        """Fixed internal transport boundary; production recovery does nothing."""
+
+    def recover(self, current, observe=lambda item: None):
+        # One method invocation, one possible completion PATCH. No loop/retry.
+        expected, pending = self.reconcile(current)
+        if pending is not None:
+            observe({'phase': 'HELD_FOR_RECONCILIATION', 'pending': pending})
+            parent = self.head
+            p = self.pending[pending]
+            row = dict(schema=SCHEMA, type='TERMINAL', pending=pending,
+                       disposition='COMMITTED', observed=p['candidate'],
+                       evidence='CANDIDATE_OBSERVED', status=None, request_id=None, d03=None)
+            normative = terminal_semantics(parent, row, p, self.arms[pending])
+            self.validate(self.rows + [('f' * 40, row)])
+            blob = self.call('POST', '/git/blobs', {'content': base64.b64encode(_canonical(row)).decode(), 'encoding': 'base64'})
+            tree = self.call('POST', '/git/trees', {'tree': [{'path': PATH, 'type': 'blob', 'mode': '100644', 'sha': _sha(blob['sha'])}]})
+            # Distinct invocation provenance is nonsafety commit message only.
+            child = self.call('POST', '/git/commits', {
+                'message': 'Proof6 terminal completion ' + self._completion_label + ' ' + str(self.writer._receipt_binding['run_id']),
+                'tree': _sha(tree['sha']), 'parents': [parent]})
+            candidate = _sha(child['sha'])
+            self.check_protection()
+            self.writer._runtime_guard(self.m)
+            self.writer._enforcement(self.writer._installation_token)
+            checked, missing = self.reconcile(current)
+            _require(self.head == parent and missing == pending and checked == expected)
+            # A request admitted here may arrive after another valid sibling.
+            # The only proof hook is in the frozen recovery-only entry.
+            self._completion_boundary()
+            if self.writer._last_evidence is not None:
+                self.writer._last_evidence.update(result='INDETERMINATE',
+                    journal_completion_attempted=True, admission='BLOCKED',
+                    historical_invocation_reclassified=False)
+            try:
+                self.call('PATCH', '/git/refs/' + REF.removeprefix('refs/'), {'sha': candidate, 'force': False})
+            except Exception:
+                pass
+            # Every outcome requires complete canonical replay. Neither a 2xx,
+            # orphan object nor this invocation's candidate SHA grants membership.
+            confirmed, missing = self.reconcile(current)
+            _require(missing is None)
+            winner, winner_parent, terminal = self.terminals[pending]
+            _require(terminal_semantics(winner_parent, terminal, self.pending[pending],
+                                       self.arms[pending]) == normative)
+            # Later fully explained gated advances do not erase this terminal's
+            # canonical membership. reconcile already proved that continuity.
+            expected = confirmed
+            observe({'phase': 'TERMINAL_COMPLETION_CONFIRMED', 'pending': pending,
+                     'invocation': self._completion_label,
+                     'candidate': candidate, 'canonical_terminal': winner,
+                     'candidate_canonical': candidate == winner})
+        for original, (terminal, parent, row) in self.terminals.items():
+            observe({'phase': 'CANONICAL_DISPOSITION_CONFIRMED', 'pending': original,
+                     'terminal': terminal, 'terminal_parent': parent, 'journal_head': self.head,
+                     'authority': expected, 'evidence_class': row['evidence'],
+                     'safety_sha256': _digest(terminal_semantics(parent, row,
+                         self.pending[original], self.arms.get(original))),
+                     'original_binding': self.pending[original]['binding'],
+                     'recovery_binding': self.writer._receipt_binding})
         observe({'phase': 'ADMITTED', 'journal_head': self.head})
+        return expected

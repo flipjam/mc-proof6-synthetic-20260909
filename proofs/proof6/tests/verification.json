@@ -1,0 +1,58 @@
+{
+  "accounting": {
+    "FRESH_R3F": 56,
+    "NOT_APPLICABLE": 0,
+    "NO_VALID_PRIOR_EVIDENCE_SO_FRESH": 16,
+    "inherited": 0,
+    "total": 72
+  },
+  "authority": "2f93acf267b99207c7f8220cb6246787a98806ec",
+  "build_sha256": "df9269532dc456f994e57f7b61a93efe49d7ad6e62ae736d2509f1776e5f36a7",
+  "candidate_test_total": 192,
+  "canonical_72_per_row_exact_match": true,
+  "explicitly_superseded_prior_tests": 19,
+  "freeze": false,
+  "live_acceptance": false,
+  "prior_tests": 153,
+  "proof_plan_sha256": "8ac4e07cd2b36e1266e0dcc155a763e151d36a888a23fb0f23d0ea545fb05c82",
+  "protected_mutations": false,
+  "provisioning": false,
+  "r3f_tests_and_replacements": 58,
+  "result": "OFFLINE_PASS_SOURCE_CANDIDATE_ONLY",
+  "source_base": {
+    "commit": "d1a8b2fcbd5ffc3aec8f02823bb604dce542f06f",
+    "tree": "afe54b1e709aa8b39f60fa00c387bf4ccfbd3185"
+  },
+  "source_branch": "codex/proof6-r3f-implementation-candidate-20260911-01",
+  "source_inventory_sha256": "ddbeb0850bd9fabecee476d6661fb5e7cb62f8fc4bcdb0d11dcf66206610e25b",
+  "tests": {
+    "r3e-baseline-results.txt": {
+      "sha256": "0aed9ee704f7839b8c88be0015fb61b59ee85879c600169f89002cc9f083431f",
+      "tests": 123
+    },
+    "r3e-reviewer-baseline-results.txt": {
+      "sha256": "c515a709970e4f244777f4af7cb67b627e70532dae91a2f8ca9a373a192d2334",
+      "tests": 30
+    },
+    "r3f-regression-results.txt": {
+      "sha256": "9fc743bf5a7af955c2d98a5c39207ecd9cec9bac526c4e0881519befbcb4c37a",
+      "tests": 109
+    },
+    "r3f-reviewer-results.txt": {
+      "sha256": "4956a38553a9aebdb5aa57bad4d487645e85701efb4cdc323d2943e8345a3ec0",
+      "tests": 30
+    },
+    "r3f-test-results.txt": {
+      "sha256": "39c582e45609b9f0e0f55e54db0f06f5c046cab483a91b922cb2c17174eea6a8",
+      "tests": 53
+    }
+  },
+  "unchanged_assertion_regressions": 134,
+  "workflow_budget": {
+    "fault": 4,
+    "ordinary": 3,
+    "recovery": 2,
+    "setup_bootstrap": 1,
+    "total": 10
+  }
+}

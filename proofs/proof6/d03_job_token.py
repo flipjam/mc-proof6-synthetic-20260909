@@ -8,7 +8,7 @@ from writer import REPO, REPO_ID, _canonical, _require
 
 SOURCE = 'github.token/current-worker-job-message/v1'
 PERMISSIONS = {'Actions': 'read', 'Contents': 'read', 'Metadata': 'read'}
-RUNTIME = 'refs/heads/proof6-writer-runtime-r3e'
+RUNTIME = 'refs/heads/proof6-writer-runtime-r3f'
 WORKFLOW = REPO + '/.github/workflows/proof6-writer.yml@' + RUNTIME
 
 
