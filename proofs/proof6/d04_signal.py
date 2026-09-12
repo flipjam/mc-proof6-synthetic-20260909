@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import d04_capability as capability
 
 REPO = 'flipjam/mc-proof6-synthetic-20260909'
-RUNTIME = 'refs/heads/proof6-writer-runtime-r3h'
+RUNTIME = 'refs/heads/codex/proof6-r3h-s1-startup-diagnostic-20260912-01'
 SCHEMA = 'PROOF6_R3H_D04_SIGNAL_V1'
 TOKEN_SLOT = 'PROOF6_D04_STATUS_TOKEN'
 PERMISSIONS = {'Metadata': 'read', 'Statuses': 'write'}
@@ -216,7 +216,7 @@ def custody(helper, setup=False):
             continue  # The enumeration's own already-closed descriptor.
         descriptors[int(entry.name)] = (target, mode)
     result = custody_values(helper, initial, Path('/proc/self/cmdline').read_bytes().split(b'\0')[:-1], descriptors, setup)
-    receipt('CUSTODY', **result)
+    receipt('CUSTODY', role=result['role'], argv_exact=True, descriptors_exact=True, acceptance_credit=False)
     return result
 
 
@@ -571,11 +571,14 @@ def setup_qualification(raw):
 
 
 if __name__ == '__main__':
+    import d04_startup_diagnostic as diagnostic
+    diagnostic.install(__file__)
     try:
         require(len(sys.argv) == 2 and sys.argv[1] in (
-            'serve', 'cleanup', 'serve-setup', 'qualify-setup', 'cleanup-setup'))
+            'serve-setup', 'qualify-setup', 'cleanup-setup'))
         {'serve': serve, 'cleanup': cleanup, 'serve-setup': serve_setup,
          'qualify-setup': qualify_setup, 'cleanup-setup': lambda: cleanup(True)}[sys.argv[1]]()
     except BaseException as error:
+        diagnostic.blocked(error)
         receipt('BLOCKED', exception=type(error).__name__, acceptance_credit=False)
         sys.exit(1)

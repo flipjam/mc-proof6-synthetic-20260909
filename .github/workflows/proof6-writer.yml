@@ -1,41 +1,25 @@
-name: Proof6 protected writer
+name: Proof6 one startup diagnostic
 on:
   workflow_dispatch:
-    inputs:
-      proposal:
-        description: Transition proposal JSON; empty means recovery only after freeze, setup authentication before freeze
-        required: false
-        default: ''
-        type: string
-      proof_operation:
-        description: Fixed proof-only operation; normal proposals must leave empty
-        required: false
-        default: ''
-        type: string
 permissions:
-  contents: read
-  actions: read
+  statuses: write
 concurrency:
-  group: proof6-authority-writer-r3
+  group: proof6-r3h-startup-diagnostic-once
   cancel-in-progress: false
 jobs:
   signal_setup:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3h' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3h'
-      && inputs.proof_operation == '' && inputs.proposal == ''
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/codex/proof6-r3h-s1-startup-diagnostic-20260912-01' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/codex/proof6-r3h-s1-startup-diagnostic-20260912-01'
     runs-on: ubuntu-24.04
-    environment: proof6-writer
     timeout-minutes: 3
     permissions:
       statuses: write
-    outputs:
-      qualification: ${{ steps.qualified.outputs.qualification }}
     steps:
-    - name: Load exact protected runtime commit
+    - name: Load exact diagnostic commit
       shell: bash
       run: |
         set -euo pipefail
         test "$RUNNER_ENVIRONMENT" = github-hosted
-        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3h
+        test "$GITHUB_REF" = refs/heads/codex/proof6-r3h-s1-startup-diagnostic-20260912-01
         git init --quiet .
         git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
         git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -45,293 +29,64 @@ jobs:
         test -x /usr/bin/timeout
         test -x /usr/bin/python3
         /usr/bin/sudo -n /usr/bin/true
-      if: vars.PROOF6_FROZEN_MANIFEST == ''
-    - name: Start fixed status helper before App credential
+    - name: Reproduce fixed helper startup with bounded diagnostics
       id: d04-signal-start
       shell: bash
       env:
         PROOF6_D04_STATUS_TOKEN: ${{ github.token }}
       run: |
         set -euo pipefail
+        printf 'PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"OUTER_START","utc_epoch":"%s","pid":%s,"euid":%s}\n' "$EPOCHREALTIME" "$$" "$EUID"
         sudo -n --preserve-env=PROOF6_D04_STATUS_TOKEN,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /bin/bash <<'FIXED_HELPER_SUPERVISOR'
         set -euo pipefail
+        stage=ROOT_PATH
+        diagnostic_exit() {
+          code=$?
+          printf 'PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"%s","utc_epoch":"%s","pid":%s,"euid":%s,"exit_code":%s}\n' "$stage" "$EPOCHREALTIME" "$$" "$EUID" "$code"
+        }
+        trap diagnostic_exit EXIT
         root="/tmp/proof6-d04-signal-${GITHUB_RUN_ID}-1-${GITHUB_SHA}"
         test ! -e "$root"
+        stage=ROOT_CREATE
         mkdir -m 700 "$root"
+        stage=ROOT_CREATED
+        printf 'PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"ROOT_CREATED","utc_epoch":"%s","pid":%s,"euid":%s,"socket_path_bytes":%s}\n' "$EPOCHREALTIME" "$$" "$EUID" "$((${#root}+12))"
         (
           set +e
+          trap - EXIT
           /usr/bin/timeout --signal=KILL 120s /usr/bin/python3 -I -B proofs/proof6/d04_signal.py serve-setup &
           native=$!
           printf '%s\n' "$native" > "$root/native.pid"
+          printf 'PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"NATIVE_STARTED","utc_epoch":"%s","pid":%s,"euid":%s,"native_pid":%s}\n' "$EPOCHREALTIME" "$BASHPID" "$EUID" "$native"
           wait "$native"
           result=$?
+          printf 'PROOF6_STARTUP_SHELL {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","stage":"NATIVE_REAPED","utc_epoch":"%s","pid":%s,"euid":%s,"exit_code":%s}\n' "$EPOCHREALTIME" "$BASHPID" "$EUID" "$result"
           printf '%s\n' "$result" > "$root/reaped.exit"
         ) </dev/null >"$root/helper.log" 2>&1 &
+        stage=IPC_READY_WAIT
         for ((i=0; i<100; i++)); do
-          test ! -f "$root/reaped.exit" || exit 1
-          test ! -f "$root/started.json" || exit 0
+          if test -f "$root/reaped.exit"; then stage=HELPER_EXIT_BEFORE_READY; exit 1; fi
+          if test -f "$root/started.json"; then stage=IPC_READY; exit 0; fi
           sleep 0.1
         done
+        stage=IPC_READY_TIMEOUT
         exit 1
         FIXED_HELPER_SUPERVISOR
-      if: vars.PROOF6_FROZEN_MANIFEST == ''
     - name: Qualify credential-free setup peer and reap it
-      if: vars.PROOF6_FROZEN_MANIFEST == ''
       shell: bash
       run: |
         set -euo pipefail
         sudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/timeout --signal=KILL 20s /usr/bin/python3 -I -B proofs/proof6/d04_signal.py qualify-setup </dev/null
     - name: Require setup helper completion and both processes reaped
       id: qualified
-      if: always() && vars.PROOF6_FROZEN_MANIFEST == ''
-      shell: bash
-      run: |
-        set -euo pipefail
-        result=$(sudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/python3 -I -B proofs/proof6/d04_signal.py cleanup-setup)
-        printf '%s\n' "$result"
-        qualification=$(printf '%s\n' "$result" | sed -n 's/^PROOF6_SIGNAL_SETUP_OUTPUT //p')
-        test -n "$qualification"
-        printf 'qualification=%s\n' "$qualification" >> "$GITHUB_OUTPUT"
-  writer:
-    needs: signal_setup
-    if: always() && !cancelled() && (needs.signal_setup.result == 'success' || needs.signal_setup.result == 'skipped') && github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3h' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3h'
-      && inputs.proof_operation != 'D04_CONNECTIVITY_OUTAGE'
-    runs-on: ubuntu-24.04
-    environment: proof6-writer
-    timeout-minutes: 10
-    permissions:
-      contents: read
-      actions: read
-    steps:
-    - name: Load exact protected runtime commit
-      shell: bash
-      run: |
-        set -euo pipefail
-        test "$RUNNER_ENVIRONMENT" = github-hosted
-        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3h
-        git init --quiet .
-        git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
-        git fetch --quiet --depth=1 origin "$GITHUB_SHA"
-        git checkout --quiet --detach FETCH_HEAD
-        test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
-        test -x /usr/bin/unshare
-        test -x /usr/bin/timeout
-        test -x /usr/bin/python3
-        /usr/bin/sudo -n /usr/bin/true
-    - name: Qualify fixed D04 capability before setup token
-      id: d04-setup
-      if: vars.PROOF6_FROZEN_MANIFEST == ''
-      shell: bash
-      run: |
-        set -uo pipefail
-        set +e
-        qualification=$(sudo -n --preserve-env=RUNNER_ENVIRONMENT,RUNNER_OS,RUNNER_ARCH,ImageOS,ImageVersion /usr/bin/python3 -I -B proofs/proof6/d04_prerequisite.py)
-        prerequisite_exit=$?
-        printf 'PROOF6_D04_PREREQUISITE %s\n' "$qualification"
-        test "$prerequisite_exit" = 0 || exit "$prerequisite_exit"
-        printf 'qualification=%s\n' "$qualification" >> "$GITHUB_OUTPUT"
-    - name: Create exact installation token
-      id: app-token
-      uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
-      with:
-        app-id: '4893415'
-        private-key: ${{ secrets.PROOF6_APP_PRIVATE_KEY }}
-        owner: flipjam
-        permission-contents: write
-        permission-metadata: read
-    - name: Verify official App token outputs
-      shell: bash
-      env:
-        PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
-        PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
-      run: |
-        set -euo pipefail
-        if [[ "$PROOF6_APP_INSTALLATION_ID" != "160504789" ]]; then
-          echo "PROOF6_SETUP_SIMPLIFIED_BLOCKED ACTION_INSTALLATION_ID_MISMATCH"
-          exit 1
-        fi
-        if [[ "$PROOF6_APP_SLUG" != "mc-proof-6-gate-writer" ]]; then
-          echo "PROOF6_SETUP_SIMPLIFIED_BLOCKED ACTION_APP_SLUG_MISMATCH"
-          exit 1
-        fi
-        echo DIA03_ACTION_OUTPUTS_OK
-    - name: Verify setup, recover only, or commit one gated transition
-      id: execute
-      shell: bash
-      env:
-        PROOF6_D04_SIGNAL_SETUP_QUALIFICATION: ${{ needs.signal_setup.outputs.qualification }}
-        GH_TOKEN: ${{ github.token }}
-        PROOF6_D03_JOB_TOKEN: ${{ github.token }}
-        PROOF6_OPERATION: ${{ inputs.proof_operation }}
-        PROOF6_D04_SETUP_QUALIFICATION: ${{ steps.d04-setup.outputs.qualification }}
-        PROOF6_APP_TOKEN: ${{ steps.app-token.outputs.token }}
-        PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
-        PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
-        PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
-      run: |
-        set -euo pipefail
-        deadline=()
-        if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
-          deadline=(/usr/bin/timeout --signal=KILL 120s)
-        fi
-        # Default timeout process group; never --foreground or --preserve-status.
-        # SIGKILL covers the actual runtime and its process group at the deadline.
-        set +e
-        sudo -n --preserve-env=PROOF6_D04_SIGNAL_SETUP_QUALIFICATION,PROOF6_D04_SETUP_QUALIFICATION,GH_TOKEN,PROOF6_D03_JOB_TOKEN,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT,RUNNER_OS,RUNNER_ARCH,ImageOS,ImageVersion \
-          "${deadline[@]}" /usr/bin/python3 -B proofs/proof6/actions_runtime.py
-        supervisor_exit=$?
-        if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
-          if [[ "$supervisor_exit" == 0 ]]; then
-            printf 'PROOF6_D04_SUPERVISOR {"phase":"SUPERVISOR_COMPLETED","exit_code":0}\n'
-          else
-            printf 'PROOF6_D04_SUPERVISOR {"phase":"SUPERVISOR_FAILED","exit_code":%s}\n' "$supervisor_exit"
-          fi
-        fi
-        test "$supervisor_exit" = 0 || exit "$supervisor_exit"
-        # Completion credit requires successful supervisor exit as well as END.
-        if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
-          echo PROOF6_D04_NATIVE_DEADLINE_COMPLETED
-        fi
-    - name: Record skipped writer as pre-update blocked
-      if: always() && steps.execute.outcome == 'skipped'
-      shell: bash
-      env:
-        PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
-      run: |-
-        python3 -B proofs/proof6/actions_runtime.py --prewriter-blocked
-  d04_writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3h' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3h'
-      && inputs.proof_operation == 'D04_CONNECTIVITY_OUTAGE'
-    runs-on: ubuntu-24.04
-    environment: proof6-writer
-    timeout-minutes: 10
-    permissions:
-      statuses: write
-    steps:
-    - name: Load exact protected runtime commit
-      shell: bash
-      run: |
-        set -euo pipefail
-        test "$RUNNER_ENVIRONMENT" = github-hosted
-        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3h
-        git init --quiet .
-        git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
-        git fetch --quiet --depth=1 origin "$GITHUB_SHA"
-        git checkout --quiet --detach FETCH_HEAD
-        test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
-        test -x /usr/bin/unshare
-        test -x /usr/bin/timeout
-        test -x /usr/bin/python3
-        /usr/bin/sudo -n /usr/bin/true
-    - name: Qualify fixed D04 capability before setup token
-      id: d04-setup
-      if: vars.PROOF6_FROZEN_MANIFEST == ''
-      shell: bash
-      run: |
-        set -uo pipefail
-        set +e
-        qualification=$(sudo -n --preserve-env=RUNNER_ENVIRONMENT,RUNNER_OS,RUNNER_ARCH,ImageOS,ImageVersion /usr/bin/python3 -I -B proofs/proof6/d04_prerequisite.py)
-        prerequisite_exit=$?
-        printf 'PROOF6_D04_PREREQUISITE %s\n' "$qualification"
-        test "$prerequisite_exit" = 0 || exit "$prerequisite_exit"
-        printf 'qualification=%s\n' "$qualification" >> "$GITHUB_OUTPUT"
-    - name: Start fixed status helper before App credential
-      id: d04-signal-start
-      shell: bash
-      env:
-        PROOF6_D04_STATUS_TOKEN: ${{ github.token }}
-      run: |
-        set -euo pipefail
-        sudo -n --preserve-env=PROOF6_D04_STATUS_TOKEN,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /bin/bash <<'FIXED_HELPER_SUPERVISOR'
-        set -euo pipefail
-        root="/tmp/proof6-d04-signal-${GITHUB_RUN_ID}-1-${GITHUB_SHA}"
-        test ! -e "$root"
-        mkdir -m 700 "$root"
-        (
-          set +e
-          /usr/bin/timeout --signal=KILL 120s /usr/bin/python3 -I -B proofs/proof6/d04_signal.py serve &
-          native=$!
-          printf '%s\n' "$native" > "$root/native.pid"
-          wait "$native"
-          result=$?
-          printf '%s\n' "$result" > "$root/reaped.exit"
-        ) </dev/null >"$root/helper.log" 2>&1 &
-        for ((i=0; i<100; i++)); do
-          test ! -f "$root/reaped.exit" || exit 1
-          test ! -f "$root/started.json" || exit 0
-          sleep 0.1
-        done
-        exit 1
-        FIXED_HELPER_SUPERVISOR
-    - name: Create exact installation token
-      id: app-token
-      uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
-      with:
-        app-id: '4893415'
-        private-key: ${{ secrets.PROOF6_APP_PRIVATE_KEY }}
-        owner: flipjam
-        permission-contents: write
-        permission-metadata: read
-    - name: Verify official App token outputs
-      shell: bash
-      env:
-        PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
-        PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
-      run: |
-        set -euo pipefail
-        if [[ "$PROOF6_APP_INSTALLATION_ID" != "160504789" ]]; then
-          echo "PROOF6_SETUP_SIMPLIFIED_BLOCKED ACTION_INSTALLATION_ID_MISMATCH"
-          exit 1
-        fi
-        if [[ "$PROOF6_APP_SLUG" != "mc-proof-6-gate-writer" ]]; then
-          echo "PROOF6_SETUP_SIMPLIFIED_BLOCKED ACTION_APP_SLUG_MISMATCH"
-          exit 1
-        fi
-        echo DIA03_ACTION_OUTPUTS_OK
-    - name: Verify setup, recover only, or commit one gated transition
-      id: execute
-      shell: bash
-      env:
-        PROOF6_OPERATION: ${{ inputs.proof_operation }}
-        PROOF6_D04_SETUP_QUALIFICATION: ${{ steps.d04-setup.outputs.qualification }}
-        PROOF6_APP_TOKEN: ${{ steps.app-token.outputs.token }}
-        PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
-        PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
-        PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
-      run: |
-        set -euo pipefail
-        deadline=()
-        if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
-          deadline=(/usr/bin/timeout --signal=KILL 120s)
-        fi
-        # Default timeout process group; never --foreground or --preserve-status.
-        # SIGKILL covers the actual runtime and its process group at the deadline.
-        set +e
-        sudo -n --preserve-env=PROOF6_D04_SETUP_QUALIFICATION,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_JOB,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT,RUNNER_OS,RUNNER_ARCH,ImageOS,ImageVersion \
-          "${deadline[@]}" /usr/bin/python3 -B proofs/proof6/actions_runtime.py </dev/null
-        supervisor_exit=$?
-        if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
-          if [[ "$supervisor_exit" == 0 ]]; then
-            printf 'PROOF6_D04_SUPERVISOR {"phase":"SUPERVISOR_COMPLETED","exit_code":0}\n'
-          else
-            printf 'PROOF6_D04_SUPERVISOR {"phase":"SUPERVISOR_FAILED","exit_code":%s}\n' "$supervisor_exit"
-          fi
-        fi
-        test "$supervisor_exit" = 0 || exit "$supervisor_exit"
-        # Completion credit requires successful supervisor exit as well as END.
-        if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
-          echo PROOF6_D04_NATIVE_DEADLINE_COMPLETED
-        fi
-    - name: Record skipped writer as pre-update blocked
-      if: always() && steps.execute.outcome == 'skipped'
-      shell: bash
-      env:
-        PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
-      run: |-
-        python3 -B proofs/proof6/actions_runtime.py --prewriter-blocked
-    - name: Require bounded helper exit and reaping
       if: always()
       shell: bash
       run: |
-        set -euo pipefail
-        sudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/python3 -I -B proofs/proof6/d04_signal.py cleanup
+        set +e
+        sudo -n --preserve-env=GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_EVENT_NAME /usr/bin/python3 -I -B proofs/proof6/d04_signal.py cleanup-setup
+        result=$?
+        sudo -n --preserve-env=GITHUB_RUN_ID,GITHUB_SHA /usr/bin/python3 -I -B proofs/proof6/d04_startup_diagnostic.py
+        replay=$?
+        if test "$replay" -ne 0; then result=1; fi
+        printf 'DIAGNOSTIC_RESULT {"schema":"PROOF6_STARTUP_DIAGNOSTIC_V1","cleanup_exit":%s,"acceptance_credit":false,"status_posts":0}\n' "$result"
+        exit "$result"
