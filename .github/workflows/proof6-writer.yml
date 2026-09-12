@@ -1,124 +1,226 @@
-name: Proof6 protected writer
+name: Proof6 D04 status NON-ACCEPTANCE canary
 on:
   workflow_dispatch:
-    inputs:
-      proposal:
-        description: Transition proposal JSON; empty means recovery only after freeze, setup authentication before freeze
-        required: false
-        default: ''
-        type: string
-      proof_operation:
-        description: Fixed proof-only operation; normal proposals must leave empty
-        required: false
-        default: ''
-        type: string
 permissions:
-  contents: read
-  actions: read
-concurrency:
-  group: proof6-authority-writer-r3
-  cancel-in-progress: false
+  statuses: write
 jobs:
-  writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3g' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3g'
+  canary:
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/codex/proof6-r3h-live-status-canary-20260912-01'
     runs-on: ubuntu-24.04
-    environment: proof6-writer
-    timeout-minutes: 10
+    timeout-minutes: 2
     permissions:
-      contents: read
-      actions: read
+      statuses: write
     steps:
-      - name: Load exact protected runtime commit
+      - name: Prepare fixed credential-free diagnostic source
         shell: bash
         run: |
           set -euo pipefail
-          test "$RUNNER_ENVIRONMENT" = github-hosted
-          test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3g
-          git init --quiet .
-          git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
-          git fetch --quiet --depth=1 origin "$GITHUB_SHA"
-          git checkout --quiet --detach FETCH_HEAD
-          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
-          test -x /usr/bin/unshare
-          test -x /usr/bin/timeout
-          test -x /usr/bin/python3
-          /usr/bin/sudo -n /usr/bin/true
-      - name: Qualify fixed D04 capability before setup token
-        id: d04-setup
-        if: vars.PROOF6_FROZEN_MANIFEST == ''
-        shell: bash
-        run: |
-          set -uo pipefail
-          set +e
-          qualification=$(sudo -n --preserve-env=RUNNER_ENVIRONMENT,RUNNER_OS,RUNNER_ARCH,ImageOS,ImageVersion /usr/bin/python3 -I -B proofs/proof6/d04_prerequisite.py)
-          prerequisite_exit=$?
-          printf 'PROOF6_D04_PREREQUISITE %s\n' "$qualification"
-          test "$prerequisite_exit" = 0 || exit "$prerequisite_exit"
-          printf 'qualification=%s\n' "$qualification" >> "$GITHUB_OUTPUT"
-      - name: Create exact installation token
-        id: app-token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
-        with:
-          app-id: 4893415
-          private-key: ${{ secrets.PROOF6_APP_PRIVATE_KEY }}
-          owner: flipjam
-          permission-contents: write
-          permission-metadata: read
-      - name: Verify official App token outputs
+          umask 077
+          mkdir "$RUNNER_TEMP/proof6-d04-status-canary"
+          cat > "$RUNNER_TEMP/proof6-d04-status-canary/producer.py" <<'PRODUCER'
+          """Credential-free fixed producer. NON-ACCEPTANCE; no isolation or authority work."""
+          import datetime
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import re
+          import sys
+          import time
+
+          WINDOW_SECONDS = 20
+          ENV_KEYS = {'PATH', 'LANG', 'CANARY_RUN_ID', 'CANARY_ATTEMPT', 'CANARY_SHA'}
+
+          def main():
+              assert set(os.environ) == ENV_KEYS
+              assert os.environ['PATH'] == '/usr/bin:/bin' and os.environ['LANG'] == 'C.UTF-8'
+              assert re.fullmatch(r'[1-9][0-9]*', os.environ['CANARY_RUN_ID'])
+              assert os.environ['CANARY_ATTEMPT'] == '1'
+              assert re.fullmatch(r'[0-9a-f]{40}', os.environ['CANARY_SHA'])
+              root = Path(__file__).resolve().parent
+              assert sys.argv == [str(root / 'producer.py')] and Path.cwd() == root
+              assert set(p.name for p in root.iterdir()) == {'producer.py', 'helper.py'}
+              fds = {}
+              for p in Path('/proc/self/fd').iterdir():
+                  try:
+                      fds[p.name] = os.readlink(p)
+                  except FileNotFoundError:
+                      pass
+              assert set(fds) == {'0', '1', '2'}
+              assert all(re.fullmatch(r'pipe:\[[0-9]+\]', fds[x]) for x in ('0', '1'))
+              assert fds['2'] == '/dev/null'
+              custody = {'environment_keys': sorted(os.environ), 'argv': sys.argv,
+                         'descriptors': fds, 'files': {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                                                     for p in root.iterdir()},
+                         'no_credential_delivery': True, 'credential_discovery_implemented': False}
+              assert sys.stdin.buffer.readline(4) == b'GO\n'
+              binding = {'schema': 'PROOF6_STATUS_CANARY_V1', 'run_id': int(os.environ['CANARY_RUN_ID']),
+                         'attempt': 1, 'sha': os.environ['CANARY_SHA'], 'pid': os.getpid(), 'custody': custody}
+              start = time.monotonic()
+              for phase in ('READY', 'END'):
+                  if phase == 'END':
+                      while time.monotonic() - start < WINDOW_SECONDS:
+                          time.sleep(max(0, min(0.25, WINDOW_SECONDS - (time.monotonic() - start))))
+                  now = time.monotonic()
+                  if phase == 'READY':
+                      start = now
+                  event = dict(binding, phase=phase, utc=datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                               monotonic=now)
+                  print(json.dumps(event, sort_keys=True, separators=(',', ':')), flush=True)
+
+          if __name__ == '__main__':
+              main()
+          PRODUCER
+          cat > "$RUNNER_TEMP/proof6-d04-status-canary/helper.py" <<'HELPER'
+          """Fixed diagnostic-only commit-status helper. No proof runtime imports."""
+          import datetime
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import re
+          import select
+          import signal
+          import subprocess
+          import sys
+          import time
+          import urllib.request
+
+          REPO = 'flipjam/mc-proof6-synthetic-20260909'
+          BRANCH = 'refs/heads/codex/proof6-r3h-live-status-canary-20260912-01'
+          KEYS = {'schema', 'run_id', 'attempt', 'sha', 'pid', 'custody', 'phase', 'utc', 'monotonic'}
+
+          def utc():
+              return datetime.datetime.now(datetime.timezone.utc).isoformat()
+
+          def emit(kind, **fields):
+              print('PROOF6_STATUS_CANARY ' + json.dumps(dict(kind=kind, utc=utc(), **fields), sort_keys=True), flush=True)
+
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, *args, **kwargs):
+                  raise RuntimeError('REDIRECT_FORBIDDEN')
+
+          def post(token, sha, run_id, attempt, event):
+              context = f'proof6/d04-signal-canary/{run_id}/{attempt}/{sha}'
+              payload = {'state': 'pending' if event['phase'] == 'READY' else 'success', 'context': context,
+                         'description': f"{event['phase']} r={run_id} a={attempt} sha={sha} p={event['pid']}",
+                         'target_url': f'https://github.com/{REPO}/actions/runs/{run_id}'}
+              assert len(context) <= 100 and len(payload['description']) <= 140
+              request = urllib.request.Request(f'https://api.github.com/repos/{REPO}/statuses/{sha}',
+                  data=json.dumps(payload, sort_keys=True).encode(), method='POST', headers={
+                      'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json',
+                      'Content-Type': 'application/json', 'X-GitHub-Api-Version': '2022-11-28',
+                      'User-Agent': 'proof6-fixed-status-canary'})
+              started = utc()
+              opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), NoRedirect())
+              with opener.open(request, timeout=5) as response:
+                  assert response.status == 201
+                  raw = response.read(65537)
+                  assert len(raw) <= 65536
+                  item = json.loads(raw)
+                  assert all(item[k] == payload[k] for k in payload)
+                  assert item['creator']['login'] == 'github-actions[bot]'
+                  receipt = {'started_at': started, 'completed_at': utc(), 'http_status': response.status,
+                             'headers': {k: response.headers.get(k) for k in ('Date', 'X-GitHub-Request-Id',
+                                        'X-Accepted-GitHub-Permissions')}, 'payload': payload, 'response': item}
+              emit('STATUS_POST', phase=event['phase'], receipt=receipt)
+
+          def timeout(*_):
+              raise TimeoutError('CANARY_DEADLINE')
+
+          def main():
+              signal.signal(signal.SIGALRM, timeout)
+              signal.alarm(60)
+              assert os.environ['GITHUB_REPOSITORY'] == REPO
+              assert os.environ['GITHUB_REPOSITORY_ID'] == '1363510385'
+              assert os.environ['GITHUB_REF'] == BRANCH and os.environ['GITHUB_EVENT_NAME'] == 'workflow_dispatch'
+              assert os.environ['GITHUB_WORKFLOW_REF'] == REPO + '/.github/workflows/proof6-writer.yml@' + BRANCH
+              assert os.environ['GITHUB_RUN_ATTEMPT'] == '1'
+              assert not any(k.startswith('PROOF6_APP') or k == 'PROOF6_FROZEN_MANIFEST' for k in os.environ)
+              run_id = int(os.environ['GITHUB_RUN_ID']); attempt = 1; sha = os.environ['GITHUB_SHA']
+              assert run_id > 0 and re.fullmatch(r'[0-9a-f]{40}', sha)
+              token = os.environ.pop('CANARY_STATUS_TOKEN')
+              assert token and token not in '\0'.join(sys.argv)
+              root = Path(__file__).resolve().parent
+              assert set(p.name for p in root.iterdir()) == {'producer.py', 'helper.py'}
+              sources = {p.name: p.read_bytes() for p in root.iterdir()}
+              assert all(token.encode() not in raw for raw in sources.values())
+              child_env = {'PATH': '/usr/bin:/bin', 'LANG': 'C.UTF-8', 'CANARY_RUN_ID': str(run_id),
+                           'CANARY_ATTEMPT': '1', 'CANARY_SHA': sha}
+              command = ['/usr/bin/python3', '-I', '-B', str(root / 'producer.py')]
+              child = subprocess.Popen(command, cwd=root, env=child_env, stdin=subprocess.PIPE,
+                                       stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, close_fds=True, bufsize=0)
+              try:
+                  # Inspect only this implementation-created child's nonsecret delivery path.
+                  deadline = time.monotonic() + 3
+                  while True:
+                      argv = Path(f'/proc/{child.pid}/cmdline').read_bytes().split(b'\0')[:-1]
+                      if argv == [x.encode() for x in command]:
+                          break
+                      assert child.poll() is None and time.monotonic() < deadline
+                      time.sleep(0.01)
+                  delivered = Path(f'/proc/{child.pid}/environ').read_bytes()
+                  assert token.encode() not in delivered
+                  actual_env = dict(x.split(b'=', 1) for x in delivered.split(b'\0') if x)
+                  assert actual_env == {k.encode(): v.encode() for k, v in child_env.items()}
+                  expected_fds = {'0': f'pipe:[{os.fstat(child.stdin.fileno()).st_ino}]',
+                                  '1': f'pipe:[{os.fstat(child.stdout.fileno()).st_ino}]', '2': '/dev/null'}
+                  while True:
+                      actual_fds = {}
+                      for p in Path(f'/proc/{child.pid}/fd').iterdir():
+                          try:
+                              actual_fds[p.name] = os.readlink(p)
+                          except FileNotFoundError:
+                              pass
+                      if actual_fds == expected_fds:
+                          break
+                      assert child.poll() is None and time.monotonic() < deadline
+                      time.sleep(0.01)
+                  emit('HELPER_CUSTODY_READY', helper_pid=os.getpid(), producer_pid=child.pid,
+                       producer_environment_keys=sorted(child_env), producer_argv=command,
+                       producer_descriptors=actual_fds, source_sha256={k:hashlib.sha256(v).hexdigest() for k,v in sources.items()},
+                       no_credential_file=True, no_app_credential=True, no_credential_delivery=True,
+                       no_hostile_root_secrecy_claim=True)
+                  child.stdin.write(b'GO\n'); child.stdin.close()
+                  previous = None
+                  for phase in ('READY', 'END'):
+                      assert select.select([child.stdout], [], [], 25)[0]
+                      raw = child.stdout.readline(16385)
+                      assert raw.endswith(b'\n') and len(raw) <= 16384 and token.encode() not in raw
+                      event = json.loads(raw)
+                      assert set(event) == KEYS
+                      assert event['schema'] == 'PROOF6_STATUS_CANARY_V1' and event['phase'] == phase
+                      assert event['run_id'] == run_id and event['attempt'] == attempt and event['sha'] == sha
+                      assert event['pid'] == child.pid and event['custody']['no_credential_delivery'] is True
+                      assert set(event['custody']['environment_keys']) == set(child_env)
+                      assert event['custody']['descriptors'] == expected_fds
+                      assert event['custody']['files'] == {k:hashlib.sha256(v).hexdigest() for k,v in sources.items()}
+                      if previous is not None:
+                          assert event['monotonic'] - previous['monotonic'] >= 20
+                      emit('LOCAL_EVENT', event=event)
+                      post(token, sha, run_id, attempt, event)
+                      previous = event
+                  assert child.wait(timeout=3) == 0 and child.stdout.read(1) == b''
+                  emit('PRODUCER_REAPED', producer_pid=child.pid, returncode=child.returncode)
+                  # Fixed observation margin for external END detection before job completion.
+                  time.sleep(10)
+                  emit('COMPLETED', acceptance_credit=False)
+              finally:
+                  if child.poll() is None:
+                      child.kill()
+                      child.wait(timeout=3)
+                  signal.alarm(0)
+
+          if __name__ == '__main__':
+              try:
+                  main()
+              except Exception as exc:
+                  emit('FAILED', exception_type=type(exc).__name__, acceptance_credit=False)
+                  raise SystemExit(1)
+          HELPER
+      - name: Run separate producer and connected signal helper
         shell: bash
         env:
-          PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
-          PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+          CANARY_STATUS_TOKEN: ${{ github.token }}
         run: |
-          set -euo pipefail
-          if [[ "$PROOF6_APP_INSTALLATION_ID" != "160504789" ]]; then
-            echo "PROOF6_SETUP_SIMPLIFIED_BLOCKED ACTION_INSTALLATION_ID_MISMATCH"
-            exit 1
-          fi
-          if [[ "$PROOF6_APP_SLUG" != "mc-proof-6-gate-writer" ]]; then
-            echo "PROOF6_SETUP_SIMPLIFIED_BLOCKED ACTION_APP_SLUG_MISMATCH"
-            exit 1
-          fi
-          echo DIA03_ACTION_OUTPUTS_OK
-      - name: Verify setup, recover only, or commit one gated transition
-        id: execute
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PROOF6_D03_JOB_TOKEN: ${{ github.token }}
-          PROOF6_OPERATION: ${{ inputs.proof_operation }}
-          PROOF6_D04_SETUP_QUALIFICATION: ${{ steps.d04-setup.outputs.qualification }}
-          PROOF6_APP_TOKEN: ${{ steps.app-token.outputs.token }}
-          PROOF6_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
-          PROOF6_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
-          PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
-        run: |
-          set -euo pipefail
-          deadline=()
-          if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
-            deadline=(/usr/bin/timeout --signal=KILL 120s)
-          fi
-          # Default timeout process group; never --foreground or --preserve-status.
-          # SIGKILL covers the actual runtime and its process group at the deadline.
-          set +e
-          sudo -n --preserve-env=PROOF6_D04_SETUP_QUALIFICATION,GH_TOKEN,PROOF6_D03_JOB_TOKEN,PROOF6_APP_TOKEN,PROOF6_APP_INSTALLATION_ID,PROOF6_APP_SLUG,PROOF6_FROZEN_MANIFEST,GITHUB_REPOSITORY,GITHUB_REPOSITORY_ID,GITHUB_REF,GITHUB_WORKFLOW_REF,GITHUB_SHA,GITHUB_RUN_ID,GITHUB_RUN_ATTEMPT,GITHUB_RUN_NUMBER,GITHUB_ACTOR,GITHUB_ACTOR_ID,GITHUB_TRIGGERING_ACTOR,GITHUB_EVENT_NAME,GITHUB_EVENT_PATH,RUNNER_ENVIRONMENT,RUNNER_OS,RUNNER_ARCH,ImageOS,ImageVersion \
-            "${deadline[@]}" /usr/bin/python3 -B proofs/proof6/actions_runtime.py
-          supervisor_exit=$?
-          if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
-            if [[ "$supervisor_exit" == 0 ]]; then
-              printf 'PROOF6_D04_SUPERVISOR {"phase":"SUPERVISOR_COMPLETED","exit_code":0}\n'
-            else
-              printf 'PROOF6_D04_SUPERVISOR {"phase":"SUPERVISOR_FAILED","exit_code":%s}\n' "$supervisor_exit"
-            fi
-          fi
-          test "$supervisor_exit" = 0 || exit "$supervisor_exit"
-          # Completion credit requires successful supervisor exit as well as END.
-          if [[ "$PROOF6_OPERATION" == D04_CONNECTIVITY_OUTAGE ]]; then
-            echo PROOF6_D04_NATIVE_DEADLINE_COMPLETED
-          fi
-      - name: Record skipped writer as pre-update blocked
-        if: always() && steps.execute.outcome == 'skipped'
-        shell: bash
-        env:
-          PROOF6_FROZEN_MANIFEST: ${{ vars.PROOF6_FROZEN_MANIFEST }}
-        run: python3 -B proofs/proof6/actions_runtime.py --prewriter-blocked
+          exec /usr/bin/python3 -I -B "$RUNNER_TEMP/proof6-d04-status-canary/helper.py"
