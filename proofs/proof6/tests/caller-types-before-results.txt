@@ -1,0 +1,101 @@
+test_actual_false_admin (__main__.CallerTypes.test_actual_false_admin) ... ok
+test_actual_false_maintain (__main__.CallerTypes.test_actual_false_maintain) ... ok
+test_armed_admin_zero (__main__.CallerTypes.test_armed_admin_zero) ... FAIL
+test_armed_maintain_zero (__main__.CallerTypes.test_armed_maintain_zero) ... FAIL
+test_boolean_true (__main__.CallerTypes.test_boolean_true) ... ok
+test_caller_id_type (__main__.CallerTypes.test_caller_id_type) ... 
+  test_caller_id_type (__main__.CallerTypes.test_caller_id_type) (direct_id=265169095.0) ... FAIL
+test_float_zero (__main__.CallerTypes.test_float_zero) ... ok
+test_null (__main__.CallerTypes.test_null) ... ok
+test_pending_admin_zero (__main__.CallerTypes.test_pending_admin_zero) ... FAIL
+test_pending_maintain_zero (__main__.CallerTypes.test_pending_maintain_zero) ... FAIL
+test_string_false (__main__.CallerTypes.test_string_false) ... ok
+test_string_zero (__main__.CallerTypes.test_string_zero) ... ok
+test_terminal_admin_zero (__main__.CallerTypes.test_terminal_admin_zero) ... FAIL
+test_terminal_maintain_zero (__main__.CallerTypes.test_terminal_maintain_zero) ... FAIL
+
+======================================================================
+FAIL: test_armed_admin_zero (__main__.CallerTypes.test_armed_admin_zero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 57, in test_armed_admin_zero
+    def test_armed_admin_zero(self): self.reject('SEND_ARMED', 'admin', 0)
+                                     ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 37, in reject
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_armed_maintain_zero (__main__.CallerTypes.test_armed_maintain_zero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 58, in test_armed_maintain_zero
+    def test_armed_maintain_zero(self): self.reject('SEND_ARMED', 'maintain', 0)
+                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 37, in reject
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_caller_id_type (__main__.CallerTypes.test_caller_id_type) (direct_id=265169095.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 112, in test_caller_id_type
+    with self.subTest(direct_id=value), self.assertRaises(ValueError):
+                                        ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_pending_admin_zero (__main__.CallerTypes.test_pending_admin_zero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 55, in test_pending_admin_zero
+    def test_pending_admin_zero(self): self.reject('PENDING', 'admin', 0)
+                                       ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 37, in reject
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_pending_maintain_zero (__main__.CallerTypes.test_pending_maintain_zero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 56, in test_pending_maintain_zero
+    def test_pending_maintain_zero(self): self.reject('PENDING', 'maintain', 0)
+                                          ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 37, in reject
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_terminal_admin_zero (__main__.CallerTypes.test_terminal_admin_zero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 59, in test_terminal_admin_zero
+    def test_terminal_admin_zero(self): self.reject('TERMINAL', 'admin', 0)
+                                        ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 37, in reject
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_terminal_maintain_zero (__main__.CallerTypes.test_terminal_maintain_zero)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 60, in test_terminal_maintain_zero
+    def test_terminal_maintain_zero(self): self.reject('TERMINAL', 'maintain', 0)
+                                           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Projects\mc-proof6-r3f-candidate\proofs\proof6\tests\test_caller_types.py", line 37, in reject
+    with self.assertRaises(ValueError):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 14 tests in 12.150s
+
+FAILED (failures=7)

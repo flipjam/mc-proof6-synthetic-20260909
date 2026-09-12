@@ -30,6 +30,6 @@ test_29_complete_bad_status (__main__.Review.test_29_complete_bad_status) ... ok
 test_30_socket_excess (__main__.Review.test_30_socket_excess) ... ok
 
 ----------------------------------------------------------------------
-Ran 30 tests in 8.082s
+Ran 30 tests in 8.151s
 
 OK

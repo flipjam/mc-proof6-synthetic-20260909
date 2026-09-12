@@ -7,43 +7,73 @@
     "total": 72
   },
   "authority": "2f93acf267b99207c7f8220cb6246787a98806ec",
-  "build_sha256": "df9269532dc456f994e57f7b61a93efe49d7ad6e62ae736d2509f1776e5f36a7",
-  "candidate_test_total": 192,
+  "build_sha256": "ee8a63e00534619dfdd4335def3410331bb4ba319b84fcb5c598fb6f85ef10c4",
+  "candidate_test_total": 206,
   "canonical_72_per_row_exact_match": true,
+  "correction": {
+    "counterexample": {
+      "errors": 0,
+      "expected_failures": 7,
+      "file": "caller-types-before-results.txt",
+      "production_source_sha256": "bea4e702d20f99e0ed05c8b6cc25d2ca092fe7d757be1aca8cdae9bbc604f9d9",
+      "sha256": "27be1f4d10cf6d8fc76bb169edf19ee5b7cee6a3d91fa26485bff572688cfcfe",
+      "tests": 14
+    },
+    "direct_id_checks": 2,
+    "malformed_histories": 30,
+    "new_tests": 14,
+    "previous_candidate": "725c4b179bec44abef8befc2831f9dd7a09e3c7a",
+    "production_added_lines": 2,
+    "production_files": [
+      "proofs/proof6/journal.py"
+    ],
+    "production_removed_lines": 0,
+    "proof_plan_byte_identical": true,
+    "review": "INDEPENDENT_RE_REVIEW_REQUIRED",
+    "unchanged_other_prior_build_bound_bytes": true,
+    "unchanged_prior_test_assertions": true,
+    "valid_false_path_controls": 4
+  },
   "explicitly_superseded_prior_tests": 19,
   "freeze": false,
   "live_acceptance": false,
+  "new_caller_type_tests": 14,
+  "prior_candidate_tests": 192,
   "prior_tests": 153,
   "proof_plan_sha256": "8ac4e07cd2b36e1266e0dcc155a763e151d36a888a23fb0f23d0ea545fb05c82",
   "protected_mutations": false,
   "provisioning": false,
-  "r3f_tests_and_replacements": 58,
+  "r3f_tests_and_replacements": 72,
   "result": "OFFLINE_PASS_SOURCE_CANDIDATE_ONLY",
   "source_base": {
     "commit": "d1a8b2fcbd5ffc3aec8f02823bb604dce542f06f",
     "tree": "afe54b1e709aa8b39f60fa00c387bf4ccfbd3185"
   },
   "source_branch": "codex/proof6-r3f-implementation-candidate-20260911-01",
-  "source_inventory_sha256": "ddbeb0850bd9fabecee476d6661fb5e7cb62f8fc4bcdb0d11dcf66206610e25b",
+  "source_inventory_sha256": "95055c0cd2d25a900b067a3d964cbb75a90e46419d80f5bd985a4b21c3ed7020",
   "tests": {
+    "caller-types-results.txt": {
+      "sha256": "9fdcd7ad85c37870c88b3f804e341b9881218590e3edae4f1a400063367ffd6f",
+      "tests": 14
+    },
     "r3e-baseline-results.txt": {
-      "sha256": "0aed9ee704f7839b8c88be0015fb61b59ee85879c600169f89002cc9f083431f",
+      "sha256": "6383a79662a8dd9d37562a8897347046fd01b48dfecf4e1036567eaee60c797a",
       "tests": 123
     },
     "r3e-reviewer-baseline-results.txt": {
-      "sha256": "c515a709970e4f244777f4af7cb67b627e70532dae91a2f8ca9a373a192d2334",
+      "sha256": "7d3f439ddfefb2dcea4c84baef07b9ebaa4dc66f6de70b642bf25fe6827535fb",
       "tests": 30
     },
     "r3f-regression-results.txt": {
-      "sha256": "9fc743bf5a7af955c2d98a5c39207ecd9cec9bac526c4e0881519befbcb4c37a",
+      "sha256": "8fdfb8030469bceb062a43d542e8db0b853947e18ebf25ecb1e7846cef542e85",
       "tests": 109
     },
     "r3f-reviewer-results.txt": {
-      "sha256": "4956a38553a9aebdb5aa57bad4d487645e85701efb4cdc323d2943e8345a3ec0",
+      "sha256": "cb4b8f9ce0b6287c3917de554714db35cd5a4e7e00fbabb5a90e995f9a37b511",
       "tests": 30
     },
     "r3f-test-results.txt": {
-      "sha256": "39c582e45609b9f0e0f55e54db0f06f5c046cab483a91b922cb2c17174eea6a8",
+      "sha256": "24ef7b31d7975b0db72ff9c6e064eaef31b9baa72e8ac0717fbfcab19fb8471f",
       "tests": 53
     }
   },

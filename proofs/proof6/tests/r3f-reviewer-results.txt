@@ -31,6 +31,6 @@ test_22_missing_completion (__main__.R3fConfirmation.test_22_missing_completion)
 test_23_contradictory_completion (__main__.R3fConfirmation.test_23_contradictory_completion) ... ok
 
 ----------------------------------------------------------------------
-Ran 30 tests in 8.102s
+Ran 30 tests in 8.325s
 
 OK

@@ -149,6 +149,8 @@ class Journal:
                  and b['build_sha256'] == self.m['build_sha256']
                  and b['plan_sha256'] == digest == self.m['proof_plan_sha256'])
         caller = b['caller']
+        _require(type(caller) is dict and type(caller.get('id')) is int
+                 and caller.get('admin') is False and caller.get('maintain') is False)
         _require(caller == {'login': fixed['caller']['login'], 'id': fixed['caller']['id'],
                             'permission': 'write', 'admin': False, 'maintain': False,
                             'environment_qualification': 'required separately in case evidence; not attested by account permission'})

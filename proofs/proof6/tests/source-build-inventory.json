@@ -7,7 +7,7 @@
     "inherited": 0,
     "total": 72
   },
-  "build_sha256": "df9269532dc456f994e57f7b61a93efe49d7ad6e62ae736d2509f1776e5f36a7",
+  "build_sha256": "ee8a63e00534619dfdd4335def3410331bb4ba319b84fcb5c598fb6f85ef10c4",
   "inventory": [
     {
       "before_git_blob": "0d88a4ae6db850261d42f3991788390778b1b3aa",
@@ -61,9 +61,9 @@
       "before_git_blob": "2ff4880c304154f7e014e0928782ca67fa2d252c",
       "before_sha256": "fea1668b0922f9ab29ec97d17df10327b118d741b58b8b6eaa2153b02fa3ac8c",
       "change": "modified",
-      "git_blob": "80177c831bc5f94daa784c45487469f44f4ad6cf",
+      "git_blob": "ab44c5e2811cf8c0e0ff7702b81f1fa14c80f86a",
       "path": "proofs/proof6/build.json",
-      "sha256": "df9269532dc456f994e57f7b61a93efe49d7ad6e62ae736d2509f1776e5f36a7"
+      "sha256": "ee8a63e00534619dfdd4335def3410331bb4ba319b84fcb5c598fb6f85ef10c4"
     },
     {
       "before_git_blob": "3935ba8b1284e6b56d2f0870be4449424bdbff68",
@@ -101,9 +101,9 @@
       "before_git_blob": "826a072c360264f85b960576ddb79923d158e65a",
       "before_sha256": "8678bf33429c2492f8ae39cfdba5bf34e92349e8e9c17fdec6f7f2c816b742a6",
       "change": "modified",
-      "git_blob": "88194e1a47bbd3a1e502f5a7348d5a53a4db979b",
+      "git_blob": "ba3d6957f49a3b5594ee5e61c11333b9e8529909",
       "path": "proofs/proof6/journal.py",
-      "sha256": "bea4e702d20f99e0ed05c8b6cc25d2ca092fe7d757be1aca8cdae9bbc604f9d9"
+      "sha256": "4f4585ee3e366f173f32515102b42bc90fdc1cc041afb46472014afd378fc415"
     },
     {
       "before_git_blob": "ef7a7d458ec087b0294e7a374d1779f94ba65e7e",
@@ -200,6 +200,14 @@
       "git_blob": "30f9ada808db70c98e8c8ba26a88bc03f1ff537b",
       "path": "proofs/proof6/tests/support.py",
       "sha256": "e18d3f82c30c83d6d0678bd2d527aacbe5d0558398643cc99fdaa1b8a907d778"
+    },
+    {
+      "before_git_blob": null,
+      "before_sha256": null,
+      "change": "added",
+      "git_blob": "c29d8f3b46257787bfe6e09486c782835d298e63",
+      "path": "proofs/proof6/tests/test_caller_types.py",
+      "sha256": "1948f28703a25f414281063d314d09fa17139b95e2e6e55abb947436c5dcab36"
     },
     {
       "before_git_blob": null,

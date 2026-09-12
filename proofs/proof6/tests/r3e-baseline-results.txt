@@ -123,6 +123,6 @@ test_real_200_complete_response_still_committed_d03_fail (__main__.Framing.test_
 test_plan_and_all_other_source_are_v1_byte_identical (__main__.Framing.test_plan_and_all_other_source_are_v1_byte_identical) ... ok
 
 ----------------------------------------------------------------------
-Ran 123 tests in 28.696s
+Ran 123 tests in 29.305s
 
 OK
