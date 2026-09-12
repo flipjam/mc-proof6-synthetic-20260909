@@ -253,11 +253,11 @@ class Wiring(unittest.TestCase):
         self.normal=self.flow['jobs']['writer'];self.d04=self.flow['jobs']['d04_writer']
 
     def test_exact_permissions_and_exclusive_jobs(self):
-        self.assertEqual(set(self.flow['jobs']),{'writer','d04_writer'})
+        self.assertEqual(set(self.flow['jobs']),{'signal_setup','writer','d04_writer'})
         self.assertEqual(self.flow['permissions'],{'contents':'read','actions':'read'})
         self.assertEqual(self.normal['permissions'],self.flow['permissions'])
         self.assertEqual(self.d04['permissions'],{'statuses':'write'})
-        self.assertEqual(self.normal['if'].replace("!= 'D04_CONNECTIVITY_OUTAGE'","== 'D04_CONNECTIVITY_OUTAGE'"),self.d04['if'])
+        self.assertEqual(self.normal['if'].split("result == 'skipped') && ",1)[1].replace("!= 'D04_CONNECTIVITY_OUTAGE'","== 'D04_CONNECTIVITY_OUTAGE'"),self.d04['if'])
         self.assertEqual(self.flow['concurrency'],{'group':'proof6-authority-writer-r3','cancel-in-progress':'false'})
 
     def test_exact_token_delivery(self):

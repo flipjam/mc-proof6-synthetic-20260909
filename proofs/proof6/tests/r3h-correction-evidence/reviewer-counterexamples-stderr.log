@@ -1,0 +1,2 @@
+/mnt/d/Projects/mc-proof6-r3h-candidate/proofs/proof6/d04_signal.py:132: RuntimeWarning: received malformed or improperly-truncated ancillary data
+  raw, ancillary, flags, _ = sock.recvmsg(MAX_PACKET + 1, CONTROL_BYTES)

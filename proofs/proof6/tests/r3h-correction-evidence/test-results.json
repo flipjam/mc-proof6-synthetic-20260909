@@ -1,0 +1,139 @@
+{
+  "acceptance_credit": false,
+  "accepted_R3g_tests": 289,
+  "build_sha256": "7285d13c2994d23a5009eb4d37b812cdab6b2a629a2d39c1c36446e294ffdfea",
+  "groups": [
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/r3h_regression.py"
+      ],
+      "exit_code": 0,
+      "group": "retained",
+      "seconds": 70.023,
+      "sha256": "66bbe0ee2c136b7e7b04aa70c9e4166bfdb3452d54be084689291f2016a2f65a",
+      "tests": 198
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/r3h_prior.py"
+      ],
+      "exit_code": 0,
+      "group": "prior-focused",
+      "seconds": 3.173,
+      "sha256": "76c0190429a0778a3f98fc44c27fc304170ed26769a0500aaee1b211728b6258",
+      "tests": 68
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/r3h_correction.py"
+      ],
+      "exit_code": 0,
+      "group": "correction",
+      "seconds": 1.009,
+      "sha256": "62c3bb0b3977ea60593f86c191e821643b94f519cfc24181dcae36156b9eddfa",
+      "tests": 20
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/test_r3h.py"
+      ],
+      "exit_code": 0,
+      "group": "focused",
+      "seconds": 1.941,
+      "sha256": "7dad18a6e6a90e03a004a2ae0de86bf4592dfac587fa6532c66785696d00e0ed",
+      "tests": 60
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/test_r3h_bounded.py"
+      ],
+      "exit_code": 0,
+      "group": "bounded",
+      "seconds": 1.861,
+      "sha256": "a45f662b1f7cdd2514f6c9aab8fc42b3e0a263cc6d803c6e6097d054539b10ed",
+      "tests": 20
+    },
+    {
+      "command": [
+        "wsl",
+        "-d",
+        "docker-desktop",
+        "--",
+        "chroot",
+        "/tmp/mc-p6-r3h-linux",
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/d/Projects/mc-proof6-r3h-candidate/proofs/proof6/tests/native_prerequisite_fixture.py"
+      ],
+      "exit_code": 0,
+      "group": "native-prerequisite",
+      "seconds": 1.763,
+      "sha256": "8805680f7ea490174fa00581ac023ebbddf5e79ad2c950d27c9988c0ba806a0d",
+      "tests": 3
+    },
+    {
+      "command": [
+        "wsl",
+        "-d",
+        "docker-desktop",
+        "--",
+        "chroot",
+        "/tmp/mc-p6-r3h-linux",
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/d/Projects/mc-proof6-r3h-candidate/proofs/proof6/tests/native_r3h_signal_fixture.py"
+      ],
+      "exit_code": 0,
+      "group": "native-signal",
+      "seconds": 34.107,
+      "sha256": "d16876e0bdeef68e90e3f3f27d2ff02dbad459f8f5f996d3575147da61540e4e",
+      "tests": 7
+    },
+    {
+      "command": [
+        "wsl",
+        "-d",
+        "docker-desktop",
+        "--",
+        "chroot",
+        "/tmp/mc-p6-r3h-linux",
+        "/usr/bin/python3",
+        "-B",
+        "/mnt/d/Projects/mc-proof6-r3h-candidate/proofs/proof6/tests/native_r3h_bounded.py"
+      ],
+      "exit_code": 0,
+      "group": "native-bounded",
+      "seconds": 1.729,
+      "sha256": "20a63116ed85a9ad00555e55509a8f6474081e9115f8f9742256dd8113a26ae4",
+      "tests": 28
+    },
+    {
+      "command": [
+        "C:\\Python314\\python.exe",
+        "-B",
+        "proofs/proof6/tests/verify_r3h.py"
+      ],
+      "exit_code": 0,
+      "group": "inventory",
+      "seconds": 7.837,
+      "sha256": "aeb7e97764f463b630b586c9cfca7b0073847f9753eccf50418ef13738a8464a",
+      "tests": 0
+    }
+  ],
+  "hosted_runs_this_correction": 0,
+  "partial_baseline_tests": 356,
+  "partial_source": "032076ffbcd1056c3f8f99d096e07214421e13c9",
+  "plan_sha256": "804a7c48581ddbb6910e69860a4a982b9d3cedbd1937ba6b32a2606f9536adc0",
+  "result": "PASS",
+  "tests": 404
+}

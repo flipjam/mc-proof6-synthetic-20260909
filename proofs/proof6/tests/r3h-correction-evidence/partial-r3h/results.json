@@ -1,0 +1,37 @@
+[
+  {
+    "script": "r3h_regression.py",
+    "exit_code": 0,
+    "sha256": "ef5d442b348b423ac9e8bc7829fdd4b41045f02d7851b034accfa18dc968ff87"
+  },
+  {
+    "script": "r3h_prior.py",
+    "exit_code": 0,
+    "sha256": "8bba25a2e2b6c19edbd28f8019939b6c362c4528e6f85e1c2cc12752137f9ce7"
+  },
+  {
+    "script": "r3h_correction.py",
+    "exit_code": 0,
+    "sha256": "ff752e215af736d4fd664c8056d08705688ffc33e099cc0263bfb04882bc1c63"
+  },
+  {
+    "script": "test_r3h.py",
+    "exit_code": 0,
+    "sha256": "9bb70a42f6e4c92579db17766606433576643700afc21aa362ad4a754f76c2e2"
+  },
+  {
+    "script": "verify_r3h.py",
+    "exit_code": 0,
+    "sha256": "5ee3b007ae8d9c58ba0d73426cbc063ea1c5bc02df70b46446732d6e52a9883a"
+  },
+  {
+    "script": "native_prerequisite_fixture.py",
+    "exit_code": 0,
+    "sha256": "a77a7c4abc1a6535b5935faa7d0e94dc9d1f9bd2f5f163953889f241cf21e737"
+  },
+  {
+    "script": "native_r3h_signal_fixture.py",
+    "exit_code": 0,
+    "sha256": "acf094f7da9f5d0cb545f04c9302e540997355b2b4d8e4cc43f9f1c8b8bd0694"
+  }
+]

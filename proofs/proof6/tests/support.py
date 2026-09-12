@@ -28,6 +28,14 @@ _bootstrap_context = legacy.Bootstrap.context
 def _qualified_setup_context(test):
     result = _bootstrap_context(test)
     result['PROOF6_D04_SETUP_QUALIFICATION'] = legacy.json.dumps(prerequisite())
+    import d04_signal
+    with legacy.patch.dict(legacy.os.environ, result):
+        b = d04_signal.binding()
+    result['PROOF6_D04_SIGNAL_SETUP_QUALIFICATION'] = legacy.json.dumps(dict(
+        schema=d04_signal.SCHEMA, binding=b, phase='SETUP_SIGNAL_QUALIFIED',
+        permissions=d04_signal.PERMISSIONS, runner_version=d04_signal.RUNNER_VERSION,
+        runner_commit=d04_signal.RUNNER_COMMIT, helper_pid=101, producer_pid=102,
+        custody=True, status_posts=0, acceptance_credit=False, helper_reaped=True, producer_reaped=True))
     return result
 legacy.Bootstrap.context = _qualified_setup_context
 

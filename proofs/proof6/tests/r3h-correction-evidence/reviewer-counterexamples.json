@@ -1,0 +1,11 @@
+{
+  "acceptance_credit": false,
+  "corrected_A_accepted": false,
+  "corrected_B_accepted": false,
+  "corrected_B_peer_still_open": true,
+  "kernel": "4.4.0-26100-Microsoft",
+  "partial_A_accepted": true,
+  "partial_B_accepted": true,
+  "partial_B_peer_still_open": true,
+  "source": "032076ffbcd1056c3f8f99d096e07214421e13c9"
+}

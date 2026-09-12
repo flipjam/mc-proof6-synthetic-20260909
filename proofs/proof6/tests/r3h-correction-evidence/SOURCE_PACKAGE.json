@@ -1,0 +1,16 @@
+{
+  "NOT_APPLICABLE": 0,
+  "acceptance_credit": false,
+  "canonical_rows": 72,
+  "correction": "ancillary; completion; non-consuming signal setup only",
+  "fresh": 72,
+  "hashes": {
+    "build": "7285d13c2994d23a5009eb4d37b812cdab6b2a629a2d39c1c36446e294ffdfea",
+    "inventory": "aeb7e97764f463b630b586c9cfca7b0073847f9753eccf50418ef13738a8464a",
+    "plan": "804a7c48581ddbb6910e69860a4a982b9d3cedbd1937ba6b32a2606f9536adc0",
+    "test_results": "e923a2307a76d303aa7e9d6de9cf0aa5ce35906c7eb43371e98a0cf1b615e136"
+  },
+  "inherited": 0,
+  "parent": "032076ffbcd1056c3f8f99d096e07214421e13c9",
+  "tests": 404
+}

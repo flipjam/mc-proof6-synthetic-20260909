@@ -64,7 +64,7 @@ def runtime_context():
     for path, digest in json.loads(build_raw).items():
         _require(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest)
     plan_digest = proof_control.plan()[1]
-    _require(plan_digest == 'c51a477fce1ab397a2dbcbfd0800a0e9bdecd6725909eaca74175dcbf31564a9')
+    _require(plan_digest == '804a7c48581ddbb6910e69860a4a982b9d3cedbd1937ba6b32a2606f9536adc0')
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
@@ -144,6 +144,8 @@ def main(context):
         _require(checked_plan == plan_digest)
         qualification = d04_prerequisite.setup_qualification(
             os.environ.pop('PROOF6_D04_SETUP_QUALIFICATION', ''))
+        signal_qualification = d04_signal.setup_qualification(
+            os.environ.pop('PROOF6_D04_SIGNAL_SETUP_QUALIFICATION', ''))
         # This branch cannot instantiate a writer, journal, gate or fault path.
         # Credential is used only by the standalone three-GET diagnostic.
         result = setup_bootstrap_diagnostics(
@@ -156,6 +158,7 @@ def main(context):
                       journal_mutation_attempted=False, proof_consumption_attempted=False,
                       acceptance_credit=False, repository=REPO, runtime_ref=RUNTIME_REF,
                       d04_setup_qualification=qualification,
+                      d04_signal_setup_qualification=signal_qualification,
                       runtime_sha=ref['object']['sha'], build_sha256=build_digest,
                       proof_plan_sha256=checked_plan, environment_id=env['id'],
                       branch_policy=policy, actor=os.environ['GITHUB_ACTOR'],

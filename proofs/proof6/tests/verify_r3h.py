@@ -38,11 +38,16 @@ def verify():
         assert (ROOT/'proofs/proof6'/name).read_bytes()==subprocess.check_output(['git','-C',str(ROOT),'show',BASE+':proofs/proof6/'+name]),name
     workflow=yaml.load((ROOT/'.github/workflows/proof6-writer.yml').read_bytes(),Loader=yaml.BaseLoader)
     assert set(workflow['on'])=={'workflow_dispatch'}
-    assert set(workflow['jobs'])=={'writer','d04_writer'}
+    assert set(workflow['jobs'])=={'signal_setup','writer','d04_writer'}
     assert workflow['permissions']==workflow['jobs']['writer']['permissions']=={'contents':'read','actions':'read'}
     assert workflow['jobs']['d04_writer']['permissions']=={'statuses':'write'}
+    setup=workflow['jobs']['signal_setup']
+    assert setup['permissions']=={'statuses':'write'}
+    assert workflow['jobs']['writer']['needs']=='signal_setup'
+    assert setup['outputs']=={'qualification':'${{ steps.qualified.outputs.qualification }}'}
+    assert all("vars.PROOF6_FROZEN_MANIFEST == ''" in step['if'] for step in setup['steps'])
     assert workflow['concurrency']=={'group':'proof6-authority-writer-r3','cancel-in-progress':'false'}
-    normal=workflow['jobs']['writer']['if'];d04=workflow['jobs']['d04_writer']['if']
+    normal=workflow['jobs']['writer']['if'].split("result == 'skipped') && ",1)[1];d04=workflow['jobs']['d04_writer']['if']
     assert normal.replace("!= 'D04_CONNECTIVITY_OUTAGE'","== 'D04_CONNECTIVITY_OUTAGE'")==d04
     blocks=0
     for job in workflow['jobs'].values():
@@ -57,6 +62,7 @@ def verify():
         matrix_git_blob='373754b4c2721e2d78d6cfa4d48b2aad786bbbe0',
         authority_main=plan['contract_commit'],identity_only=list(identity_only),
         bash_blocks_checked=blocks,workflow_permissions='PASS',source_only=True,
+        signal_setup_required_before_freeze=True,signal_setup_hosted_execution=False,
         canary_credit=0,R3h_provisioned=False,R3h_frozen=False,R3h_executed=False)
     return inventory
 

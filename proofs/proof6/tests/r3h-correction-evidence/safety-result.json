@@ -1,0 +1,26 @@
+{
+  "R3h_executed": false,
+  "R3h_frozen": false,
+  "R3h_provisioned": false,
+  "authority_main": "d754156067cf1aa2318e7b04d7fcf47902eb9846",
+  "canary_head": "a272b335e884e88ddc88155f5bd1691d1a647606",
+  "canary_rerun": false,
+  "compared_sections": [
+    "repo",
+    "rulesets",
+    "environments",
+    "workflows",
+    "hooks",
+    "manifest",
+    "classic",
+    "protected_refs",
+    "protected_workflows",
+    "source"
+  ],
+  "protected_refs": 19,
+  "protected_state_sha256": "330b66a829b749cd9ecee0db154e3118c16780bf77f9c2ab0f740e6db00b6ad3",
+  "protected_workflows": 14,
+  "result": "PASS",
+  "rulesets": 24,
+  "workflow_runs_unchanged": true
+}

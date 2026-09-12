@@ -1,0 +1,32 @@
+[
+  {
+    "script": "r3g_regression.py",
+    "exit_code": 0,
+    "sha256": "26080e1e103966c24ecfb5339d5c517443fb37f4014710f2cae4aaa4a76c6eeb"
+  },
+  {
+    "script": "test_r3g.py",
+    "exit_code": 0,
+    "sha256": "a6ab47b7d4a53c77a2a9864ddbfc2454638b38e0536a70ae30032abe03602ccb"
+  },
+  {
+    "script": "test_r3g_correction.py",
+    "exit_code": 0,
+    "sha256": "0d6428c4a8b5653e00a91668859f595bce9a4e2fc5444fe12f53872b696ff1a2"
+  },
+  {
+    "script": "verify_r3g.py",
+    "exit_code": 0,
+    "sha256": "cb3403ba8c579fa4782bd1ae9c6c56d05398eb9bb21d15523566a81f43e351e7"
+  },
+  {
+    "script": "reproduce_r3g_review.py",
+    "exit_code": 0,
+    "sha256": "52ab51143862fae9bdca3fbe86c45a2e213897da6d36525a2f04f42d71a7c39b"
+  },
+  {
+    "script": "native_prerequisite_fixture.py",
+    "exit_code": 0,
+    "sha256": "27e56ed0c845b536f6a5ccb9b712d429ba4c9920393bd159cd9de0207a1ab852"
+  }
+]
