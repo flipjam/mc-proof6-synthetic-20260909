@@ -1,0 +1,10 @@
+{
+  "all_five_rejected": false,
+  "counterexamples": {
+    "ipv4_header_U001E": false,
+    "ipv4_header_U001F": false,
+    "ipv6_U001F_separators": false,
+    "null_changed_namespace_prerequisite": false,
+    "null_setup_qualification": false
+  }
+}

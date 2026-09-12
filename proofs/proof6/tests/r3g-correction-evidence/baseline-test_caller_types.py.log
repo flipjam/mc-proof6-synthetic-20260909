@@ -1,0 +1,19 @@
+test_actual_false_admin (__main__.CallerTypes.test_actual_false_admin) ... ok
+test_actual_false_maintain (__main__.CallerTypes.test_actual_false_maintain) ... ok
+test_armed_admin_zero (__main__.CallerTypes.test_armed_admin_zero) ... ok
+test_armed_maintain_zero (__main__.CallerTypes.test_armed_maintain_zero) ... ok
+test_boolean_true (__main__.CallerTypes.test_boolean_true) ... ok
+test_caller_id_type (__main__.CallerTypes.test_caller_id_type) ... ok
+test_float_zero (__main__.CallerTypes.test_float_zero) ... ok
+test_null (__main__.CallerTypes.test_null) ... ok
+test_pending_admin_zero (__main__.CallerTypes.test_pending_admin_zero) ... ok
+test_pending_maintain_zero (__main__.CallerTypes.test_pending_maintain_zero) ... ok
+test_string_false (__main__.CallerTypes.test_string_false) ... ok
+test_string_zero (__main__.CallerTypes.test_string_zero) ... ok
+test_terminal_admin_zero (__main__.CallerTypes.test_terminal_admin_zero) ... ok
+test_terminal_maintain_zero (__main__.CallerTypes.test_terminal_maintain_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 12.708s
+
+OK

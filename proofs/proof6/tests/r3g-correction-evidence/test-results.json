@@ -1,0 +1,39 @@
+{
+  "groups": [
+    {
+      "elapsed_seconds": 62.549,
+      "exit_code": 0,
+      "label": "retained",
+      "log": "retained-final.log",
+      "sha256": "ccf37a68f1d048ef7839751ca635752aac02da6d6b83e54c5e540f96b3bb0b47",
+      "tests": 198
+    },
+    {
+      "elapsed_seconds": 2.986,
+      "exit_code": 0,
+      "label": "focused",
+      "log": "focused-final.log",
+      "sha256": "26ebafe5e1d34ab79cd67579b34510f4969829830e1bfb45684a1371be0422f3",
+      "tests": 68
+    },
+    {
+      "elapsed_seconds": 1.721,
+      "exit_code": 0,
+      "label": "native",
+      "log": "native-final.log",
+      "sha256": "5a616fdaec34cda127cbaea552a7a9964b44f2b40ba268af64f2982db5c7158f",
+      "tests": 3
+    },
+    {
+      "elapsed_seconds": 0.963,
+      "exit_code": 0,
+      "label": "correction",
+      "log": "correction-final.log",
+      "sha256": "9773865bfb92616b8095fc0b196625d68bbdafdb85a4a9427ce7a50520c08faa",
+      "tests": 20
+    }
+  ],
+  "result": "PASS",
+  "source_parent": "040fe81966f694733f37e34819fda046cf45abac",
+  "tests": 289
+}

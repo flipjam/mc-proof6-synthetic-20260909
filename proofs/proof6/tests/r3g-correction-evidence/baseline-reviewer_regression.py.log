@@ -1,0 +1,36 @@
+25 unchanged reviewer tests + 5 explicit R3f confirmation replacements
+test_02_short_body (retained_reviewer.Review.test_02_short_body) ... ok
+test_03_surplus (retained_reviewer.Review.test_03_surplus) ... ok
+test_04_conflicting (retained_reviewer.Review.test_04_conflicting) ... ok
+test_05_identical_duplicates (retained_reviewer.Review.test_05_identical_duplicates) ... ok
+test_06_invalid_syntax (retained_reviewer.Review.test_06_invalid_syntax) ... ok
+test_07_negative (retained_reviewer.Review.test_07_negative) ... ok
+test_08_over_limit (retained_reviewer.Review.test_08_over_limit) ... ok
+test_10_4097_body (retained_reviewer.Review.test_10_4097_body) ... ok
+test_11_chunked (retained_reviewer.Review.test_11_chunked) ... ok
+test_12_cl_te (retained_reviewer.Review.test_12_cl_te) ... ok
+test_13_broken_chunked (retained_reviewer.Review.test_13_broken_chunked) ... ok
+test_14_unframed (retained_reviewer.Review.test_14_unframed) ... ok
+test_15_premature_socket_eof (retained_reviewer.Review.test_15_premature_socket_eof) ... ok
+test_16_socket_no_eof (retained_reviewer.Review.test_16_socket_no_eof) ... ok
+test_17_trailing_data (retained_reviewer.Review.test_17_trailing_data) ... ok
+test_18_malformed_json (retained_reviewer.Review.test_18_malformed_json) ... ok
+test_19_unrelated_403 (retained_reviewer.Review.test_19_unrelated_403) ... ok
+test_21_read_failures (retained_reviewer.Review.test_21_read_failures) ... ok
+test_24_success_commit (retained_reviewer.Review.test_24_success_commit) ... ok
+test_25_no_fallback (retained_reviewer.Review.test_25_no_fallback) ... ok
+test_26_huge_declaration_no_read (retained_reviewer.Review.test_26_huge_declaration_no_read) ... ok
+test_27_continuing_stream_bounded (retained_reviewer.Review.test_27_continuing_stream_bounded) ... ok
+test_28_fragmented_delivery (retained_reviewer.Review.test_28_fragmented_delivery) ... ok
+test_29_complete_bad_status (retained_reviewer.Review.test_29_complete_bad_status) ... ok
+test_30_socket_excess (retained_reviewer.Review.test_30_socket_excess) ... ok
+test_01_valid_exact (__main__.R3fConfirmation.test_01_valid_exact) ... ok
+test_09_exact_limit (__main__.R3fConfirmation.test_09_exact_limit) ... ok
+test_20_qualifying_socket_eof (__main__.R3fConfirmation.test_20_qualifying_socket_eof) ... ok
+test_22_missing_completion (__main__.R3fConfirmation.test_22_missing_completion) ... ok
+test_23_contradictory_completion (__main__.R3fConfirmation.test_23_contradictory_completion) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 7.401s
+
+OK

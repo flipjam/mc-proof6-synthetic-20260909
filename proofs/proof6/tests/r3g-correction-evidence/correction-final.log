@@ -1,0 +1,25 @@
+test_identical_namespaces (__main__.QualifiedNamespace.test_identical_namespaces) ... ok
+test_malformed_after (__main__.QualifiedNamespace.test_malformed_after) ... ok
+test_malformed_before (__main__.QualifiedNamespace.test_malformed_before) ... ok
+test_missing_namespace_or_context (__main__.QualifiedNamespace.test_missing_namespace_or_context) ... ok
+test_null_after (__main__.QualifiedNamespace.test_null_after) ... ok
+test_null_before (__main__.QualifiedNamespace.test_null_before) ... ok
+test_partial_context_failure_retained (__main__.QualifiedNamespace.test_partial_context_failure_retained) ... ok
+test_partial_unshare_failure_retained (__main__.QualifiedNamespace.test_partial_unshare_failure_retained) ... ok
+test_real_prerequisite_integration_blocks_before_consumption (__main__.QualifiedNamespace.test_real_prerequisite_integration_blocks_before_consumption) ... ok
+test_valid_changed_namespaces (__main__.QualifiedNamespace.test_valid_changed_namespaces) ... ok
+test_bare_cr_and_blank_lines_not_empty_tables (__main__.RouteLexical.test_bare_cr_and_blank_lines_not_empty_tables) ... ok
+test_embedded_nul (__main__.RouteLexical.test_embedded_nul) ... ok
+test_end_recheck_rejects_unsupported_route_controls (__main__.RouteLexical.test_end_recheck_rejects_unsupported_route_controls) ... ok
+test_ipv4_control_field_separators (__main__.RouteLexical.test_ipv4_control_field_separators) ... ok
+test_ipv4_exact_reviewer_suffixes (__main__.RouteLexical.test_ipv4_exact_reviewer_suffixes) ... ok
+test_ipv4_trailing_controls_and_control_only (__main__.RouteLexical.test_ipv4_trailing_controls_and_control_only) ... ok
+test_ipv6_control_field_separators (__main__.RouteLexical.test_ipv6_control_field_separators) ... ok
+test_ipv6_trailing_controls (__main__.RouteLexical.test_ipv6_trailing_controls) ... ok
+test_non_ascii_whitespace_rejected (__main__.RouteLexical.test_non_ascii_whitespace_rejected) ... ok
+test_supported_whitespace_and_empty_observation (__main__.RouteLexical.test_supported_whitespace_and_empty_observation) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.494s
+
+OK

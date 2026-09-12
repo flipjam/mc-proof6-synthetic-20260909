@@ -26,7 +26,10 @@ POLICY = {
 }
 STAGES = ('CONTEXT', 'LIBC', 'UNSHARE', 'NETNS', 'INTERFACES',
           'IPV4_ROUTES', 'IPV6_ROUTES', 'CONNECTIVITY')
-HEADER = 'Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRTT'.split()
+HEADER = 'Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRTT'.split(' ')
+# Frozen lexical boundary: ASCII printable fields, space/HT separators, LF or
+# CRLF line endings. Bare CR and every other control/non-ASCII character fail.
+ROUTE_WHITESPACE = ' \t\r\n'
 ZERO = '0' * 32
 LOOPBACK = '0' * 31 + '1'
 
@@ -164,6 +167,9 @@ def validate_record(value):
         validate_exception(c['exception'])
     validate_exception(value['exception'])
     if value['qualified']:
+        # Both non-null namespaces have passed their syntax checks above.
+        # Partial unsuccessful diagnostics may still omit later observations.
+        require(value['context'] is not None and value['netns_after'] is not None)
         require(value['stage']=='QUALIFIED' and value['exception'] is None and value['libc_loaded']
                 and value['unshare']['return_code']==0
                 and value['unshare']['errno']==0
@@ -179,20 +185,39 @@ def validate_record(value):
     return value
 
 
+def route_lines(raw):
+    """Reject unsupported lexical characters before any route tokenization."""
+    if type(raw) is not str or any(c not in ROUTE_WHITESPACE and not ' ' <= c <= '~' for c in raw):
+        return None
+    normalized = raw.replace('\r\n', '\n')
+    if '\r' in normalized:
+        return None
+    lines = normalized.split('\n')
+    if lines[-1] == '':
+        lines.pop()
+    return lines
+
+
+def route_fields(line):
+    return re.split(r'[ \t]+', line.strip(' \t'))
+
+
 def ipv4(raw):
     result = {'read_success': True, 'header_present': False, 'header_valid': False,
               'entry_count': 0, 'valid': False, 'qualified': False}
+    lines = route_lines(raw)
+    if lines is None:
+        return result
     if raw == '':
         result.update(valid=True, qualified=True)
         return result
-    lines = raw.splitlines()
-    result['header_present'] = bool(lines and lines[0].split()[:1] == ['Iface'])
-    result['header_valid'] = bool(lines and lines[0].split() == HEADER)
+    result['header_present'] = bool(lines and route_fields(lines[0])[:1] == ['Iface'])
+    result['header_valid'] = bool(lines and route_fields(lines[0]) == HEADER)
     if not result['header_valid'] or len(lines) > 257:
         return result
     result['entry_count'] = len(lines) - 1
     for line in lines[1:]:
-        fields = line.split()
+        fields = route_fields(line)
         if (len(fields) != 11 or re.fullmatch(r'[A-Za-z0-9_.:-]{1,16}', fields[0]) is None
             or any(re.fullmatch('[0-9A-Fa-f]{8}', fields[i]) is None for i in (1, 2, 7))
             or re.fullmatch('[0-9A-Fa-f]{4}', fields[3]) is None
@@ -203,14 +228,14 @@ def ipv4(raw):
 
 
 def ipv6(raw):
-    lines = raw.splitlines()
-    result = {'read_success': True, 'entry_count': len(lines), 'interfaces': [],
+    lines = route_lines(raw)
+    result = {'read_success': True, 'entry_count': 0 if lines is None else len(lines), 'interfaces': [],
               'valid': False, 'qualified': False}
-    if len(lines) > POLICY['route_limit']:
+    if lines is None or len(lines) > POLICY['route_limit']:
         return result
     interfaces, safe = set(), True
     for line in lines:
-        f = line.split()
+        f = route_fields(line)
         widths = (32, 2, 32, 2, 32, 8, 8, 8, 8)
         if (len(f) != 10 or any(re.fullmatch('[0-9a-fA-F]{'+str(n)+'}', v) is None
                                 for v, n in zip(f[:9], widths))

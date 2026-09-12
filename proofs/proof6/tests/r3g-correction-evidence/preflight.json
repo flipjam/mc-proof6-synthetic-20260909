@@ -1,0 +1,15 @@
+{
+  "acceptance": false,
+  "authority_main": "2f93acf267b99207c7f8220cb6246787a98806ec",
+  "freeze": false,
+  "newest_run": 34680020137,
+  "protected_state_sha256": "2369bf07a3d4cb25e5999e319aa0aebb8ae84279271e27eb98f54f4e73f6f587",
+  "protected_state_unchanged": true,
+  "provisioning": false,
+  "r3g_journal": false,
+  "r3g_runtime": false,
+  "reviewed_source": "040fe81966f694733f37e34819fda046cf45abac",
+  "reviewed_tree": "e65661d56802945ba8d2b219127cfcc104a61e2a",
+  "status_parent": "e1903ecbb42acda67d23e81dcfad623d8e28a1bc",
+  "workflow_runs_unchanged": true
+}

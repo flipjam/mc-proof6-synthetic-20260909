@@ -1,0 +1,31 @@
+{
+  "source": "704a32834981ce1ebcfc0f963abe25297b89f304",
+  "tests": 206,
+  "result": "PASS",
+  "groups": [
+    {
+      "script": "test_r3f.py",
+      "tests": 53,
+      "exit": 0,
+      "sha256": "e861f4c1760f156cfe99d56cba80669906c13edb06ceb77b0244c45c89376101"
+    },
+    {
+      "script": "regression.py",
+      "tests": 109,
+      "exit": 0,
+      "sha256": "97fa59fbe40649691a5adcb780cbbfed792f8cd283af15ae3683b617ef853b5d"
+    },
+    {
+      "script": "reviewer_regression.py",
+      "tests": 30,
+      "exit": 0,
+      "sha256": "c47d47273561feaaa9624b110b368f45e7e403a73685a1d5625f298dda82592f"
+    },
+    {
+      "script": "test_caller_types.py",
+      "tests": 14,
+      "exit": 0,
+      "sha256": "f4302b46171e6556a4bac004d791d38bb05d0d332af6b0a78de5048210296ba1"
+    }
+  ]
+}
