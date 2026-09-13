@@ -1,0 +1,14 @@
+{
+  "acceptance_credit": false,
+  "cause": "Fixture patched urlopen while production uses private _http.open",
+  "classification": "LOCAL_TEST_INTERCEPTION_ERROR",
+  "correction": "Intercept actual private opener; block socket creation in new offline suites",
+  "hosted_workflow_dispatched": false,
+  "inert_credential_only": true,
+  "latest_workflow": 52,
+  "protected_state_comparison": "hold-before.json equals hold-after-offline.json for protected refs/configuration",
+  "provider_http_status": 401,
+  "provider_mutation": false,
+  "unexpected_journal_PATCH_requests": 4,
+  "unexpected_read_requests": 1
+}

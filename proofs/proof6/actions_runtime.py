@@ -15,7 +15,7 @@ import d04_capability
 import d04_prerequisite
 import d04_signal
 
-RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3i'
+RUNTIME_REF = 'refs/heads/proof6-writer-runtime-r3j'
 WORKFLOW = '.github/workflows/proof6-writer.yml'
 ENVIRONMENT = 'proof6-writer'
 CONCURRENCY = 'proof6-authority-writer-r3'
@@ -64,7 +64,7 @@ def runtime_context():
     for path, digest in json.loads(build_raw).items():
         _require(hashlib.sha256((root / path).read_bytes()).hexdigest() == digest)
     plan_digest = proof_control.plan()[1]
-    _require(plan_digest == '81926d6ce00e3b36f84404b217b29c22e4224b2f002115382614feb1a42c3617')
+    _require(plan_digest == '041960720b862a53e2c312d87b6d919a1a86907b759b33c8442e300a962decfa')
     base = 'repos/' + REPO
     ref = get(base + '/git/ref/' + RUNTIME_REF.removeprefix('refs/'))
     _require(ref['ref'] == RUNTIME_REF and ref['object']['sha'] == os.environ['GITHUB_SHA'])
@@ -76,13 +76,13 @@ def runtime_context():
                  'protected_branches': False, 'custom_branch_policies': True})
     _require(policies['total_count'] == 1 and len(policies['branch_policies']) == 1)
     policy = policies['branch_policies'][0]
-    _require(policy['name'] == 'proof6-writer-runtime-r3i' and policy['type'] == 'branch')
+    _require(policy['name'] == 'proof6-writer-runtime-r3j' and policy['type'] == 'branch')
     return ref, env, policy, hashlib.sha256(build_raw).hexdigest(), plan_digest
 
 
 def guard(manifest):
     # Bootstrap never weakens the final manifest guard on normal/proof requests.
-    _require(manifest is not None and manifest['runtime_variant'] == 'r3i')
+    _require(manifest is not None and manifest['runtime_variant'] == 'r3j')
     ref, env, policy, build_digest, plan_digest = runtime_context()
     base = 'repos/' + REPO
     expected_view = manifest['runtime']['ruleset']
@@ -94,7 +94,7 @@ def guard(manifest):
     if 'current_user_can_bypass' in rule:
         _require(rule['current_user_can_bypass'] == 'never')
     rule = visible(rule)
-    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3i'
+    _require(policy['id'] == manifest['runtime']['branch_policy']['id'] and policy['name'] == 'proof6-writer-runtime-r3j'
              and policy['type'] == 'branch')
     runtime = {
         'ref': RUNTIME_REF, 'sha': ref['object']['sha'], 'workflow': WORKFLOW,
@@ -238,6 +238,8 @@ def main(context):
         helper.qualify()
         context['d04'].update(stage='CONSUMPTION', consumption_attempted=True)
         claim = journal.consume(journal.operation_binding(_canonical(plan['infrastructure']), operation))
+        context['d04'].update(stage='POSTCONFIRMATION_READINESS', consumed_record=claim)
+        helper.qualify()
         context['d04'].update(stage='ACTUAL_ISOLATION', consumed_record=claim)
         # Credential no longer needed. Same interpreter now loses connectivity;
         # it never invokes commit_transition, arms a send or reconnects afterward.
@@ -256,6 +258,8 @@ def main(context):
         print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
         return 0
     result = writer.commit_transition(proposal.encode('utf-8'), operation)
+    if getattr(writer, '_journal_confirmation', None) is not None:
+        result['journal_confirmation'] = writer._journal_confirmation
     result.update(context['identity'])
     print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
     if operation == 'D03_REMOTE_REJECTION':
@@ -280,6 +284,8 @@ def execute():
                 result['d04_diagnostic'] = error.record
             else:
                 result['d04_exception'] = d04_capability.exception(error)
+            if getattr(context['writer'], '_journal_confirmation', None) is not None:
+                result['journal_confirmation'] = context['writer']._journal_confirmation
             print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
             return 1
         writer = context['writer']
@@ -290,6 +296,8 @@ def execute():
             result.update(result='INDETERMINATE', remote_outcome='unknown')
         elif not result.get('journal_completion_attempted'):
             result['result'] = 'BLOCKED'
+        if getattr(writer, '_journal_confirmation', None) is not None:
+            result['journal_confirmation'] = writer._journal_confirmation
         print('PROOF6_RESULT ' + json.dumps(result, sort_keys=True), flush=True)
         dia.blocked(error)
         return 1

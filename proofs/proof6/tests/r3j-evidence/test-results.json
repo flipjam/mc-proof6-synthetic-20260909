@@ -1,0 +1,120 @@
+{
+  "NOT_APPLICABLE": 0,
+  "acceptance_credit": false,
+  "accepted_R3i_baseline_tests": 528,
+  "build_sha256": "79334d119fc8ed87cdf895fce63e7afff0db278342d42a18ee74584d895f1052",
+  "groups": [
+    {
+      "exit_code": 0,
+      "group": "retained",
+      "seconds": 76.492,
+      "sha256": "2b47a020d35f1c10c1f71c74841962d1c7fa87b0df5445175b3e299f20e35263",
+      "tests": 198
+    },
+    {
+      "exit_code": 0,
+      "group": "prior-focused",
+      "seconds": 14.621,
+      "sha256": "75aad43850503837bd0a24e1a8ac7e7f517386a5a1f0b0b2f46e2c357b7ea382",
+      "tests": 68
+    },
+    {
+      "exit_code": 0,
+      "group": "correction",
+      "seconds": 1.007,
+      "sha256": "af9a5343e496a518ea280ad96ddf3a15ffa28417d841eae36391e562be811e59",
+      "tests": 20
+    },
+    {
+      "exit_code": 0,
+      "group": "focused",
+      "seconds": 1.968,
+      "sha256": "ae48619d0cd72b070e57ad757bde2365eb98d8199ddc4829291501ea3092bde0",
+      "tests": 60
+    },
+    {
+      "exit_code": 0,
+      "group": "bounded",
+      "seconds": 13.766,
+      "sha256": "d110400232de2b839121fb603ea2230e83c128f92c0fe549d78edb2b8916c8a1",
+      "tests": 20
+    },
+    {
+      "exit_code": 0,
+      "group": "startup",
+      "seconds": 2.169,
+      "sha256": "5d3c757e7b13ee560b031ff4d716e1d5efd6bbe3cdc52be2cdaf2ca4f067460a",
+      "tests": 20
+    },
+    {
+      "exit_code": 0,
+      "group": "native-prerequisite",
+      "seconds": 1.826,
+      "sha256": "8805680f7ea490174fa00581ac023ebbddf5e79ad2c950d27c9988c0ba806a0d",
+      "tests": 3
+    },
+    {
+      "exit_code": 0,
+      "group": "native-signal",
+      "seconds": 34.441,
+      "sha256": "3e9c47476ad0ae7618fcf8323f47d9c5c895037e38ace24dd66345820d563174",
+      "tests": 7
+    },
+    {
+      "exit_code": 0,
+      "group": "native-bounded",
+      "seconds": 2.005,
+      "sha256": "db250e1c7ca5f19e964964e6ae30b7f904191c69654739e9b657ffb651544c3c",
+      "tests": 28
+    },
+    {
+      "exit_code": 0,
+      "group": "native-startup",
+      "seconds": 2.999,
+      "sha256": "e9e1aa07c153d97506df8c6645b717cbce12eda05ac1f3f4e69d832e03278be8",
+      "tests": 9
+    },
+    {
+      "exit_code": 0,
+      "group": "custody",
+      "seconds": 12.774,
+      "sha256": "d043e9b8b96b1d56a4730496df883bbe2a2236b85c1e2fa2e42255d0fbdea263",
+      "tests": 49
+    },
+    {
+      "exit_code": 0,
+      "group": "native-custody",
+      "seconds": 7.905,
+      "sha256": "1551f2eb07591358852fbac8ef3175d8913eca85adde4f804247349bad19623c",
+      "tests": 46
+    },
+    {
+      "exit_code": 0,
+      "group": "confirmation",
+      "seconds": 10.496,
+      "sha256": "2d89c95c9bb348964f8fe6547e7f2166042f98a04646cbad5331c751a34eafcc",
+      "tests": 138
+    },
+    {
+      "exit_code": 0,
+      "group": "lifecycle",
+      "seconds": 1.696,
+      "sha256": "4a729a2e842e059af33022efe9a390f9bbff148bffca84cb88ce281c33aa29fc",
+      "tests": 10
+    },
+    {
+      "exit_code": 0,
+      "group": "inventory",
+      "seconds": 27.233,
+      "sha256": "4541632226f83ee136fd8dd1c6bfb5a835f7598857fdfe86c5742f54b225812a",
+      "tests": 0
+    }
+  ],
+  "hosted_runs": 0,
+  "inherited": 0,
+  "mandatory_fresh": 72,
+  "plan_sha256": "041960720b862a53e2c312d87b6d919a1a86907b759b33c8442e300a962decfa",
+  "result": "PASS",
+  "source_parent": "27360e3fa227c9665f6447eb254864af08f4b74a",
+  "tests": 676
+}

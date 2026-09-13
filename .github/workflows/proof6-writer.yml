@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   signal_setup:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3i' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3i'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3j' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3j'
       && inputs.proof_operation == '' && inputs.proposal == ''
     runs-on: ubuntu-24.04
     environment: proof6-writer
@@ -35,7 +35,7 @@ jobs:
       run: |
         set -euo pipefail
         test "$RUNNER_ENVIRONMENT" = github-hosted
-        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3i
+        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3j
         git init --quiet .
         git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
         git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -101,7 +101,7 @@ jobs:
         printf 'qualification=%s\n' "$qualification" >> "$GITHUB_OUTPUT"
   writer:
     needs: signal_setup
-    if: always() && !cancelled() && (needs.signal_setup.result == 'success' || needs.signal_setup.result == 'skipped') && github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3i' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3i'
+    if: always() && !cancelled() && (needs.signal_setup.result == 'success' || needs.signal_setup.result == 'skipped') && github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3j' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3j'
       && inputs.proof_operation != 'D04_CONNECTIVITY_OUTAGE'
     runs-on: ubuntu-24.04
     environment: proof6-writer
@@ -115,7 +115,7 @@ jobs:
       run: |
         set -euo pipefail
         test "$RUNNER_ENVIRONMENT" = github-hosted
-        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3i
+        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3j
         git init --quiet .
         git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
         git fetch --quiet --depth=1 origin "$GITHUB_SHA"
@@ -207,7 +207,7 @@ jobs:
       run: |-
         python3 -B proofs/proof6/actions_runtime.py --prewriter-blocked
   d04_writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3i' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3i'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-writer-runtime-r3j' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-writer.yml@refs/heads/proof6-writer-runtime-r3j'
       && inputs.proof_operation == 'D04_CONNECTIVITY_OUTAGE'
     runs-on: ubuntu-24.04
     environment: proof6-writer
@@ -220,7 +220,7 @@ jobs:
       run: |
         set -euo pipefail
         test "$RUNNER_ENVIRONMENT" = github-hosted
-        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3i
+        test "$GITHUB_REF" = refs/heads/proof6-writer-runtime-r3j
         git init --quiet .
         git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
         git fetch --quiet --depth=1 origin "$GITHUB_SHA"

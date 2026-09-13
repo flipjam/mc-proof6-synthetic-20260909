@@ -3,12 +3,15 @@ import base64
 import hashlib
 import json
 import re
+import time
+
+from journal_confirmation import _AppendEvidence
 
 from writer import REPO, REPO_ID, APP_ID, BASELINE, _canonical, _digest, _require, _sha
 
-REF = 'refs/heads/proof6-operation-journal-r3i'
+REF = 'refs/heads/proof6-operation-journal-r3j'
 PATH = 'operation.json'
-SCHEMA = 'PROOF6_R3I_JOURNAL_V1'
+SCHEMA = 'PROOF6_R3J_JOURNAL_V1'
 FIELDS = {
     'CONSUMED': ['binding'],
     'PENDING': ['binding', 'old', 'candidate', 'gate_sha256'],
@@ -106,14 +109,21 @@ class Journal:
         _require(ref['ref'] == REF and ref['object']['type'] == 'commit')
         return _sha(ref['object']['sha'])
 
-    def read(self):
+    def read(self, _expected_head=None, _expected_parent=None):
         head = cursor = self.remote()
+        if _expected_head is not None:
+            evidence = self._append_evidence
+            evidence.value['reconstruction_entry_head'] = head
+            evidence.require(head == _expected_head, 'RECONSTRUCTION_ENTRY_MISMATCH')
         rows, seen = [], set()
         while True:
             _require(cursor not in seen and len(seen) < 5000)
             seen.add(cursor)
             commit = self.call('GET', '/git/commits/' + cursor)
             _require(commit['sha'] == cursor)
+            if _expected_head is not None and cursor == _expected_head:
+                evidence.require(len(commit['parents']) == 1 and commit['parents'][0]['sha'] == _expected_parent,
+                                 'RECONSTRUCTION_PARENT_MISMATCH')
             tree_sha = _sha(commit['tree']['sha'])
             tree = self.call('GET', '/git/trees/' + tree_sha)
             _require(tree['sha'] == tree_sha and tree['truncated'] is False and len(tree['tree']) == 1)
@@ -132,7 +142,11 @@ class Journal:
             rows.append((cursor, row))
             cursor = _sha(commit['parents'][0]['sha'])
         self.validate(list(reversed(rows)))
-        _require(self.remote() == head)
+        final_head = self.remote()
+        if _expected_head is not None:
+            evidence.value['reconstruction_final_head'] = final_head
+            evidence.require(final_head == head == _expected_head, 'RECONSTRUCTION_FINAL_MISMATCH')
+        _require(final_head == head)
         self.head, self.rows = head, list(reversed(rows))
         return self
 
@@ -226,32 +240,73 @@ class Journal:
     def append(self, kind, **fields):
         row = dict(schema=SCHEMA, type=kind, **fields)
         parent = self.head
+        evidence = self._append_evidence = _AppendEvidence(self.writer, kind, parent, _digest(_canonical(row)))
+        try:
+            return self._append_once(kind, row, parent, evidence)
+        except BaseException:
+            # Diagnostic failure must never turn into admission or a send permit.
+            # Every possible mutation remains unconfirmed until canonical proof.
+            if not evidence.failed:
+                evidence.emit('FINAL', evidence.reason, 'BLOCKED')
+            raise
+
+    def _append_once(self, kind, row, parent, evidence):
         # Validate proposed lifecycle before creating even non-authoritative objects.
+        evidence.at('VALIDATION', 'VALIDATION_FAILED')
         self.validate(self.rows + [('f' * 40, row)])
+        evidence.at('PROTECTION', 'PROTECTION_FAILED')
         self.check_protection()
+        evidence.at('PARENT_CHECK', 'PARENT_CHANGED')
         _require(self.remote() == parent)
+        evidence.at('OBJECT_CREATION', 'OBJECT_CREATION_FAILED')
         blob = self.call('POST', '/git/blobs', {'content': base64.b64encode(_canonical(row)).decode(), 'encoding': 'base64'})
         tree = self.call('POST', '/git/trees', {'tree': [{'path': PATH, 'type': 'blob', 'mode': '100644', 'sha': _sha(blob['sha'])}]})
         child = self.call('POST', '/git/commits', {'message': 'Proof6 safety ' + _digest(_canonical(row)),
                                                 'tree': _sha(tree['sha']), 'parents': [parent]})
         child_sha = _sha(child['sha'])
+        evidence.value['candidate'] = child_sha
+        evidence.at('CANDIDATE_CHECK', 'CANDIDATE_INVALID')
         _require(child_sha != parent and self.remote() == parent)
+        evidence.value['patch_entered'] = True
+        evidence.at('PATCH_ENTERED', 'PATCH_UNCONFIRMED')
+        self.writer._journal_append_observer = evidence
         try:
             result = self.call('PATCH', '/git/refs/' + REF.removeprefix('refs/'), {'sha': child_sha, 'force': False})
         except Exception:
             # One request only. The exact child must be the current remote head;
             # old/sibling/descendant/unreadable stays blocked, never a retry.
-            pass
+            evidence.value['patch_call'] = 'EXCEPTION'
         else:
+            evidence.value['patch_call'] = 'RETURNED'
             if (kind == 'TERMINAL' and row['evidence'] == 'FINAL_REJECTION'
                     and self.pending[row['pending']]['binding']['operation'] == 'D03_REMOTE_REJECTION'):
                 _require(result['ref'] == REF and result['object']['sha'] == child_sha)
-                # Fixed R3i D03 subcondition: successful journal PATCH boundary,
+                # Fixed R3j D03 subcondition: successful journal PATCH boundary,
                 # BEFORE the first canonical confirmation read. Never a retry.
-                raise ValueError('R3I_D03_TERMINAL_CONFIRMATION_LOST')
-        _require(self.remote() == child_sha)
-        self.read()
-        _require(self.head == child_sha and self.rows[-1] == (child_sha, row))
+                evidence.at('D03_LOSS', 'D03_CONFIRMATION_LOST')
+                raise ValueError('R3J_D03_TERMINAL_CONFIRMATION_LOST')
+        finally:
+            self.writer._journal_append_observer = None
+        evidence.at('PATCH_RESULT', 'PATCH_UNCONFIRMED')
+        return self._confirm_append(parent, child_sha, row, evidence)
+
+    def _confirm_append(self, parent, child_sha, row, evidence):
+        # Only exact P permits a further read. Never retry an error or mutation.
+        for observation in range(3):
+            evidence.at('REF_OBSERVATION', 'REF_OBSERVATION_FAILED')
+            head = self.remote()
+            evidence.value['observed_heads'].append(head)
+            evidence.emit('REF_OBSERVATION')
+            if head == child_sha:
+                break
+            evidence.require(head == parent, 'CONFLICTING_HEAD')
+            evidence.require(observation < 2, 'PARENT_UNCONFIRMED')
+            evidence.at('OLD_PARENT_WAIT', 'WAIT_FAILED')
+            time.sleep(1)
+        evidence.at('RECONSTRUCTION', 'RECONSTRUCTION_FAILED')
+        self.read(_expected_head=child_sha, _expected_parent=parent)
+        evidence.require(self.head == child_sha and self.rows[-1] == (child_sha, row), 'RECORD_MISMATCH')
+        evidence.emit('FINAL', 'EXACT_APPEND', 'CONFIRMED')
         return child_sha
 
     def operation_binding(self, proposal, operation):

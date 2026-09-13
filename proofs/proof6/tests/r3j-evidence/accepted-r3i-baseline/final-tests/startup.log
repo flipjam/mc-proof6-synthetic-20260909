@@ -1,0 +1,56 @@
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1897753, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_ENVIRONMENT", "utc": "2026-09-13T02:38:42.125047+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1899523, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_EXEC", "utc": "2026-09-13T02:38:42.125223+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1914104, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_ENVIRONMENT", "utc": "2026-09-13T02:38:42.126682+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1915544, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_EXEC", "utc": "2026-09-13T02:38:42.126825+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1930714, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_ENVIRONMENT", "utc": "2026-09-13T02:38:42.128343+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1932236, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_EXEC", "utc": "2026-09-13T02:38:42.128494+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1941533, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-13T02:38:42.129424+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1951751, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130446+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1952165, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130487+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1952456, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130516+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1952713, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130542+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1952962, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130567+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1953208, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130591+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1953463, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130617+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1953709, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130641+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1954352, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130706+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1954654, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130736+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.195491, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130761+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1955153, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.130786+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.196369, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_ENVIRONMENT", "utc": "2026-09-13T02:38:42.131640+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1965119, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_EXEC", "utc": "2026-09-13T02:38:42.131783+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1972774, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.132548+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1973518, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.132622+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1973839, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.132654+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1974099, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.132681+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1974353, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.132706+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1974594, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.132730+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1974828, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.132753+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1975078, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.132778+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1975319, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.132802+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 304263.1975549, "pid": 37656, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "FORBIDDEN_CREDENTIAL_SLOT", "utc": "2026-09-13T02:38:42.132825+00:00"}
+test_all_accepted_custody_allowlists_unchanged (__main__.Launch.test_all_accepted_custody_allowlists_unchanged) ... ok
+test_exec_failure_has_bounded_errno_and_no_exception_text (__main__.Launch.test_exec_failure_has_bounded_errno_and_no_exception_text) ... ok
+test_fixed_exec_environment_and_no_token_in_argv (__main__.Launch.test_fixed_exec_environment_and_no_token_in_argv) ... ok
+test_helper_missing_or_empty_status_rejected (__main__.Launch.test_helper_missing_or_empty_status_rejected) ... ok
+test_helper_status_retained_exactly (__main__.Launch.test_helper_status_retained_exactly) ... ok
+test_hosted_48_extra_keys_rejected_by_unchanged_custody (__main__.Launch.test_hosted_48_extra_keys_rejected_by_unchanged_custody) ... ok
+test_no_launch_provider_or_mutation_calls (__main__.Launch.test_no_launch_provider_or_mutation_calls) ... ok
+test_other_job_tokens_rejected_before_filter (__main__.Launch.test_other_job_tokens_rejected_before_filter) ... ok
+test_status_never_scrubbed_to_hide_peer_or_writer_delivery (__main__.Launch.test_status_never_scrubbed_to_hide_peer_or_writer_delivery) ... ok
+test_unknown_role_cannot_select_command (__main__.Launch.test_unknown_role_cannot_select_command) ... ok
+test_unknown_stage_rejected (__main__.Launch.test_unknown_stage_rejected) ... ok
+test_writer_exec_preserves_actual_writer_argv (__main__.Launch.test_writer_exec_preserves_actual_writer_argv) ... ok
+test_writer_retains_existing_App_and_public_inputs_only (__main__.Launch.test_writer_retains_existing_App_and_public_inputs_only) ... ok
+test_wrong_App_delivery_rejected_before_filter (__main__.Launch.test_wrong_App_delivery_rejected_before_filter) ... ok
+test_existing_signal_functions_identical_after_removing_stage_records (__main__.Scope.test_existing_signal_functions_identical_after_removing_stage_records) ... ok
+test_fixed_setup_launch_and_failure_output_before_exit (__main__.Scope.test_fixed_setup_launch_and_failure_output_before_exit) ... ok
+test_launch_policy_is_only_signal_policy_addition (__main__.Scope.test_launch_policy_is_only_signal_policy_addition) ... ok
+test_no_new_workflow_permission_or_trigger (__main__.Scope.test_no_new_workflow_permission_or_trigger) ... ok
+test_original_R3h_tests_preserved_exactly (__main__.Scope.test_original_R3h_tests_preserved_exactly) ... ok
+test_scope_critical_modules_preserved (__main__.Scope.test_scope_critical_modules_preserved) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 1.781s
+
+OK

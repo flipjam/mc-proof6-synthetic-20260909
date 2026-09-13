@@ -1,0 +1,15 @@
+test_confirmation_old_child_before_actual_isolation (__main__.D04.test_confirmation_old_child_before_actual_isolation) ... ok
+test_conflicting_head_is_consumed_block_no_isolation (__main__.D04.test_conflicting_head_is_consumed_block_no_isolation) ... ok
+test_insufficient_budget_after_exact_confirmation_is_consumed_failure (__main__.D04.test_insufficient_budget_after_exact_confirmation_is_consumed_failure) ... ok
+test_maximum_stabilization_still_requires_budget (__main__.D04.test_maximum_stabilization_still_requires_budget) ... ok
+test_persistent_parent_is_unconfirmed_never_unspent (__main__.D04.test_persistent_parent_is_unconfirmed_never_unspent) ... ok
+test_D03_deliberate_loss_precedes_helper_even_when_C_is_available (__main__.Lifecycle.test_D03_deliberate_loss_precedes_helper_even_when_C_is_available) ... ok
+test_invalid_diagnostic_identity_cannot_leak_or_admit (__main__.Lifecycle.test_invalid_diagnostic_identity_cannot_leak_or_admit) ... ok
+test_ordinary_outer_handler_retains_bounded_append_receipt (__main__.Lifecycle.test_ordinary_outer_handler_retains_bounded_append_receipt) ... ok
+test_pending_confirmation_never_grants_send_permission (__main__.Lifecycle.test_pending_confirmation_never_grants_send_permission) ... ok
+test_terminal_requires_original_affirmative_evidence_before_PATCH (__main__.Lifecycle.test_terminal_requires_original_affirmative_evidence_before_PATCH) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 1.145s
+
+OK

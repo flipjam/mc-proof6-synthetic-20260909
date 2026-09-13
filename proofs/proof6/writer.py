@@ -147,8 +147,8 @@ class _Writer:
             urllib.request.ProxyHandler({}), _NoRedirect())
 
     def _check_manifest(self, m):
-        _require(m['contract_commit'] == '2cb629820e3bd04e7c7edaa2b2364682e4dc5f1b'
-                 and m['runtime_variant'] == 'r3i'
+        _require(m['contract_commit'] == '04441e984236d17664c1200868d8cd3ade1dfb81'
+                 and m['runtime_variant'] == 'r3j'
                  and m['revision'] == 3 and m['frozen'] is True
                  and m['repository_id'] == REPO_ID and m['repository'] == REPO
                  and m['ref'] == REF and m['baseline_commit'] == BASELINE
@@ -167,6 +167,9 @@ class _Writer:
 
     def _call(self, token, method, path, body=None):
         _require(path.startswith('/') and not path.startswith('//'))
+        observer = getattr(self, '_journal_append_observer', None)
+        if method != 'PATCH' or path != '/repos/' + REPO + '/git/refs/heads/proof6-operation-journal-r3j':
+            observer = None
         request = urllib.request.Request(
             'https://api.github.com' + path,
             data=None if body is None else _canonical(body), method=method,
@@ -175,10 +178,20 @@ class _Writer:
                      'Content-Type': 'application/json',
                      'User-Agent': 'mc-proof6-gate-writer',
                      'X-GitHub-Api-Version': '2022-11-28'})
-        with self._http.open(request, timeout=30) as response:
-            raw = response.read(2_000_001)
+        try:
+            with self._http.open(request, timeout=30) as response:
+                if observer is not None:
+                    observer.http_response(response.status, response.headers.get('x-github-request-id'))
+                raw = response.read(2_000_001)
+        except urllib.error.HTTPError as error:
+            if observer is not None:
+                observer.http_response(error.code, error.headers.get('x-github-request-id'))
+            raise
         _require(len(raw) <= 2_000_000)
-        return json.loads(raw)
+        value = json.loads(raw)
+        if observer is not None:
+            observer.parsed_response()
+        return value
 
     def _installation_access(self):
         """Verify the official action token's exact installation scope."""
