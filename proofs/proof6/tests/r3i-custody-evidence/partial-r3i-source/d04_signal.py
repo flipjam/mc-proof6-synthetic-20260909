@@ -79,7 +79,7 @@ def receipt(kind, **data):
                                          sort_keys=True, allow_nan=False), flush=True)
 
 
-STARTUP_STAGES = {'ENTRY', 'LAUNCH_ENVIRONMENT', 'FORBIDDEN_CREDENTIAL_SLOT', 'LAUNCH_EXEC', 'BINDING',
+STARTUP_STAGES = {'ENTRY', 'LAUNCH_ENVIRONMENT', 'LAUNCH_EXEC', 'BINDING',
     'CUSTODY_ENVIRONMENT', 'CUSTODY_ARGV_FDS', 'WORKER_ANCESTRY', 'WORKER_LOG_SOURCE',
     'RUNNER_HEADER', 'EFFECTIVE_PERMISSIONS', 'ROOT_MODE', 'SOCKET_CREATE',
     'SOCKET_BIND', 'SOCKET_LISTEN', 'IPC_READY', 'PEER_QUALIFICATION', 'REAPING'}
@@ -214,16 +214,13 @@ def launch_environment(role, initial):
     helper = role in ('helper', 'setup-helper')
     allowed = PUBLIC_ENV | SYSTEM_ENV | ({TOKEN_SLOT} if helper else
                                          (WRITER_ENV if role == 'writer' else set()))
-    # PROOF6_ is the implementation input namespace: only this role's explicit
-    # slots are admissible. Preserve the prior PROOF6_APP prefix guard too.
-    # Inspect names/presence BEFORE filtering; an empty forbidden slot is still
-    # delivery. Ordinary runner extras remain filterable, without a TOKEN suffix
-    # heuristic. Never include slot names or values in failure diagnostics.
-    if any(k in ('GITHUB_TOKEN', 'GH_TOKEN') or
-           (k.startswith(('PROOF6_', 'PROOF6_APP')) and k not in allowed) for k in initial):
-        startup_stage('FORBIDDEN_CREDENTIAL_SLOT')
-        require(False)
+    # Reject wrong credentials BEFORE filtering. Scrubbing cross-delivery is not
+    # custody. The helper launch path never receives an App credential; peer and
+    # writer launch paths never receive the status credential, even empty.
     require(TOKEN_SLOT in initial and bool(initial[TOKEN_SLOT]) if helper else TOKEN_SLOT not in initial)
+    require(not any((k.startswith('PROOF6_APP') and k not in (WRITER_ENV if role == 'writer' else set()))
+                    or k in ('GH_TOKEN', 'PROOF6_D03_JOB_TOKEN')
+                    or (k == 'PROOF6_FROZEN_MANIFEST' and role != 'writer') for k in initial))
     return {k: v for k, v in initial.items() if k in allowed}
 
 

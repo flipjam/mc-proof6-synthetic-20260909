@@ -1,0 +1,10 @@
+{"kernel": "6.6.87.2-microsoft-standard-WSL2", "hosted_execution": false, "acceptance_credit": false}
+{"case": "GITHUB_TOKEN", "source": "f0fab30f43954340def4f46ac9fff1fdc3ec5afd", "qualification": "PASS", "helper_reaped": true, "producer_reaped": true, "provider_writes": 0, "authority_journal_paths": false, "D04_consumption": false, "acceptance_credit": false}
+{"case": "PROOF6_NEW_API_TOKEN", "source": "f0fab30f43954340def4f46ac9fff1fdc3ec5afd", "qualification": "PASS", "helper_reaped": true, "producer_reaped": true, "provider_writes": 0, "authority_journal_paths": false, "D04_consumption": false, "acceptance_credit": false}
+test_old_GITHUB_TOKEN_full_setup_counterexample (__main__.NativeCustody) ... ok
+test_old_unapproved_PROOF6_slot_full_setup_counterexample (__main__.NativeCustody) ... ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 1.427s
+
+OK

@@ -1,0 +1,55 @@
+{"kernel": "6.6.87.2-microsoft-standard-WSL2", "hosted_execution": false, "acceptance_credit": false}
+{"case": "harmless_48_runner_variables", "source": "corrected_worktree", "qualification": "PASS", "helper_reaped": true, "producer_reaped": true, "provider_writes": 0, "authority_journal_paths": false, "D04_consumption": false, "acceptance_credit": false}
+{"case": "GITHUB_TOKEN", "source": "f0fab30f43954340def4f46ac9fff1fdc3ec5afd", "qualification": "PASS", "helper_reaped": true, "producer_reaped": true, "provider_writes": 0, "authority_journal_paths": false, "D04_consumption": false, "acceptance_credit": false}
+{"case": "PROOF6_NEW_API_TOKEN", "source": "f0fab30f43954340def4f46ac9fff1fdc3ec5afd", "qualification": "PASS", "helper_reaped": true, "producer_reaped": true, "provider_writes": 0, "authority_journal_paths": false, "D04_consumption": false, "acceptance_credit": false}
+test_corrected_harmless_dirty_environment_real_setup_pass (__main__.NativeCustody) ... ok
+test_old_GITHUB_TOKEN_full_setup_counterexample (__main__.NativeCustody) ... ok
+test_old_unapproved_PROOF6_slot_full_setup_counterexample (__main__.NativeCustody) ... ok
+test_prefilter_failure_survives_nonzero_cleanup_and_replay (__main__.NativeCustody) ... ok
+test_single_slot_helper_GH_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_helper_GH_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_helper_GITHUB_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_helper_GITHUB_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_helper_PROOF6_APP_PRIVATE_KEY_empty (__main__.NativeCustody) ... ok
+test_single_slot_helper_PROOF6_APP_PRIVATE_KEY_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_helper_PROOF6_APP_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_helper_PROOF6_APP_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_helper_PROOF6_NEW_API_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_helper_PROOF6_NEW_API_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_helper_GH_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_helper_GH_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_helper_GITHUB_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_helper_GITHUB_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_helper_PROOF6_APP_PRIVATE_KEY_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_helper_PROOF6_APP_PRIVATE_KEY_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_helper_PROOF6_APP_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_helper_PROOF6_APP_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_helper_PROOF6_NEW_API_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_helper_PROOF6_NEW_API_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_GH_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_GH_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_GITHUB_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_GITHUB_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_PROOF6_APP_PRIVATE_KEY_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_PROOF6_APP_PRIVATE_KEY_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_PROOF6_APP_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_PROOF6_APP_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_PROOF6_D04_STATUS_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_PROOF6_D04_STATUS_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_PROOF6_NEW_API_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_setup_peer_PROOF6_NEW_API_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_writer_GH_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_writer_GH_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_writer_GITHUB_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_writer_GITHUB_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_writer_PROOF6_APP_PRIVATE_KEY_empty (__main__.NativeCustody) ... ok
+test_single_slot_writer_PROOF6_APP_PRIVATE_KEY_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_writer_PROOF6_D04_STATUS_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_writer_PROOF6_D04_STATUS_TOKEN_nonempty (__main__.NativeCustody) ... ok
+test_single_slot_writer_PROOF6_NEW_API_TOKEN_empty (__main__.NativeCustody) ... ok
+test_single_slot_writer_PROOF6_NEW_API_TOKEN_nonempty (__main__.NativeCustody) ... ok
+
+----------------------------------------------------------------------
+Ran 46 tests in 7.896s
+
+OK

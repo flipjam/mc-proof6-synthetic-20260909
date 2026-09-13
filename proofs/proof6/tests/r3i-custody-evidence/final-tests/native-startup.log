@@ -1,0 +1,15 @@
+{"kernel": "6.6.87.2-microsoft-standard-WSL2", "acceptance_credit": false, "provider_writes": 0}
+test_actual_writer_launch_exec_identity_and_custody (__main__.Startup) ... ok
+test_exact_R3h_source_rejects_same_dirty_startup (__main__.Startup) ... ok
+test_fixed_launch_passes_real_setup_with_48_extras_no_POST (__main__.Startup) ... ok
+test_nonzero_cleanup_output_survives_shell_capture (__main__.Startup) ... ok
+test_peer_status_delivery_blocks_and_helper_reaped (__main__.Startup) ... ok
+test_permission_failure_still_blocks_after_launch (__main__.Startup) ... ok
+test_socket_failure_retains_stage_errno_and_reaps (__main__.Startup) ... ok
+test_unknown_runner_still_blocks_after_launch (__main__.Startup) ... ok
+test_wrong_App_blocks_before_launch_exec (__main__.Startup) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 2.400s
+
+OK

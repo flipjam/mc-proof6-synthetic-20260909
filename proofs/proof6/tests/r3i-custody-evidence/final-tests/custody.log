@@ -1,0 +1,54 @@
+test_all_explicit_writer_inputs_remain_allowed (__main__.Custody.test_all_explicit_writer_inputs_remain_allowed) ... ok
+test_all_other_production_workflow_plan_and_prior_tests_byte_identical (__main__.Custody.test_all_other_production_workflow_plan_and_prior_tests_byte_identical) ... ok
+test_counterexample_fixture_is_exact_partial_source (__main__.Custody.test_counterexample_fixture_is_exact_partial_source) ... ok
+test_harmless_extras_filtered_for_every_role_without_suffix_heuristic (__main__.Custody.test_harmless_extras_filtered_for_every_role_without_suffix_heuristic) ... ok
+test_helper_requires_its_nonempty_dedicated_slot (__main__.Custody.test_helper_requires_its_nonempty_dedicated_slot) ... ok
+test_reserved_namespace_has_no_credential_suffix_escape (__main__.Custody.test_reserved_namespace_has_no_credential_suffix_escape) ... ok
+test_signal_AST_only_launch_check_and_fixed_stage_change (__main__.Custody.test_signal_AST_only_launch_check_and_fixed_stage_change) ... ok
+test_single_slot_helper_GH_TOKEN_empty (__main__.Custody.test_single_slot_helper_GH_TOKEN_empty) ... ok
+test_single_slot_helper_GH_TOKEN_nonempty (__main__.Custody.test_single_slot_helper_GH_TOKEN_nonempty) ... ok
+test_single_slot_helper_GITHUB_TOKEN_empty (__main__.Custody.test_single_slot_helper_GITHUB_TOKEN_empty) ... ok
+test_single_slot_helper_GITHUB_TOKEN_nonempty (__main__.Custody.test_single_slot_helper_GITHUB_TOKEN_nonempty) ... ok
+test_single_slot_helper_PROOF6_APP_PRIVATE_KEY_empty (__main__.Custody.test_single_slot_helper_PROOF6_APP_PRIVATE_KEY_empty) ... ok
+test_single_slot_helper_PROOF6_APP_PRIVATE_KEY_nonempty (__main__.Custody.test_single_slot_helper_PROOF6_APP_PRIVATE_KEY_nonempty) ... ok
+test_single_slot_helper_PROOF6_APP_TOKEN_empty (__main__.Custody.test_single_slot_helper_PROOF6_APP_TOKEN_empty) ... ok
+test_single_slot_helper_PROOF6_APP_TOKEN_nonempty (__main__.Custody.test_single_slot_helper_PROOF6_APP_TOKEN_nonempty) ... ok
+test_single_slot_helper_PROOF6_NEW_API_TOKEN_empty (__main__.Custody.test_single_slot_helper_PROOF6_NEW_API_TOKEN_empty) ... ok
+test_single_slot_helper_PROOF6_NEW_API_TOKEN_nonempty (__main__.Custody.test_single_slot_helper_PROOF6_NEW_API_TOKEN_nonempty) ... ok
+test_single_slot_setup_helper_GH_TOKEN_empty (__main__.Custody.test_single_slot_setup_helper_GH_TOKEN_empty) ... ok
+test_single_slot_setup_helper_GH_TOKEN_nonempty (__main__.Custody.test_single_slot_setup_helper_GH_TOKEN_nonempty) ... ok
+test_single_slot_setup_helper_GITHUB_TOKEN_empty (__main__.Custody.test_single_slot_setup_helper_GITHUB_TOKEN_empty) ... ok
+test_single_slot_setup_helper_GITHUB_TOKEN_nonempty (__main__.Custody.test_single_slot_setup_helper_GITHUB_TOKEN_nonempty) ... ok
+test_single_slot_setup_helper_PROOF6_APP_PRIVATE_KEY_empty (__main__.Custody.test_single_slot_setup_helper_PROOF6_APP_PRIVATE_KEY_empty) ... ok
+test_single_slot_setup_helper_PROOF6_APP_PRIVATE_KEY_nonempty (__main__.Custody.test_single_slot_setup_helper_PROOF6_APP_PRIVATE_KEY_nonempty) ... ok
+test_single_slot_setup_helper_PROOF6_APP_TOKEN_empty (__main__.Custody.test_single_slot_setup_helper_PROOF6_APP_TOKEN_empty) ... ok
+test_single_slot_setup_helper_PROOF6_APP_TOKEN_nonempty (__main__.Custody.test_single_slot_setup_helper_PROOF6_APP_TOKEN_nonempty) ... ok
+test_single_slot_setup_helper_PROOF6_NEW_API_TOKEN_empty (__main__.Custody.test_single_slot_setup_helper_PROOF6_NEW_API_TOKEN_empty) ... ok
+test_single_slot_setup_helper_PROOF6_NEW_API_TOKEN_nonempty (__main__.Custody.test_single_slot_setup_helper_PROOF6_NEW_API_TOKEN_nonempty) ... ok
+test_single_slot_setup_peer_GH_TOKEN_empty (__main__.Custody.test_single_slot_setup_peer_GH_TOKEN_empty) ... ok
+test_single_slot_setup_peer_GH_TOKEN_nonempty (__main__.Custody.test_single_slot_setup_peer_GH_TOKEN_nonempty) ... ok
+test_single_slot_setup_peer_GITHUB_TOKEN_empty (__main__.Custody.test_single_slot_setup_peer_GITHUB_TOKEN_empty) ... ok
+test_single_slot_setup_peer_GITHUB_TOKEN_nonempty (__main__.Custody.test_single_slot_setup_peer_GITHUB_TOKEN_nonempty) ... ok
+test_single_slot_setup_peer_PROOF6_APP_PRIVATE_KEY_empty (__main__.Custody.test_single_slot_setup_peer_PROOF6_APP_PRIVATE_KEY_empty) ... ok
+test_single_slot_setup_peer_PROOF6_APP_PRIVATE_KEY_nonempty (__main__.Custody.test_single_slot_setup_peer_PROOF6_APP_PRIVATE_KEY_nonempty) ... ok
+test_single_slot_setup_peer_PROOF6_APP_TOKEN_empty (__main__.Custody.test_single_slot_setup_peer_PROOF6_APP_TOKEN_empty) ... ok
+test_single_slot_setup_peer_PROOF6_APP_TOKEN_nonempty (__main__.Custody.test_single_slot_setup_peer_PROOF6_APP_TOKEN_nonempty) ... ok
+test_single_slot_setup_peer_PROOF6_D04_STATUS_TOKEN_empty (__main__.Custody.test_single_slot_setup_peer_PROOF6_D04_STATUS_TOKEN_empty) ... ok
+test_single_slot_setup_peer_PROOF6_D04_STATUS_TOKEN_nonempty (__main__.Custody.test_single_slot_setup_peer_PROOF6_D04_STATUS_TOKEN_nonempty) ... ok
+test_single_slot_setup_peer_PROOF6_NEW_API_TOKEN_empty (__main__.Custody.test_single_slot_setup_peer_PROOF6_NEW_API_TOKEN_empty) ... ok
+test_single_slot_setup_peer_PROOF6_NEW_API_TOKEN_nonempty (__main__.Custody.test_single_slot_setup_peer_PROOF6_NEW_API_TOKEN_nonempty) ... ok
+test_single_slot_writer_GH_TOKEN_empty (__main__.Custody.test_single_slot_writer_GH_TOKEN_empty) ... ok
+test_single_slot_writer_GH_TOKEN_nonempty (__main__.Custody.test_single_slot_writer_GH_TOKEN_nonempty) ... ok
+test_single_slot_writer_GITHUB_TOKEN_empty (__main__.Custody.test_single_slot_writer_GITHUB_TOKEN_empty) ... ok
+test_single_slot_writer_GITHUB_TOKEN_nonempty (__main__.Custody.test_single_slot_writer_GITHUB_TOKEN_nonempty) ... ok
+test_single_slot_writer_PROOF6_APP_PRIVATE_KEY_empty (__main__.Custody.test_single_slot_writer_PROOF6_APP_PRIVATE_KEY_empty) ... ok
+test_single_slot_writer_PROOF6_APP_PRIVATE_KEY_nonempty (__main__.Custody.test_single_slot_writer_PROOF6_APP_PRIVATE_KEY_nonempty) ... ok
+test_single_slot_writer_PROOF6_D04_STATUS_TOKEN_empty (__main__.Custody.test_single_slot_writer_PROOF6_D04_STATUS_TOKEN_empty) ... ok
+test_single_slot_writer_PROOF6_D04_STATUS_TOKEN_nonempty (__main__.Custody.test_single_slot_writer_PROOF6_D04_STATUS_TOKEN_nonempty) ... ok
+test_single_slot_writer_PROOF6_NEW_API_TOKEN_empty (__main__.Custody.test_single_slot_writer_PROOF6_NEW_API_TOKEN_empty) ... ok
+test_single_slot_writer_PROOF6_NEW_API_TOKEN_nonempty (__main__.Custody.test_single_slot_writer_PROOF6_NEW_API_TOKEN_nonempty) ... ok
+
+----------------------------------------------------------------------
+Ran 49 tests in 10.308s
+
+OK

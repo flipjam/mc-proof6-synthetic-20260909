@@ -1,0 +1,34 @@
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 295372.5787045, "pid": 28524, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_ENVIRONMENT", "utc": "2026-09-13T00:10:31.513976+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 295372.5788784, "pid": 28524, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_EXEC", "utc": "2026-09-13T00:10:31.514149+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 295372.580301, "pid": 28524, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_ENVIRONMENT", "utc": "2026-09-13T00:10:31.515572+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 295372.5804434, "pid": 28524, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_EXEC", "utc": "2026-09-13T00:10:31.515714+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 295372.5818406, "pid": 28524, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_ENVIRONMENT", "utc": "2026-09-13T00:10:31.517113+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 295372.5820017, "pid": 28524, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_EXEC", "utc": "2026-09-13T00:10:31.517272+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 295372.5829214, "pid": 28524, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "CUSTODY_ENVIRONMENT", "utc": "2026-09-13T00:10:31.518192+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 295372.584918, "pid": 28524, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_ENVIRONMENT", "utc": "2026-09-13T00:10:31.520189+00:00"}
+PROOF6_D04_SIGNAL {"acceptance_credit": false, "euid": null, "kind": "STARTUP_STAGE", "monotonic": 295372.5850587, "pid": 28524, "schema": "PROOF6_R3I_D04_SIGNAL_V1", "stage": "LAUNCH_EXEC", "utc": "2026-09-13T00:10:31.520329+00:00"}
+test_all_accepted_custody_allowlists_unchanged (__main__.Launch.test_all_accepted_custody_allowlists_unchanged) ... ok
+test_exec_failure_has_bounded_errno_and_no_exception_text (__main__.Launch.test_exec_failure_has_bounded_errno_and_no_exception_text) ... ok
+test_fixed_exec_environment_and_no_token_in_argv (__main__.Launch.test_fixed_exec_environment_and_no_token_in_argv) ... ok
+test_helper_missing_or_empty_status_rejected (__main__.Launch.test_helper_missing_or_empty_status_rejected) ... ok
+test_helper_status_retained_exactly (__main__.Launch.test_helper_status_retained_exactly) ... ok
+test_hosted_48_extra_keys_rejected_by_unchanged_custody (__main__.Launch.test_hosted_48_extra_keys_rejected_by_unchanged_custody) ... ok
+test_no_launch_provider_or_mutation_calls (__main__.Launch.test_no_launch_provider_or_mutation_calls) ... ok
+test_other_job_tokens_rejected_before_filter (__main__.Launch.test_other_job_tokens_rejected_before_filter) ... ok
+test_status_never_scrubbed_to_hide_peer_or_writer_delivery (__main__.Launch.test_status_never_scrubbed_to_hide_peer_or_writer_delivery) ... ok
+test_unknown_role_cannot_select_command (__main__.Launch.test_unknown_role_cannot_select_command) ... ok
+test_unknown_stage_rejected (__main__.Launch.test_unknown_stage_rejected) ... ok
+test_writer_exec_preserves_actual_writer_argv (__main__.Launch.test_writer_exec_preserves_actual_writer_argv) ... ok
+test_writer_retains_existing_App_and_public_inputs_only (__main__.Launch.test_writer_retains_existing_App_and_public_inputs_only) ... ok
+test_wrong_App_delivery_rejected_before_filter (__main__.Launch.test_wrong_App_delivery_rejected_before_filter) ... ok
+test_existing_signal_functions_identical_after_removing_stage_records (__main__.Scope.test_existing_signal_functions_identical_after_removing_stage_records) ... ok
+test_fixed_setup_launch_and_failure_output_before_exit (__main__.Scope.test_fixed_setup_launch_and_failure_output_before_exit) ... ok
+test_launch_policy_is_only_signal_policy_addition (__main__.Scope.test_launch_policy_is_only_signal_policy_addition) ... ok
+test_no_new_workflow_permission_or_trigger (__main__.Scope.test_no_new_workflow_permission_or_trigger) ... ok
+test_original_R3h_tests_preserved_exactly (__main__.Scope.test_original_R3h_tests_preserved_exactly) ... ok
+test_scope_critical_modules_preserved (__main__.Scope.test_scope_critical_modules_preserved) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 1.837s
+
+OK

@@ -1,0 +1,91 @@
+{
+  "acceptance_credit": false,
+  "all_tracked_bytes_exact": true,
+  "build_sha256": "4c47624a97c3c2a62af523bd12ecd5ef95d019ceaf6a5d00e909e3cfb05f69e5",
+  "groups": [
+    {
+      "exit_code": 0,
+      "group": "retained",
+      "seconds": 70.891,
+      "sha256": "a991879dff1285faefe2fd8889a6d97ecec8ba1deb8905480a3ba2e80c16212c",
+      "tests": 198
+    },
+    {
+      "exit_code": 0,
+      "group": "prior-focused",
+      "seconds": 3.238,
+      "sha256": "62c55748d127266ef1420d404dc0a33b9fd5a794b073a27bd016cb63c0c91cdc",
+      "tests": 68
+    },
+    {
+      "exit_code": 0,
+      "group": "correction",
+      "seconds": 1.044,
+      "sha256": "63aeeffaf5ffb4d4a3b3f3f16666b05dde7fcbb37f6622b1dd487f0bcfaf86a6",
+      "tests": 20
+    },
+    {
+      "exit_code": 0,
+      "group": "focused",
+      "seconds": 2.02,
+      "sha256": "68018cec90f1a3137f7f7b38c159b7c8235e918756829eb07d36d5ab85ff6617",
+      "tests": 60
+    },
+    {
+      "exit_code": 0,
+      "group": "bounded",
+      "seconds": 1.987,
+      "sha256": "615da730cdf7a942892a7bb422a43a65df841831e97cddc7db0bae65bb49f882",
+      "tests": 20
+    },
+    {
+      "exit_code": 0,
+      "group": "startup",
+      "seconds": 2.279,
+      "sha256": "bba45e6dda733df4a0519383937511d929120a83cd6b5b919253ab90daded49e",
+      "tests": 20
+    },
+    {
+      "exit_code": 0,
+      "group": "native-prerequisite",
+      "seconds": 1.835,
+      "sha256": "c90a3dab8e83cbb4b945bcd2cb069a730a4f8bd1d58d4032219fcc7c3a347439",
+      "tests": 3
+    },
+    {
+      "exit_code": 0,
+      "group": "native-signal",
+      "seconds": 34.55,
+      "sha256": "304e4f2f0a4f95e376de640e440dcadf1a3607251275d105644e4f2f2b6386ee",
+      "tests": 7
+    },
+    {
+      "exit_code": 0,
+      "group": "native-bounded",
+      "seconds": 1.97,
+      "sha256": "0274396d59bedc32252cda4465bb84113160cd659776568edf61d97b73b14561",
+      "tests": 28
+    },
+    {
+      "exit_code": 0,
+      "group": "native-startup",
+      "seconds": 2.937,
+      "sha256": "89590bc0a4d1f40f3ef7d068ae20a14a731dcd3382c094f114a57560b02e61d3",
+      "tests": 9
+    },
+    {
+      "exit_code": 0,
+      "group": "inventory",
+      "seconds": 11.755,
+      "sha256": "7aa20ccfa2acbce2b9c3e87558050b937889dbcc8ed3aa056253cae184eb19e6",
+      "tests": 0
+    }
+  ],
+  "hosted_R3i_runs": 0,
+  "plan_sha256": "81926d6ce00e3b36f84404b217b29c22e4224b2f002115382614feb1a42c3617",
+  "result": "PASS",
+  "source_base": "d4d0d448026b9f0dd0728a852d757543b550208e",
+  "tests": 433,
+  "verified_source_commit": "f0fab30f43954340def4f46ac9fff1fdc3ec5afd",
+  "verified_source_tree": "b1a59303752062df6b0d47723e26f9efc366bfac"
+}

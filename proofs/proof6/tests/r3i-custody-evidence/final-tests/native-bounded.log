@@ -1,0 +1,34 @@
+{"kernel": "6.6.87.2-microsoft-standard-WSL2", "acceptance_credit": false, "hosted_execution": false}
+test_actual_ancillary_truncation_rejected_and_delivered_fds_closed (__main__.Packets) ... ok
+test_canonical_no_ancillary_passes_actual_boundary (__main__.Packets) ... ok
+test_ctrunc_flag_without_records_rejected (__main__.Packets) ... ok
+test_data_truncation_rejected (__main__.Packets) ... ok
+test_duplicate_end_rejected (__main__.Packets) ... ok
+test_duplicate_ready_rejected (__main__.Packets) ... ok
+test_empty_packet_then_close_rejected (__main__.Packets) ... ok
+test_empty_trailing_rights_closed_and_rejected (__main__.Packets) ... ok
+test_end_with_rights_rejected (__main__.Packets) ... ok
+test_expected_protocol_and_genuine_close_pass (__main__.Packets) ... ok
+test_expected_protocol_and_genuine_write_shutdown_pass (__main__.Packets) ... ok
+test_linux_maximum_253_descriptors_all_closed (__main__.Packets) ... ok
+test_malformed_trailing_packet_rejected (__main__.Packets) ... ok
+test_multiple_descriptors_all_closed (__main__.Packets) ... ok
+test_noncanonical_and_duplicate_json_unchanged (__main__.Packets) ... ok
+test_open_idle_peer_cannot_satisfy_completion (__main__.Packets) ... ok
+test_reviewer_A_ready_with_rights_rejected (__main__.Packets) ... ok
+test_reviewer_B_open_empty_packet_rejected (__main__.Packets) ... ok
+test_trailing_nonempty_packet_rejected (__main__.Packets) ... ok
+test_unexpected_constructible_credentials_rejected (__main__.Packets) ... ok
+test_writer_close_rejects_trailing_helper_empty_packet (__main__.Packets) ... ok
+test_helper_App_custody_failure_blocks_setup (__main__.Setup) ... ok
+test_permission_failure_blocks_setup_before_IPC (__main__.Setup) ... ok
+test_real_setup_audit_custody_ipc_shutdown_and_reaping_no_POST (__main__.Setup) ... ok
+test_setup_IPC_failure_blocks_and_reaps (__main__.Setup) ... ok
+test_setup_peer_status_custody_failure_blocks (__main__.Setup) ... ok
+test_setup_without_live_helper_cannot_pass (__main__.Setup) ... ok
+test_unknown_runner_blocks_setup_before_IPC (__main__.Setup) ... ok
+
+----------------------------------------------------------------------
+Ran 28 tests in 1.418s
+
+OK

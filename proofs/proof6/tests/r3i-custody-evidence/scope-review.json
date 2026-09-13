@@ -1,0 +1,17 @@
+{
+  "acceptance_credit": false,
+  "authority_amendment": false,
+  "baseline_tests": 433,
+  "held_state": "unchanged",
+  "native_single_slot_negatives": 42,
+  "new_tests": 95,
+  "next_gate": "ONE focused independent R3i correction re-review",
+  "other_production_workflow_plan_prior_tests": "byte-identical",
+  "parent": "f0fab30f43954340def4f46ac9fff1fdc3ec5afd",
+  "plan_unchanged": true,
+  "production_changes": [
+    "proofs/proof6/d04_signal.py: launch_environment and STARTUP_STAGES only"
+  ],
+  "total_tests": 528,
+  "unit_single_slot_negatives": 42
+}

@@ -1,0 +1,8 @@
+test_fixed_launcher_scrubs_and_reaps_without_changing_parent (__main__.Native) ... ok
+test_inner_native_timeout_kills_and_reaps_nonforking_leaf (__main__.Native) ... ok
+test_outer_group_deadline_covers_worker_inner_supervisor_and_leaf (__main__.Native) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 1.329s
+
+OK
