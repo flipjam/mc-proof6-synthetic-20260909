@@ -1,0 +1,139 @@
+{
+  "result": "PASS",
+  "base": "118e8bbe2994689e819f7ae217e43df7df3f70b9",
+  "tree": "478f5a466690cd6c4ab96d94da25ffd052b00603",
+  "identities": {
+    "proofs/proof1/replay.py": {
+      "blob": "efdfb8fbcd293e006709ca386d337814ce19683c",
+      "sha256": "ac9c761cf57d74ef68f35213de333c2d071c1f030ad592cae444c3bee576474e",
+      "result": "MATCH"
+    },
+    "proofs/proof2/gate.py": {
+      "blob": "1866724af1908053491b945a902a3d0038abca5d",
+      "sha256": "e432172177d7d58d1b9424c4547f31e7223295eeb80d0a3235bd2e7092ca60bf",
+      "result": "MATCH"
+    },
+    "proofs/proof6/d03_rejection.py": {
+      "blob": "1ac498b5c67d7f6690f2bdbf421af954daa07db9",
+      "sha256": "79af705e8b0f405d4ceda4bd12b4550dea9d0cb2cb2330252baf6e40c1132db1",
+      "result": "MATCH"
+    },
+    "proofs/proof6/sibling_canary.py": {
+      "blob": "e96d42a1c5ebcb0680b05ad128d274ee313d136d",
+      "sha256": "33fb1c915f134f57055ea22702dbe91a481fd1b6a313f1221ddd3346bdf94e86",
+      "result": "MATCH"
+    },
+    "proofs/proof6/journal_confirmation.py": {
+      "blob": "395d24587d93554aba47e878b697a47afd518c2b",
+      "sha256": "b8b34d4335047841eac2062f77867d8d90f53de0411674d564f81ec4fecf7465",
+      "result": "MATCH"
+    }
+  },
+  "unchanged_functions": {
+    "writer.py": [
+      "_NoRedirect.redirect_request",
+      "_Writer.__init__",
+      "_Writer._installation_access",
+      "_Writer._validate_transition",
+      "_Writer.recover_only",
+      "_canonical",
+      "_d03_complete_body",
+      "_digest",
+      "_require",
+      "_sha"
+    ],
+    "journal.py": [
+      "Journal.__init__",
+      "Journal._completion_boundary",
+      "Journal._confirm_append",
+      "Journal.append",
+      "Journal.arm",
+      "Journal.begin",
+      "Journal.call",
+      "Journal.consume",
+      "Journal.finish",
+      "Journal.read",
+      "Journal.recover",
+      "Journal.remote",
+      "Journal.take_send",
+      "hex64",
+      "parse",
+      "terminal_semantics"
+    ],
+    "proof_control.py": [],
+    "d03_job_token.py": [
+      "_permission_evidence",
+      "_worker_log",
+      "validate"
+    ],
+    "d03_rejection.py": [
+      "body",
+      "expected",
+      "receipt",
+      "validate"
+    ],
+    "sibling_canary.py": [
+      "recover_d07"
+    ],
+    "journal_confirmation.py": [
+      "_AppendEvidence.__init__",
+      "_AppendEvidence.at",
+      "_AppendEvidence.emit",
+      "_AppendEvidence.http_response",
+      "_AppendEvidence.parsed_response",
+      "_AppendEvidence.require"
+    ]
+  },
+  "changed_functions": {
+    "writer.py": [
+      "_Writer._call",
+      "_Writer._check_manifest",
+      "_Writer._current_authority",
+      "_Writer._enforcement",
+      "_Writer._history",
+      "_Writer._patch",
+      "_Writer.commit_transition"
+    ],
+    "journal.py": [
+      "Journal._append_once",
+      "Journal.check_binding",
+      "Journal.check_protection",
+      "Journal.operation_binding",
+      "Journal.reconcile",
+      "Journal.validate"
+    ],
+    "proof_control.py": [
+      "account_permission",
+      "authorization",
+      "plan",
+      "proposal_for",
+      "request",
+      "validate_payload"
+    ],
+    "d03_job_token.py": [
+      "bind"
+    ],
+    "d03_rejection.py": [],
+    "sibling_canary.py": [],
+    "journal_confirmation.py": []
+  },
+  "removed_functions": {
+    "writer.py": [
+      "_Writer.verify_setup_auth",
+      "setup_bootstrap_diagnostics"
+    ],
+    "journal.py": [],
+    "proof_control.py": [
+      "qualify"
+    ],
+    "d03_job_token.py": [],
+    "d03_rejection.py": [],
+    "sibling_canary.py": [],
+    "journal_confirmation.py": []
+  },
+  "authority_transport": "AST_IDENTICAL_EXCEPT_FIXED_REF",
+  "all_15_invariants": "PRESERVED",
+  "workflow": "MANUAL_ONLY_FROZEN_RUNTIME_AND_ENVIRONMENT_BOUND",
+  "collector": "NO_MUTATION_IMPORTS",
+  "build": "ALL_RUNTIME_SOURCE_HASHES_MATCH"
+}

@@ -1,0 +1,148 @@
+"""Pure, fail-closed freeze/Q0 schema. Offline fixtures provide no live credit."""
+import importlib.util
+from common import (ROOT, AREA, CAMPAIGN, REPO, REPO_ID, REF, JOURNAL_REF,
+                    RUNTIME_REF, CONTROL_REF, ENVIRONMENT, CONCURRENCY, WORKFLOW,
+                    APP_ID, INSTALLATION, PERMISSIONS, BASE, _canonical, _digest,
+                    _require, _sha, hash64, parse)
+from proof_control import plan, FAULTS, PROPOSALS, BUDGET, CALLER
+from ruleset_view import visible
+
+
+def gate():
+    spec = importlib.util.spec_from_file_location('p6ws_accepted_gate', ROOT / 'proofs/proof2/gate.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def validate_rules(rules, ref, runtime=False):
+    _require(type(rules) is list and len(rules) == 2)
+    for index, rule in enumerate(rules):
+        _require(type(rule['id']) is int and rule['id'] > 0
+                 and rule['target'] == 'branch' and rule['enforcement'] == 'active'
+                 and rule['source'] == REPO and rule['source_type'] == 'Repository'
+                 and rule['conditions'] == {'ref_name': {'include': [ref], 'exclude': []}}
+                 and rule['rules'] == [{'type': t} for t in (
+                     ('creation', 'deletion', 'non_fast_forward') if index == 0 else ('update',))]
+                 and rule['bypass_actors'] == ([] if index == 0 or runtime else [
+                     {'actor_id': APP_ID, 'actor_type': 'Integration', 'bypass_mode': 'always'}]))
+        visible(rule)
+    _require(rules[0]['id'] != rules[1]['id'])
+
+
+def validate_manifest(m, *, local=False):
+    _require(type(m) is dict and set(m) == {
+        'schema', 'campaign', 'frozen', 'repository', 'repository_id', 'source_base',
+        'source_commit', 'source_tree', 'build_sha256', 'runtime', 'environment',
+        'concurrency', 'ref', 'baseline_commit', 'baseline_state_sha256', 'baseline_history',
+        'journal', 'proof_plan_sha256', 'proposals', 'budget', 'app_id', 'installation_id',
+        'token_permissions', 'authority_rulesets', 'runtime_rulesets', 'environment_policy',
+        'configuration_sha256', 'authority_visible_sha256', 'source_hashes', 'custody',
+        'q0_evidence_sha256'})
+    _require(m['schema'] == 'P6WSV1_MANIFEST_V1' and m['campaign'] == CAMPAIGN
+             and m['frozen'] is True and m['repository'] == REPO and type(m['repository_id']) is int
+             and m['repository_id'] == REPO_ID and m['source_base'] == BASE
+             and m['ref'] == REF and m['environment'] == ENVIRONMENT and m['concurrency'] == CONCURRENCY
+             and m['app_id'] == APP_ID and type(m['app_id']) is int
+             and m['installation_id'] == INSTALLATION and type(m['installation_id']) is int
+             and m['token_permissions'] == PERMISSIONS
+             and _canonical(m['budget']) == _canonical(BUDGET)
+             and m['proof_plan_sha256'] == plan()[1])
+    _sha(m['source_commit']); _sha(m['source_tree']); _sha(m['baseline_commit'])
+    _require(m['source_commit'] != BASE and m['runtime'] == {
+        'ref': RUNTIME_REF, 'sha': m['source_commit'], 'tree': m['source_tree'], 'workflow': WORKFLOW})
+    for field in ('build_sha256', 'baseline_state_sha256', 'configuration_sha256',
+                  'authority_visible_sha256', 'q0_evidence_sha256'):
+        hash64(m[field])
+    rules = m['authority_rulesets']
+    validate_rules(rules, REF)
+    validate_rules(m['runtime_rulesets'], RUNTIME_REF, runtime=True)
+    j = m['journal']
+    _require(set(j) == {'ref', 'path', 'genesis_commit', 'genesis_tree', 'genesis_content_sha256',
+                        'schema_sha256', 'rulesets'} and j['ref'] == JOURNAL_REF and j['path'] == 'operation.json')
+    _sha(j['genesis_commit']); _sha(j['genesis_tree'])
+    hash64(j['genesis_content_sha256']); hash64(j['schema_sha256'])
+    validate_rules([j['rulesets']['integrity'], j['rulesets']['update']], JOURNAL_REF)
+    all_rules = rules + m['runtime_rulesets'] + list(j['rulesets'].values())
+    _require(len({r['id'] for r in all_rules}) == 6)
+    policy = m['environment_policy']
+    _require(policy['name'] == ENVIRONMENT and policy['can_admins_bypass'] is False
+             and policy['deployment_branch_policy'] == {'protected_branches': False, 'custom_branch_policies': True}
+             and policy['deployment_branches'] == [{'name': RUNTIME_REF.removeprefix('refs/heads/'), 'type': 'branch'}]
+             and policy['prevent_self_review'] is True
+             and type(policy['reviewer_ids']) is list and bool(policy['reviewer_ids'])
+             and all(type(i) is int and i > 0 and i != CALLER['id'] for i in policy['reviewer_ids']))
+    _require(m['configuration_sha256'] == _digest(_canonical(dict(
+        authority=rules, journal=j['rulesets'], runtime=m['runtime_rulesets'], environment=policy))))
+    _require(m['authority_visible_sha256'] == _digest(_canonical([visible(r) for r in rules])))
+    custody = m['custody']
+    _require(custody == {'writer_credential_source': 'official-installation-action/environment-secret',
+        'd03_credential_source': 'github.token/current-worker-job-message/v1',
+        'ordinary_credential_source': 'ordinary-client/operator-owned',
+        'ordinary_has_writer_secret': False, 'ordinary_has_admin_credential': False,
+        'environment': ENVIRONMENT, 'secret_name': 'P6WSV1_APP_PRIVATE_KEY'})
+    accepted = gate()
+    state = accepted.proof1.reconstruct(m['baseline_history'])
+    _require(state['state_sha256'] == m['baseline_state_sha256'])
+    _require(set(m['proposals']) == set(PROPOSALS))
+    # Both faults propose against the same fresh baseline; only D07 advances it.
+    for op in FAULTS:
+        p = m['proposals'][op]
+        _require(p['proposal_id'] == PROPOSALS[op] and accepted.decide(m['baseline_history'], p)['decision'] == 'ALLOW')
+    d07 = accepted.decide(m['baseline_history'], m['proposals'][FAULTS[1]])
+    after = {'version': 1, 'events': m['baseline_history']['events'] + [d07['candidate_event']]}
+    _require(m['proposals']['']['proposal_id'] == PROPOSALS['']
+             and accepted.decide(after, m['proposals'][''])['decision'] == 'ALLOW')
+    build = parse((AREA / 'build.json').read_bytes())
+    _require(m['build_sha256'] == _digest((AREA / 'build.json').read_bytes())
+             and m['source_hashes'] == build['sha256'])
+    for name, digest in m['source_hashes'].items():
+        hash64(digest)
+        if local:
+            _require(_digest((ROOT / name).read_bytes()) == digest)
+    return m
+
+
+def qualify_q0(m, evidence):
+    """Only compare complete independently acquired Q0 evidence; never mutate."""
+    validate_manifest(m)
+    _require(set(evidence) == {'schema', 'campaign', 'source_commit', 'source_tree', 'build_sha256',
+        'runtime', 'authority', 'journal', 'rulesets', 'environment', 'ordinary', 'positive_control',
+        'denials', 'custody', 'writer_app', 'collector_fixtures', 'consumptions', 'protected_advances'})
+    _require(_digest(_canonical(evidence)) == m['q0_evidence_sha256'])
+    _require(evidence['schema'] == 'P6WSV1_Q0_V1' and evidence['campaign'] == CAMPAIGN
+             and type(evidence['consumptions']) is int and evidence['consumptions'] == 0
+             and type(evidence['protected_advances']) is int and evidence['protected_advances'] == 0)
+    for key in ('source_commit', 'source_tree', 'build_sha256', 'runtime'):
+        _require(evidence[key] == m[key])
+    _require(evidence['authority'] == {'ref': REF, 'sha': m['baseline_commit'], 'state_sha256': m['baseline_state_sha256']}
+             and evidence['journal'] == {k: m['journal'][k] for k in ('ref', 'genesis_commit', 'genesis_tree', 'genesis_content_sha256', 'schema_sha256')}
+             and evidence['rulesets'] == {'authority': m['authority_rulesets'], 'journal': m['journal']['rulesets'], 'runtime': m['runtime_rulesets']}
+             and evidence['environment'] == m['environment_policy']
+             and evidence['custody'] == m['custody'])
+    ordinary = evidence['ordinary']
+    _require(ordinary == dict(**CALLER, role='write', admin=False, maintain=False,
+        credential_source='ordinary-client/operator-owned'))
+    _require(ordinary['admin'] is False and ordinary['maintain'] is False and type(ordinary['id']) is int)
+    positive = evidence['positive_control']
+    _require(set(positive) == {'ref', 'before', 'after', 'status', 'request_id', 'identity'}
+             and positive['ref'] == CONTROL_REF and positive['identity'] == ordinary
+             and type(positive['status']) is int and positive['status'] == 200
+             and bool(positive['request_id']) and _sha(positive['before']) != _sha(positive['after']))
+    _require(type(evidence['denials']) is list and len(evidence['denials']) == 3)
+    for receipt, ref in zip(evidence['denials'], (REF, JOURNAL_REF, RUNTIME_REF)):
+        _require(set(receipt) == {'ref', 'before', 'after', 'status', 'request_id', 'identity', 'force'}
+                 and receipt['ref'] == ref and receipt['identity'] == ordinary
+                 and receipt['force'] is False and type(receipt['status']) is int
+                 and receipt['status'] in (403, 422) and bool(receipt['request_id'])
+                 and _sha(receipt['before']) == _sha(receipt['after']))
+        expected = {REF: m['baseline_commit'], JOURNAL_REF: m['journal']['genesis_commit'], RUNTIME_REF: m['source_commit']}[ref]
+        _require(receipt['before'] == expected)
+    _require(evidence['writer_app'] == {'id': APP_ID, 'installation': INSTALLATION,
+        'repositories': [REPO_ID], 'permissions': PERMISSIONS,
+        'credential_source': m['custody']['writer_credential_source']})
+    fixtures = evidence['collector_fixtures']
+    _require(set(fixtures) == {'source_sha256', 'results'}
+             and fixtures['source_sha256'] == m['source_hashes']['proofs/proof6/write_safety_closure_v1/collector.py']
+             and fixtures['results'] == ['PASS'] + ['NOT_PASS'] * 9)
+    return {'result': 'Q0_QUALIFIED', 'consumptions': 0, 'live_credit_from_offline_tests': False}

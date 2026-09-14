@@ -1,0 +1,6 @@
+test_nonforce_sibling_has_one_canonical_winner (__main__.NativeGit.test_nonforce_sibling_has_one_canonical_winner) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.355s
+
+OK

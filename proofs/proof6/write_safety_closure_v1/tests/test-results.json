@@ -1,0 +1,36 @@
+{
+  "scope": "SOURCE_OFFLINE_NATIVE_ONLY",
+  "live_acceptance": false,
+  "results": [
+    {
+      "command": "python -B proofs\\proof6\\write_safety_closure_v1\\tests\\verify_source.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python -B proofs\\proof6\\write_safety_closure_v1\\tests\\test_closure.py",
+      "exit_code": 0
+    },
+    {
+      "command": "python -B proofs\\proof6\\write_safety_closure_v1\\tests\\test_native_git.py",
+      "exit_code": 0
+    }
+  ],
+  "focused_tests": 18,
+  "native_git_tests": 1,
+  "collector_qualification": {
+    "known_good": "PASS",
+    "required_falsifications": [
+      "NOT_PASS",
+      "NOT_PASS",
+      "NOT_PASS",
+      "NOT_PASS",
+      "NOT_PASS",
+      "NOT_PASS",
+      "NOT_PASS",
+      "NOT_PASS",
+      "NOT_PASS"
+    ]
+  },
+  "native_platform": "Windows; Python 3.14; local Git only",
+  "workflow_yaml_parse": "PASS (PyYAML BaseLoader; manual-only trigger, one fixed input, one writer job)"
+}
