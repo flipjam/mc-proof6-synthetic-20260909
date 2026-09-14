@@ -1,0 +1,77 @@
+COMMAND: python -B proofs/proof6/write_safety_closure_v1/tests/test_q0_correction.py
+test_01_correct_account_wrong_hostname (__main__.Q0Correction.test_01_correct_account_wrong_hostname) ... ok
+test_02_dev_evidence_mislabeled_ordinary (__main__.Q0Correction.test_02_dev_evidence_mislabeled_ordinary) ... ok
+test_03_unexpected_second_usable_credential (__main__.Q0Correction.test_03_unexpected_second_usable_credential) ... ok
+test_04_writer_credential_reachable (__main__.Q0Correction.test_04_writer_credential_reachable) ... ok
+test_05_admin_credential_reachable (__main__.Q0Correction.test_05_admin_credential_reachable) ... ok
+test_06_missing_provider_inventory (__main__.Q0Correction.test_06_missing_provider_inventory) ... ok
+test_07_missing_provider_custody (__main__.Q0Correction.test_07_missing_provider_custody) ... ok
+test_08_missing_environment_secret_metadata (__main__.Q0Correction.test_08_missing_environment_secret_metadata) ... ok
+test_09_different_credential_provider (__main__.Q0Correction.test_09_different_credential_provider) ... ok
+test_10_only_one_authority_path (__main__.Q0Correction.test_10_only_one_authority_path) ... ok
+test_11_generic_403_no_valid_request (__main__.Q0Correction.test_11_generic_403_no_valid_request) ... ok
+test_12_generic_422_malformed_candidate (__main__.Q0Correction.test_12_generic_422_malformed_candidate) ... ok
+test_13_wrong_repository_or_ref (__main__.Q0Correction.test_13_wrong_repository_or_ref) ... ok
+test_14_authority_not_meaningful_fast_forward (__main__.Q0Correction.test_14_authority_not_meaningful_fast_forward) ... ok
+test_15_missing_denial_classification (__main__.Q0Correction.test_15_missing_denial_classification) ... ok
+test_16_changed_protected_ref_despite_denial (__main__.Q0Correction.test_16_changed_protected_ref_despite_denial) ... ok
+test_17_complete_structured_q0 (__main__.Q0Correction.test_17_complete_structured_q0) ... ok
+test_18_fabricated_provider_suite (__main__.Q0Correction.test_18_fabricated_provider_suite) ... ok
+test_19_provider_disagrees_with_candidate (__main__.Q0Correction.test_19_provider_disagrees_with_candidate) ... ok
+test_20_provider_app_can_administer (__main__.Q0Correction.test_20_provider_app_can_administer) ... ok
+test_21_provider_environment_runtime_or_scope_mismatch (__main__.Q0Correction.test_21_provider_environment_runtime_or_scope_mismatch) ... ok
+test_22_incomplete_or_unknown_provider_discovery (__main__.Q0Correction.test_22_incomplete_or_unknown_provider_discovery) ... ok
+test_23_same_suite_cannot_cover_both_authority_paths (__main__.Q0Correction.test_23_same_suite_cannot_cover_both_authority_paths) ... ok
+test_24_type_confusion (__main__.Q0Correction.test_24_type_confusion) ... ok
+test_25_unsealed_inventory_change (__main__.Q0Correction.test_25_unsealed_inventory_change) ... ok
+test_26_probe_executed_in_other_context (__main__.Q0Correction.test_26_probe_executed_in_other_context) ... ok
+test_27_reachable_github_ssh_key (__main__.Q0Correction.test_27_reachable_github_ssh_key) ... ok
+test_28_422_with_valid_policy_evidence_can_qualify (__main__.Q0Correction.test_28_422_with_valid_policy_evidence_can_qualify) ... ok
+test_29_auth_rate_network_or_local_failure (__main__.Q0Correction.test_29_auth_rate_network_or_local_failure) ... ok
+test_30_evaluate_only_rule_does_not_prove_enforcement (__main__.Q0Correction.test_30_evaluate_only_rule_does_not_prove_enforcement) ... ok
+
+----------------------------------------------------------------------
+Ran 30 tests in 0.534s
+
+OK
+
+COMMAND: python -B proofs/proof6/write_safety_closure_v1/tests/test_closure.py
+DIA04_INSTALLATION_REPOSITORIES_READ_OK
+DIA05_REPOSITORY_SELECTION_OK
+DIA06_TOKEN_BOUNDARY_CONFIGURED
+test_arbitrary_descendant_blocks_recovery (__main__.Closure.test_arbitrary_descendant_blocks_recovery) ... ok
+test_collector_known_good (__main__.Closure.test_collector_known_good) ... C:\Python314\Lib\tempfile.py:484: ResourceWarning: Implicitly cleaning up <HTTPError 409: 'conflict'>
+  _warnings.warn(self.warn_message, ResourceWarning)
+ok
+test_collector_nine_required_falsifications (__main__.Closure.test_collector_nine_required_falsifications) ... ok
+test_d03_canonical_recovery_zero_patches (__main__.Closure.test_d03_canonical_recovery_zero_patches) ... ok
+test_d03_reinvocation_immediately_after_loss (__main__.Closure.test_d03_reinvocation_immediately_after_loss) ... ok
+test_d07_drops_after_transmission_and_cannot_resend (__main__.Closure.test_d07_drops_after_transmission_and_cannot_resend) ... ok
+test_exact_d03_classifier_framing_and_second_send (__main__.Closure.test_exact_d03_classifier_framing_and_second_send) ... ok
+test_full_path_exact_budgets (__main__.Closure.test_full_path_exact_budgets) ... ok
+test_gate_replay_and_stale_reject (__main__.Closure.test_gate_replay_and_stale_reject) ... ok
+test_manifest_and_q0_substitution (__main__.Closure.test_manifest_and_q0_substitution) ... ok
+test_native_unprovisioned_launcher_blocks (__main__.Closure.test_native_unprovisioned_launcher_blocks) ... ok
+test_normal_cannot_start_while_d07_unresolved (__main__.Closure.test_normal_cannot_start_while_d07_unresolved) ... ok
+test_q0_consumes_nothing_and_rejects_mutation (__main__.Closure.test_q0_consumes_nothing_and_rejects_mutation) ... ok
+test_recovery_has_no_send_path (__main__.Closure.test_recovery_has_no_send_path) ... ok
+test_reinvocation_and_unknown_never_mutate (__main__.Closure.test_reinvocation_and_unknown_never_mutate) ... ok
+test_stale_authority_cannot_recover (__main__.Closure.test_stale_authority_cannot_recover) ... ok
+test_unknown_case_and_forbidden_selectors (__main__.Closure.test_unknown_case_and_forbidden_selectors) ... ok
+test_wrong_terminal_and_loser_replacement (__main__.Closure.test_wrong_terminal_and_loser_replacement) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 5.027s
+
+OK
+
+COMMAND: python -B proofs/proof6/write_safety_closure_v1/tests/test_native_git.py
+test_nonforce_sibling_has_one_canonical_winner (__main__.NativeGit.test_nonforce_sibling_has_one_canonical_winner) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 1.234s
+
+OK
+
+COMMAND: python -B proofs/proof6/write_safety_closure_v1/tests/verify_source.py
+SOURCE_VERIFICATION_PASS

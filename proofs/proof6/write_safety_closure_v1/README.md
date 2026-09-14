@@ -34,9 +34,9 @@ snapshots, deployment/reviewer policy and credential-custody metadata.
 receipts must first be independently reviewed and installed under the separately
 authorized freeze procedure. Source fixtures cannot establish real custody,
 provider protection, App permission or ordinary-client qualifications.
-The ordinary client must have write role, no admin/maintain capability, no writer
-secret/admin credential, one positive-control receipt and three protected-ref
-denial receipts. The workflow has no setup/bootstrap path and requires the
+The ordinary client must have write role, no admin/maintain capability, a qualified
+MINIPC-KWR53 credential-provider inventory, one positive-control receipt and four
+distinct protected-write denial receipts. The workflow has no setup/bootstrap path and requires the
 separately frozen manifest/hash/Q0 variables in the fresh environment.
 
 Manual workflow_dispatch is the only trigger; the job additionally requires the

@@ -8,6 +8,7 @@ from common import (REPO, REPO_ID, REF, JOURNAL_REF, RUNTIME_REF, WORKFLOW, AREA
 from qualification import validate_manifest, qualify_q0, gate
 from proof_control import FAULTS, AUTHORIZATIONS, BUDGET, CALLER, plan
 import d03_rejection
+from q0_evidence import immutable_provider_receipts
 
 SCHEMA = 'P6WSV1_JOURNAL_V1'
 FIELDS = {'CONSUMED': {'binding'}, 'PENDING': {'binding', 'old', 'candidate', 'gate_sha256'},
@@ -126,11 +127,43 @@ def binding(m, b, operation):
         and b['caller']['admin'] is False and b['caller']['maintain'] is False and type(b['caller']['id']) is int)
 
 
+def verify_q0_objects(evidence, get):
+    # Read immutable provider objects independently. Sanitized API projections
+    # omit ancillary URLs/prose, never required identity or rule-class fields.
+    def projection(actual, expected):
+        if type(expected) is dict:
+            _require(type(actual) is dict)
+            return {key: projection(actual[key], value) for key, value in expected.items()}
+        if type(expected) is list:
+            _require(type(actual) is list and len(actual) == len(expected))
+            return [projection(a, b) for a, b in zip(actual, expected)]
+        return actual
+    prefix = '/repos/' + REPO
+    for receipt in immutable_provider_receipts(evidence):
+        _require(receipt['endpoint'].startswith(prefix + '/'))
+        actual = get(receipt['endpoint'].removeprefix(prefix))
+        _require(_canonical(projection(actual, receipt['body'])) == _canonical(receipt['body']))
+
+
+def collect_q0(manifest, evidence, get):
+    """Q0-only read-only verification; never runs a bypass or a proof operation."""
+    try:
+        validate_manifest(manifest, local=True)
+        qualify_q0(manifest, evidence)
+        verify_q0_objects(evidence, get)
+        return {'result': 'PASS', 'scope': 'Q0_EVIDENCE_ONLY', 'consumptions': 0}
+    except (KeyError, TypeError, ValueError, IndexError, UnicodeError, RecursionError):
+        return {'result': 'NOT_PASS', 'reason': 'Q0_EVIDENCE_INVALID'}
+    except Exception:
+        return {'result': 'BLOCKED', 'reason': 'Q0_PROVIDER_EVIDENCE_UNAVAILABLE'}
+
+
 def _inspect(m, evidence, get):
     validate_manifest(m, local=True)
     _require(type(evidence) is dict and set(evidence) == {'q0', 'authority_attempts', 'journal_attempts',
         'raw_process', 'sibling', 'writer_local_result'})
     qualify_q0(m, evidence['q0'])
+    verify_q0_objects(evidence['q0'], get)
     remote = Inspection(get)
     start = {ref: remote.ref(ref) for ref in (REF, JOURNAL_REF, RUNTIME_REF)}
     _require(start[RUNTIME_REF] == m['source_commit'])

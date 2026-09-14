@@ -1,0 +1,34 @@
+{
+  "starting_candidate": "6abcacf09d390d35e6dc1aaa96e9905879efad17",
+  "scope": "SOURCE_OFFLINE_NATIVE_ONLY",
+  "results": [
+    {
+      "command": "python -B proofs/proof6/write_safety_closure_v1/tests/test_q0_correction.py",
+      "exit_code": 0,
+      "tests": 30
+    },
+    {
+      "command": "python -B proofs/proof6/write_safety_closure_v1/tests/test_closure.py",
+      "exit_code": 0,
+      "tests": 18
+    },
+    {
+      "command": "python -B proofs/proof6/write_safety_closure_v1/tests/test_native_git.py",
+      "exit_code": 0,
+      "tests": 1
+    },
+    {
+      "command": "python -B proofs/proof6/write_safety_closure_v1/tests/verify_source.py",
+      "exit_code": 0,
+      "tests": null
+    }
+  ],
+  "total_unittest_methods": 49,
+  "required_q0_falsifications_01_to_16": "NOT_PASS",
+  "complete_q0_fixture_17": "PASS",
+  "fabricated_missing_provider_object_18": "BLOCKED",
+  "retained_collector_falsifications": 9,
+  "live_acquisition": false,
+  "live_writes": 0,
+  "proof_operation_consumption": 0
+}

@@ -67,7 +67,7 @@ def main():
     current_patch = next(n for n in ast.walk(ast.parse((AREA/'writer.py').read_bytes())) if isinstance(n, ast.FunctionDef) and n.name == '_patch')
     assert ast.dump(ast.parse(old_patch.replace('heads/proof6-authority', 'heads/proof6-ws-closure-v1-authority')).body[0]) == ast.dump(current_patch)
     # Collector import closure must not reach the mutation modules.
-    pure = ('collector.py', 'qualification.py', 'common.py', 'proof_control.py', 'd03_rejection.py', 'd03_job_token.py', 'ruleset_view.py')
+    pure = ('collector.py', 'qualification.py', 'q0_evidence.py', 'common.py', 'proof_control.py', 'd03_rejection.py', 'd03_job_token.py', 'ruleset_view.py')
     for filename in pure:
         tree = ast.parse((AREA/filename).read_bytes())
         for node in ast.walk(tree):

@@ -6,6 +6,7 @@ from common import (ROOT, AREA, CAMPAIGN, REPO, REPO_ID, REF, JOURNAL_REF,
                     _require, _sha, hash64, parse)
 from proof_control import plan, FAULTS, PROPOSALS, BUDGET, CALLER
 from ruleset_view import visible
+from q0_evidence import custody_policy, validate_q0_custody
 
 
 def gate():
@@ -75,12 +76,7 @@ def validate_manifest(m, *, local=False):
     _require(m['configuration_sha256'] == _digest(_canonical(dict(
         authority=rules, journal=j['rulesets'], runtime=m['runtime_rulesets'], environment=policy))))
     _require(m['authority_visible_sha256'] == _digest(_canonical([visible(r) for r in rules])))
-    custody = m['custody']
-    _require(custody == {'writer_credential_source': 'official-installation-action/environment-secret',
-        'd03_credential_source': 'github.token/current-worker-job-message/v1',
-        'ordinary_credential_source': 'ordinary-client/operator-owned',
-        'ordinary_has_writer_secret': False, 'ordinary_has_admin_credential': False,
-        'environment': ENVIRONMENT, 'secret_name': 'P6WSV1_APP_PRIVATE_KEY'})
+    custody_policy(m['custody'])
     accepted = gate()
     state = accepted.proof1.reconstruct(m['baseline_history'])
     _require(state['state_sha256'] == m['baseline_state_sha256'])
@@ -108,9 +104,10 @@ def qualify_q0(m, evidence):
     validate_manifest(m)
     _require(set(evidence) == {'schema', 'campaign', 'source_commit', 'source_tree', 'build_sha256',
         'runtime', 'authority', 'journal', 'rulesets', 'environment', 'ordinary', 'positive_control',
-        'denials', 'custody', 'writer_app', 'collector_fixtures', 'consumptions', 'protected_advances'})
+        'denials', 'custody', 'writer_app', 'ordinary_inventory', 'writer_custody',
+        'collector_fixtures', 'consumptions', 'protected_advances'})
     _require(_digest(_canonical(evidence)) == m['q0_evidence_sha256'])
-    _require(evidence['schema'] == 'P6WSV1_Q0_V1' and evidence['campaign'] == CAMPAIGN
+    _require(evidence['schema'] == 'P6WSV1_Q0_V2' and evidence['campaign'] == CAMPAIGN
              and type(evidence['consumptions']) is int and evidence['consumptions'] == 0
              and type(evidence['protected_advances']) is int and evidence['protected_advances'] == 0)
     for key in ('source_commit', 'source_tree', 'build_sha256', 'runtime'):
@@ -124,20 +121,7 @@ def qualify_q0(m, evidence):
     _require(ordinary == dict(**CALLER, role='write', admin=False, maintain=False,
         credential_source='ordinary-client/operator-owned'))
     _require(ordinary['admin'] is False and ordinary['maintain'] is False and type(ordinary['id']) is int)
-    positive = evidence['positive_control']
-    _require(set(positive) == {'ref', 'before', 'after', 'status', 'request_id', 'identity'}
-             and positive['ref'] == CONTROL_REF and positive['identity'] == ordinary
-             and type(positive['status']) is int and positive['status'] == 200
-             and bool(positive['request_id']) and _sha(positive['before']) != _sha(positive['after']))
-    _require(type(evidence['denials']) is list and len(evidence['denials']) == 3)
-    for receipt, ref in zip(evidence['denials'], (REF, JOURNAL_REF, RUNTIME_REF)):
-        _require(set(receipt) == {'ref', 'before', 'after', 'status', 'request_id', 'identity', 'force'}
-                 and receipt['ref'] == ref and receipt['identity'] == ordinary
-                 and receipt['force'] is False and type(receipt['status']) is int
-                 and receipt['status'] in (403, 422) and bool(receipt['request_id'])
-                 and _sha(receipt['before']) == _sha(receipt['after']))
-        expected = {REF: m['baseline_commit'], JOURNAL_REF: m['journal']['genesis_commit'], RUNTIME_REF: m['source_commit']}[ref]
-        _require(receipt['before'] == expected)
+    validate_q0_custody(m, evidence)
     _require(evidence['writer_app'] == {'id': APP_ID, 'installation': INSTALLATION,
         'repositories': [REPO_ID], 'permissions': PERMISSIONS,
         'credential_source': m['custody']['writer_credential_source']})

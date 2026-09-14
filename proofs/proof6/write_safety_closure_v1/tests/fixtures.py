@@ -100,9 +100,13 @@ def setup():
             'permissions': PERMISSIONS, 'credential_source': m['custody']['writer_credential_source']},
         collector_fixtures={'source_sha256': build['sha256']['proofs/proof6/write_safety_closure_v1/collector.py'],
             'results': ['PASS'] + ['NOT_PASS']*9}, consumptions=0, protected_advances=0)
+    from q0_fixtures import upgrade
+    upgrade(g, m, q0)
     m['q0_evidence_sha256'] = _digest(_canonical(q0))
     original_api = g.api
     def api(token, method, path, body=None):
+        if method == 'GET' and path.removeprefix(j.BASE) in g.q0_provider:
+            return copy.deepcopy(g.q0_provider[path.removeprefix(j.BASE)])
         if method == 'GET' and path == '/installation/repositories?per_page=100':
             return dict(total_count=1, repositories=[{'id': REPO_ID, 'full_name': REPO, 'private': False}])
         if method == 'GET' and path.startswith(j.BASE + '/environments/'):

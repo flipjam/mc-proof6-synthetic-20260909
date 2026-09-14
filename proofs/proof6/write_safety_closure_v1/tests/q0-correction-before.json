@@ -1,0 +1,13 @@
+{
+  "reviewed_commit": "6abcacf09d390d35e6dc1aaa96e9905879efad17",
+  "counterexample_result": {
+    "result": "Q0_QUALIFIED",
+    "consumptions": 0,
+    "live_credit_from_offline_tests": false
+  },
+  "ordinary_context_inventory_present": false,
+  "provider_writer_custody_receipt_present": false,
+  "authority_denial_path_count": 1,
+  "denials_bind_candidates_or_policy_classification": false,
+  "network": "DISABLED"
+}
