@@ -1,0 +1,69 @@
+name: B-MIN structural broker v1 candidate
+on:
+  workflow_dispatch:
+    inputs:
+      proposal:
+        description: BMIN_PROPOSAL_V1 canonical JSON only; separate provisioning required
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: bmin-structural-broker-v1
+  cancel-in-progress: false
+jobs:
+  broker:
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/bmin-v1-runtime' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/bmin-structural-broker-v1.yml@refs/heads/bmin-v1-runtime'
+    environment: bmin-structural-broker-v1
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    env:
+      BMIN_APP_ID: ${{ vars.BMIN_APP_ID }}
+      BMIN_FROZEN_CONFIG: ${{ vars.BMIN_FROZEN_CONFIG }}
+      BMIN_CONFIG_SHA256: ${{ vars.BMIN_CONFIG_SHA256 }}
+      BMIN_PROPOSAL: ${{ inputs.proposal }}
+    steps:
+      - name: Read exact source and preflight before private material
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$RUNNER_ENVIRONMENT" = github-hosted
+          git init --quiet .
+          git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
+          git fetch --quiet --depth=1 origin "$GITHUB_SHA"
+          git checkout --quiet --detach FETCH_HEAD
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          /usr/bin/python3 -I -B proofs/bmin_structural_broker_v1/launcher.py preflight
+      - name: Create isolated installation credential
+        id: writer
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
+        with:
+          app-id: ${{ vars.BMIN_APP_ID }}
+          private-key: ${{ secrets.BMIN_APP_PRIVATE_KEY }}
+          owner: flipjam
+          repositories: mc-proof6-synthetic-20260909
+          permission-contents: write
+          permission-metadata: read
+      - name: Submit the bounded proposal once
+        shell: bash
+        env:
+          BMIN_APP_TOKEN: ${{ steps.writer.outputs.token }}
+          BMIN_INSTALLATION_ID: ${{ steps.writer.outputs.installation-id }}
+          BMIN_APP_SLUG: ${{ steps.writer.outputs.app-slug }}
+        run: /usr/bin/python3 -I -B proofs/bmin_structural_broker_v1/launcher.py submit
+      - name: Fresh-process reconciliation; no authority transport
+        shell: bash
+        env:
+          BMIN_APP_TOKEN: ${{ steps.writer.outputs.token }}
+          BMIN_INSTALLATION_ID: ${{ steps.writer.outputs.installation-id }}
+          BMIN_APP_SLUG: ${{ steps.writer.outputs.app-slug }}
+        run: /usr/bin/python3 -I -B proofs/bmin_structural_broker_v1/launcher.py reconcile
+      - name: Replay; durable lifecycle must prevent another send
+        shell: bash
+        env:
+          BMIN_APP_TOKEN: ${{ steps.writer.outputs.token }}
+          BMIN_INSTALLATION_ID: ${{ steps.writer.outputs.installation-id }}
+          BMIN_APP_SLUG: ${{ steps.writer.outputs.app-slug }}
+        run: /usr/bin/python3 -I -B proofs/bmin_structural_broker_v1/launcher.py submit
