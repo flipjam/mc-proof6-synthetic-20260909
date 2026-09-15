@@ -3,9 +3,9 @@ import base64
 import hashlib
 import types
 import urllib.request
-from common import (REPO, REPO_ID, REF, JOURNAL_REF, RUNTIME_REF, WORKFLOW, AREA,
+from common import (REPO, REPO_ID, REF, JOURNAL_REF, RUNTIME_REF, EXEC_RUNTIME_REF, EXEC_MANIFEST_SCHEMA, WORKFLOW, AREA,
                     _canonical, _digest, _require, _sha, parse)
-from qualification import validate_manifest, qualify_q0, gate
+from qualification import validate_manifest, qualify_q0, qualify_exec_compat, gate
 from proof_control import FAULTS, AUTHORIZATIONS, BUDGET, CALLER, plan
 import d03_rejection
 from q0_evidence import immutable_provider_receipts
@@ -43,7 +43,7 @@ class Inspection:
         self.accepted = gate()
 
     def ref(self, ref):
-        _require(ref in (REF, JOURNAL_REF, RUNTIME_REF))
+        _require(ref in (REF, JOURNAL_REF, RUNTIME_REF, EXEC_RUNTIME_REF))
         value = self.get('/git/ref/' + ref.removeprefix('refs/'))
         _require(value['ref'] == ref and value['object']['type'] == 'commit')
         return _sha(value['object']['sha'])
@@ -160,13 +160,19 @@ def collect_q0(manifest, evidence, get):
 
 def _inspect(m, evidence, get):
     validate_manifest(m, local=True)
-    _require(type(evidence) is dict and set(evidence) == {'q0', 'authority_attempts', 'journal_attempts',
+    successor = m['schema'] == EXEC_MANIFEST_SCHEMA
+    admission_key = 'compatibility_admission' if successor else 'q0'
+    _require(type(evidence) is dict and set(evidence) == {admission_key, 'authority_attempts', 'journal_attempts',
         'raw_process', 'sibling', 'writer_local_result'})
-    qualify_q0(m, evidence['q0'])
-    verify_q0_objects(evidence['q0'], get)
+    if successor:
+        qualify_exec_compat(evidence[admission_key], m['compatibility_admission_sha256'])
+    else:
+        qualify_q0(m, evidence['q0'])
+        verify_q0_objects(evidence['q0'], get)
+    runtime_ref = EXEC_RUNTIME_REF if successor else RUNTIME_REF
     remote = Inspection(get)
-    start = {ref: remote.ref(ref) for ref in (REF, JOURNAL_REF, RUNTIME_REF)}
-    _require(start[RUNTIME_REF] == m['source_commit'])
+    start = {ref: remote.ref(ref) for ref in (REF, JOURNAL_REF, runtime_ref)}
+    _require(start[runtime_ref] == m['source_commit'])
     source = remote.commit(m['source_commit'])
     _require(source['tree']['sha'] == m['source_tree'])
     for path, digest in m['source_hashes'].items():

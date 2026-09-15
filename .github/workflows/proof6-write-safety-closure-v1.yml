@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   writer:
-    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-ws-closure-v1-runtime' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-write-safety-closure-v1.yml@refs/heads/proof6-ws-closure-v1-runtime'
+    if: github.repository_id == '1363510385' && github.ref == 'refs/heads/proof6-ws-closure-v1-exec-compat-v1-runtime' && github.workflow_ref == 'flipjam/mc-proof6-synthetic-20260909/.github/workflows/proof6-write-safety-closure-v1.yml@refs/heads/proof6-ws-closure-v1-exec-compat-v1-runtime'
     environment: proof6-ws-closure-v1
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -31,15 +31,13 @@ jobs:
     - name: Require separately frozen identity before credentials
       shell: bash
       env:
-        P6WSV1_MANIFEST: ${{ vars.P6WSV1_FROZEN_MANIFEST }}
-        P6WSV1_HASH: ${{ vars.P6WSV1_MANIFEST_SHA256 }}
-        P6WSV1_Q0: ${{ vars.P6WSV1_Q0_EVIDENCE }}
+        P6WSV1_MANIFEST: ${{ vars.P6WSV1_EXEC_COMPAT_FROZEN_MANIFEST }}
+        P6WSV1_HASH: ${{ vars.P6WSV1_EXEC_COMPAT_MANIFEST_SHA256 }}
       run: |
         set -euo pipefail
         test "$RUNNER_ENVIRONMENT" = github-hosted
         test -n "$P6WSV1_MANIFEST"
         test -n "$P6WSV1_HASH"
-        test -n "$P6WSV1_Q0"
         test "$(printf '%s' "$P6WSV1_MANIFEST" | sha256sum | cut -d' ' -f1)" = "$P6WSV1_HASH"
         git init --quiet .
         git remote add origin https://github.com/flipjam/mc-proof6-synthetic-20260909.git
@@ -64,9 +62,8 @@ jobs:
         P6WSV1_APP_TOKEN: ${{ steps.app-token.outputs.token }}
         P6WSV1_APP_INSTALLATION_ID: ${{ steps.app-token.outputs.installation-id }}
         P6WSV1_APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
-        P6WSV1_FROZEN_MANIFEST: ${{ vars.P6WSV1_FROZEN_MANIFEST }}
-        P6WSV1_MANIFEST_SHA256: ${{ vars.P6WSV1_MANIFEST_SHA256 }}
-        P6WSV1_Q0_EVIDENCE: ${{ vars.P6WSV1_Q0_EVIDENCE }}
+        P6WSV1_EXEC_COMPAT_FROZEN_MANIFEST: ${{ vars.P6WSV1_EXEC_COMPAT_FROZEN_MANIFEST }}
+        P6WSV1_EXEC_COMPAT_MANIFEST_SHA256: ${{ vars.P6WSV1_EXEC_COMPAT_MANIFEST_SHA256 }}
       run: |
         set -euo pipefail
         /usr/bin/python3 -I -B proofs/proof6/write_safety_closure_v1/launcher.py

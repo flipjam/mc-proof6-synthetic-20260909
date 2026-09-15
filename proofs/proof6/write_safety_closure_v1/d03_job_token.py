@@ -8,7 +8,8 @@ from common import REPO, REPO_ID, _canonical, _require
 
 SOURCE = 'github.token/current-worker-job-message/v1'
 PERMISSIONS = {'Actions': 'read', 'Contents': 'read', 'Metadata': 'read'}
-RUNTIME = 'refs/heads/proof6-ws-closure-v1-runtime'
+from common import EXEC_RUNTIME_REF
+RUNTIME = EXEC_RUNTIME_REF
 WORKFLOW = REPO + '/.github/workflows/proof6-write-safety-closure-v1.yml@' + RUNTIME
 
 

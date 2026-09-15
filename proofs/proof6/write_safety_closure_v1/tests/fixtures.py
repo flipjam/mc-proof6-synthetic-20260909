@@ -134,7 +134,7 @@ def writer(g, m, operation=None, run=50):
 
 def worker_raw(obj):
     b = obj._journal.pending[obj._last_evidence['pending_record']]['binding']
-    context = dict(repository=REPO, repository_id=str(REPO_ID), ref=RUNTIME_REF,
+    context = dict(repository=REPO, repository_id=str(REPO_ID), ref=jt.RUNTIME,
         workflow_ref=jt.WORKFLOW, sha=b['runtime_sha'], run_id=str(b['run_id']), run_attempt='1', event_name='workflow_dispatch')
     message = {'variables': {'system.github.token.permissions': {'value': json.dumps(jt.PERMISSIONS)},
         'system.github.job': {'value': 'writer'}}, 'contextData': {'github': {'t': 2,
